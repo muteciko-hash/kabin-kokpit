@@ -5,9 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kabin Kokpiti</title>
     <style>
+        /* TAM EKRAN GÖRSEL ARKA PLAN */
         body {
             background-color: #000000;
-            color: #ffffff;
+            background-image: url('https://i.ibb.co/Syyw3K5/yuksek-cozunurluklu-gece-surusu.jpg'); /* Yüksek Çözünürlüklü Görsel Linki */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed; /* Kaydırma esnasında görsel sabit kalır */
+            color: #ffffff; /* Yazı rengi beyaz */
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             margin: 0;
             padding: 20px;
@@ -16,43 +22,56 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
+            backdrop-filter: brightness(0.4); /* Arka planı biraz karartıp yazıları öne çıkarır */
         }
+
         h1 {
-            font-size: 20px;
-            color: #888;
-            margin-bottom: 20px;
-            letter-spacing: 2px;
+            font-size: 24px;
+            color: #e0e7ff; /* Hafif mavi-beyaz başlık */
+            margin-bottom: 30px;
+            letter-spacing: 3px;
+            text-shadow: 0 2px 10px rgba(236, 72, 153, 0.5); /* Pembe neon gölge */
+            font-weight: 800;
         }
+
         .grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
+            gap: 20px;
             width: 100%;
-            max-width: 400px;
+            max-width: 420px;
         }
+
         .card {
-            background-color: #161618;
-            border: 1px solid #27272a;
-            border-radius: 16px;
-            padding: 20px;
+            background-color: rgba(22, 22, 24, 0.7); /* Yarı saydam koyu kart */
+            border: 1px solid rgba(59, 130, 246, 0.3); /* Hafif mavi neon kenarlık */
+            border-radius: 20px;
+            padding: 25px;
             text-align: center;
             text-decoration: none;
             color: white;
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 600;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-            transition: transform 0.1s, background-color 0.1s;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+            transition: transform 0.1s, background-color 0.1s, border-color 0.1s;
             cursor: pointer;
+            backdrop-filter: blur(5px); /* Kart arkasında bulanıklık efekti */
         }
+
         .card:active {
-            transform: scale(0.95);
-            background-color: #27272a;
+            transform: scale(0.96);
+            background-color: rgba(236, 72, 153, 0.5); /* Tıklandığında pembe ton */
+            border-color: rgba(236, 72, 153, 0.8);
         }
+
         .card span {
             display: block;
-            font-size: 26px;
-            margin-bottom: 8px;
+            font-size: 32px;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 0 5px rgba(255,255,255,0.5));
         }
+
+        /* Ortak Ekran Stilleri */
         .modal {
             display: none;
             position: fixed;
@@ -60,54 +79,63 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: #000;
+            background-color: rgba(0, 0, 0, 0.9); /* Daha koyu modal arka planı */
             z-index: 100;
             padding: 15px;
             box-sizing: border-box;
             overflow-y: auto;
+            backdrop-filter: blur(10px);
         }
+
         .header-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            color: #9ca3af;
         }
+
         .back-btn {
-            background: #27272a;
+            background: rgba(236, 72, 153, 0.7); /* Pembe tonlu geri butonu */
             color: white;
             border: none;
-            padding: 8px 16px;
-            border-radius: 8px;
+            padding: 10px 20px;
+            border-radius: 10px;
             font-weight: bold;
             cursor: pointer;
+            box-shadow: 0 4px 10px rgba(236, 72, 153, 0.3);
         }
+
         .box {
-            background: #161618;
-            border: 1px solid #27272a;
+            background: rgba(22, 22, 24, 0.8);
+            border: 1px solid #3f3f46;
             border-radius: 12px;
-            padding: 12px;
-            margin-bottom: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
         }
+
         input {
             width: 100%;
             padding: 12px;
             background: #09090b;
-            border: 1px solid #27272a;
+            border: 1px solid #3f3f46;
             color: white;
             border-radius: 8px;
             margin-bottom: 8px;
             box-sizing: border-box;
             font-size: 16px;
         }
-        /* Touchpad Alanı */
+
+        /* Touchpad ve Kaydırma Alanını Yan Yana Yerleştirme */
         .touchpad-container {
             display: flex;
             gap: 10px;
             margin-bottom: 10px;
         }
+
         #touchpad-area {
             flex: 1;
-            height: 200px;
+            height: 220px;
             background: #09090b;
             border: 2px solid #3b82f6;
             border-radius: 12px;
@@ -122,12 +150,14 @@
             touch-action: none;
             box-shadow: inset 0 0 15px rgba(59, 130, 246, 0.2);
         }
+
         .scroll-panel {
             width: 60px;
             display: flex;
             flex-direction: column;
             gap: 8px;
         }
+
         .scroll-btn {
             flex: 1;
             background: #27272a;
@@ -141,15 +171,18 @@
             justify-content: center;
             cursor: pointer;
         }
+
         .scroll-btn:active {
             background: #3b82f6;
             transform: scale(0.95);
         }
+
         .touchpad-btns {
             display: flex;
             gap: 10px;
             margin-bottom: 10px;
         }
+
         .touchpad-btns button {
             flex: 1;
             padding: 12px;
@@ -160,6 +193,7 @@
             font-weight: bold;
             font-size: 15px;
         }
+
         .touchpad-btns button:active {
             background: #2563eb;
             transform: scale(0.96);
@@ -202,13 +236,13 @@
         </div>
     </div>
 
-    <!-- HAVA DURUMU EKRANI -->
+    <!-- MODAL EKRANLARI (İçerikleri aynı kalıyor) -->
+    <!-- HAVA DURUMU -->
     <div id="weather-modal" class="modal">
         <div class="header-bar">
             <h2>Yol & Hava Durumu</h2>
             <button class="back-btn" onclick="closeWeather()">Geri</button>
         </div>
-        
         <div class="box">
             <p style="margin-top:0; color:#888;">Konum Takibi</p>
             <button class="back-btn" style="width:100%; background:#10b981; margin-bottom: 10px;" onclick="getLocationWeather()">📍 Konumumu Otomatik Algıla</button>
@@ -217,40 +251,35 @@
                 <button class="back-btn" style="background:#3b82f6;" onclick="getWeather()">Getir</button>
             </div>
         </div>
-
         <div class="box" id="weatherResult">
             <p>Konumunuzu otomatik algılamak için yukarıdaki yeşil butona dokunun.</p>
         </div>
     </div>
 
-    <!-- TOUCHPAD & KLAVYE EKRANI -->
+    <!-- TOUCHPAD -->
     <div id="touchpad-modal" class="modal">
         <div class="header-bar">
             <h2>Kumanda & Klavye</h2>
             <button class="back-btn" onclick="closeTouchpad()">Geri</button>
         </div>
-        
         <div class="box">
             <div class="touchpad-container">
                 <div id="touchpad-area" ontouchmove="handleTouchMove(event)" ontouchstart="handleTouchStart(event)">
                     <span style="font-size: 22px; margin-bottom: 3px;">🖱️</span>
                     <strong>İmleç Alanı</strong>
-                    <p style="font-size: 11px; color: #64748b; margin: 2px 5px 0 5px;">İmleci gezdirmek için kaydırın.</p>
+                    <p style="font-size: 11px; color: #94a3b8; margin: 2px 5px 0 5px;">İmleci gezdirmek için kaydırın.</p>
                 </div>
-                
                 <div class="scroll-panel">
                     <button class="scroll-btn" onclick="scrollAction('yukari')">▲</button>
                     <button class="scroll-btn" onclick="scrollAction('asagi')">▼</button>
                 </div>
             </div>
-            
             <div class="touchpad-btns">
                 <button onclick="triggerClick('Sol Tık')">Sol Tık (Seç)</button>
                 <button onclick="triggerClick('Sağ Tık')" style="background: #475569;">Geri / Menü</button>
             </div>
-
-            <div style="margin-top: 10px; border-top: 1px solid #27272a; padding-top: 8px;">
-                <p style="margin: 0 0 6px 0; color: #888; font-size: 13px;">⌨️ Uzaktan Yazı Yazma</p>
+            <div style="margin-top:10px; border-top:1px solid #3f3f46; padding-top:8px;">
+                <p style="margin:0 0 6px 0; color: #9ca3af; font-size: 13px;">⌨️ Uzaktan Yazı Yazma</p>
                 <div style="display: flex; gap: 8px;">
                     <input type="text" id="remoteInput" placeholder="Arama yazısı..." style="margin-bottom:0;">
                     <button class="back-btn" style="background:#10b981;" onclick="sendText()">Gönder</button>
@@ -259,7 +288,7 @@
         </div>
     </div>
 
-    <!-- GOOGLE MAPS EKRANI -->
+    <!-- HARİTA -->
     <div id="maps-modal" class="modal">
         <div class="header-bar">
             <h2>Canlı Harita</h2>
@@ -270,7 +299,7 @@
         </div>
     </div>
 
-    <!-- SYNTHWAVE RADYO EKRANI -->
+    <!-- RADYO -->
     <div id="radio-modal" class="modal">
         <div class="header-bar">
             <h2>Synthwave Gece Sürüşü Radyosu</h2>
@@ -279,14 +308,11 @@
         <div class="box" style="text-align: center; padding: 30px 15px;">
             <span style="font-size: 48px; display: block; margin-bottom: 15px;">🌆🎵</span>
             <h3 style="margin: 0 0 10px 0; color: #3b82f6;">Night Drive Atmosferi</h3>
-            <p style="color: #888; font-size: 14px; margin-bottom: 25px;">Kabin için kesintisiz Cyberpunk / Synthwave müzik akışı.</p>
-            
-            <!-- Doğrudan DI.fm veya Synthwave internet radyo yayını oynatıcı altyapısı -->
+            <p style="color: #9ca3af; font-size: 14px; margin-bottom: 25px;">Kabin için kesintisiz Cyberpunk / Synthwave müzik akışı.</p>
             <audio id="synthRadio" controls style="width: 100%; margin-bottom: 20px;">
                 <source src="https://streams.ilovemusic.de/ilovesynthwave.mp3" type="audio/mpeg">
                 Tarayıcınız ses akışını desteklemiyor.
             </audio>
-
             <div style="display: flex; gap: 10px;">
                 <button class="back-btn" style="flex:1; background:#10b981;" onclick="document.getElementById('synthRadio').play()">Oynat ▶</button>
                 <button class="back-btn" style="flex:1; background:#ef4444;" onclick="document.getElementById('synthRadio').pause()">Durdur ⏸</button>
@@ -295,7 +321,7 @@
     </div>
 
     <script>
-        // Hava Durumu Fonksiyonları
+        // JavaScript Fonksiyonları (Aynı kalıyor)
         function openWeather() { document.getElementById('weather-modal').style.display = 'block'; }
         function closeWeather() { document.getElementById('weather-modal').style.display = 'none'; }
 
@@ -306,7 +332,6 @@
                 return;
             }
             resultBox.innerHTML = "GPS konumu alınıyor, lütfen bekleyin...";
-
             navigator.geolocation.getCurrentPosition(async (position) => {
                 const lat = position.coords.latitude;
                 const lon = position.coords.longitude;
@@ -353,19 +378,15 @@
             }
         }
 
-        // Touchpad Fonksiyonları
         function openTouchpad() { document.getElementById('touchpad-modal').style.display = 'block'; }
         function closeTouchpad() { document.getElementById('touchpad-modal').style.display = 'none'; }
-
         let startX = 0;
         let startY = 0;
-
         function handleTouchStart(e) {
             const touch = e.touches[0];
             startX = touch.clientX;
             startY = touch.clientY;
         }
-
         function handleTouchMove(e) {
             e.preventDefault();
             const touch = e.touches[0];
@@ -374,7 +395,6 @@
             startX = touch.clientX;
             startY = touch.clientY;
         }
-
         function triggerClick(type) { console.log(type + " basıldı"); }
         function scrollAction(direction) { console.log("Kaydırma: " + direction); }
         function sendText() {
@@ -383,12 +403,8 @@
             alert("Yazı gönderildi: " + textVal);
             document.getElementById('remoteInput').value = '';
         }
-
-        // Harita Fonksiyonları
         function openMaps() { document.getElementById('maps-modal').style.display = 'block'; }
         function closeMaps() { document.getElementById('maps-modal').style.display = 'none'; }
-
-        // Radyo Fonksiyonları
         function openRadio() { document.getElementById('radio-modal').style.display = 'block'; }
         function closeRadio() { 
             document.getElementById('radio-modal').style.display = 'none';

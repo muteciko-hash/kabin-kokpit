@@ -4,9 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>DARKLIGHT IIX // NOSTROMO ULTIMATE COCKPIT</title>
+<!-- PWA & IOS TAM EKRAN BAĞLANTILARI -->
+<link rel="manifest" href="manifest.json">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Nostromo">
 <meta name="apple-touch-fullscreen" content="yes">
+<link rel="apple-touch-icon" href="icon.png">
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -529,6 +533,13 @@ let tSec=270*60,tInt=null,warned15=false;
 function updTacho(){const h=String(Math.floor(tSec/3600)).padStart(2,'0'),m=String(Math.floor((tSec%3600)/60)).padStart(2,'0'),s=String(tSec%60).padStart(2,'0');document.getElementById('tacho-val').innerText=`${h}:${m}:${s}`;if(tSec===900&&!warned15){warned15=true;playRetroBeep(780,0.25)}}
 function runTacho(mins,lbl){clearInterval(tInt);tSec=mins*60;warned15=false;document.getElementById('tacho-state').innerText=lbl;updTacho();tInt=setInterval(()=>{if(tSec>0){tSec--;updTacho()}else{clearInterval(tInt);playRetroBeep(1040,0.4);alert('TACHO LIMIT REACHED!')}},1000)}
 function resetTacho(){clearInterval(tInt);tSec=270*60;warned15=false;document.getElementById('tacho-state').innerText='AETR 4.5H';updTacho()}
+
+/* PWA SERVICE WORKER AKTİVASYONU */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').catch(err => console.log('SW:', err));
+  });
+}
 </script>
 </body>
 </html>

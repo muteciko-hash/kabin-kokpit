@@ -52,7 +52,6 @@
             font-size: 28px;
             margin-bottom: 10px;
         }
-        /* Ortak Ekran (Modal) Stilleri */
         .modal {
             display: none;
             position: fixed;
@@ -62,7 +61,7 @@
             height: 100%;
             background-color: #000;
             z-index: 100;
-            padding: 20px;
+            padding: 15px;
             box-sizing: border-box;
             overflow-y: auto;
         }
@@ -70,13 +69,13 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
         .back-btn {
             background: #27272a;
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 8px 16px;
             border-radius: 8px;
             font-weight: bold;
             cursor: pointer;
@@ -85,8 +84,8 @@
             background: #161618;
             border: 1px solid #27272a;
             border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 15px;
+            padding: 12px;
+            margin-bottom: 10px;
         }
         input {
             width: 100%;
@@ -95,40 +94,75 @@
             border: 1px solid #27272a;
             color: white;
             border-radius: 8px;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             box-sizing: border-box;
             font-size: 16px;
         }
-        /* Touchpad Alanı */
+        /* Touchpad ve Kaydırma Alanını Yan Yana Yerleştirme */
+        .touchpad-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
         #touchpad-area {
-            width: 100%;
-            height: 250px;
+            flex: 1;
+            height: 220px;
             background: #09090b;
-            border: 2px dashed #27272a;
+            border: 2px solid #3b82f6;
             border-radius: 12px;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            color: #71717a;
+            color: #94a3b8;
             font-size: 14px;
             text-align: center;
             user-select: none;
             touch-action: none;
+            box-shadow: inset 0 0 15px rgba(59, 130, 246, 0.2);
+        }
+        /* Sağ Taraf Kaydırma Çubuğu Paneli */
+        .scroll-panel {
+            width: 70px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .scroll-btn {
+            flex: 1;
+            background: #27272a;
+            color: white;
+            border: 1px solid #3f3f46;
+            border-radius: 12px;
+            font-size: 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .scroll-btn:active {
+            background: #3b82f6;
+            transform: scale(0.95);
         }
         .touchpad-btns {
             display: flex;
             gap: 10px;
-            margin-top: 15px;
+            margin-bottom: 10px;
         }
         .touchpad-btns button {
             flex: 1;
-            padding: 15px;
-            background: #27272a;
+            padding: 12px;
+            background: #3b82f6;
             color: white;
             border: none;
             border-radius: 8px;
             font-weight: bold;
-            font-size: 16px;
+            font-size: 15px;
+        }
+        .touchpad-btns button:active {
+            background: #2563eb;
+            transform: scale(0.96);
         }
     </style>
 </head>
@@ -179,21 +213,40 @@
         </div>
     </div>
 
-    <!-- TOUCHPAD EKRANI -->
+    <!-- TOUCHPAD & KAYDIRMA EKRANI -->
     <div id="touchpad-modal" class="modal">
         <div class="header-bar">
-            <h2>Kablosuz Touchpad</h2>
+            <h2>Kumanda & Klavye</h2>
             <button class="back-btn" onclick="closeTouchpad()">Geri</button>
         </div>
         
         <div class="box">
-            <p style="margin-top:0; color:#888; text-align: center;">Fare İmleci Kontrol Paneli</p>
-            <div id="touchpad-area">
-                Parmağınızı bu alanda gezdirerek dokunmatik yüzey olarak kullanın
+            <!-- Touchpad ve Sağ Tarafta Kaydırma Butonları Yan Yana -->
+            <div class="touchpad-container">
+                <div id="touchpad-area" ontouchmove="handleTouchMove(event)" ontouchstart="handleTouchStart(event)">
+                    <span style="font-size: 22px; margin-bottom: 3px;">🖱️</span>
+                    <strong>İmleç Alanı</strong>
+                    <p style="font-size: 11px; color: #64748b; margin: 2px 5px 0 5px;">İmleci gezdirmek için kaydırın.</p>
+                </div>
+                
+                <div class="scroll-panel">
+                    <button class="scroll-btn" onclick="scrollAction('yukari')">▲</button>
+                    <button class="scroll-btn" onclick="scrollAction('asagi')">▼</button>
+                </div>
             </div>
+            
             <div class="touchpad-btns">
-                <button onclick="alert('Sol tık algılandı')">Sol Tık</button>
-                <button onclick="alert('Sağ tık algılandı')">Sağ Tık</button>
+                <button onclick="triggerClick('Sol Tık')">Sol Tık (Seç)</button>
+                <button onclick="triggerClick('Sağ Tık')" style="background: #475569;">Geri / Menü</button>
+            </div>
+
+            <!-- Klavye / Yazı Gönderme Alanı -->
+            <div style="margin-top: 12px; border-top: 1px solid #27272a; padding-top: 10px;">
+                <p style="margin: 0 0 6px 0; color: #888; font-size: 13px;">⌨️ Uzaktan Yazı Yazma</p>
+                <div style="display: flex; gap: 8px;">
+                    <input type="text" id="remoteInput" placeholder="Arama yazısı..." style="margin-bottom:0;">
+                    <button class="back-btn" style="background:#10b981;" onclick="sendText()">Gönder</button>
+                </div>
             </div>
         </div>
     </div>
@@ -257,9 +310,42 @@
             }
         }
 
-        // Touchpad Fonksiyonları
+        // Touchpad, Kaydırma & Klavye Fonksiyonları
         function openTouchpad() { document.getElementById('touchpad-modal').style.display = 'block'; }
         function closeTouchpad() { document.getElementById('touchpad-modal').style.display = 'none'; }
+
+        let startX = 0;
+        let startY = 0;
+
+        function handleTouchStart(e) {
+            const touch = e.touches[0];
+            startX = touch.clientX;
+            startY = touch.clientY;
+        }
+
+        function handleTouchMove(e) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const deltaX = touch.clientX - startX;
+            const deltaY = touch.clientY - startY;
+            startX = touch.clientX;
+            startY = touch.clientY;
+        }
+
+        function triggerClick(type) {
+            console.log(type + " basıldı");
+        }
+
+        function scrollAction(direction) {
+            console.log("Kaydırma yönü: " + direction);
+        }
+
+        function sendText() {
+            const textVal = document.getElementById('remoteInput').value;
+            if(!textVal) return;
+            alert("Yazı gönderildi: " + textVal);
+            document.getElementById('remoteInput').value = '';
+        }
     </script>
 </body>
 </html>

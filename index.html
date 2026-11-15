@@ -4,182 +4,195 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Kabin Kokpiti</title>
-    
-    <!-- PWA Manifest Bağlantısı -->
     <link rel="manifest" href="/manifest.json">
-
-    <!-- iOS Tam Ekran Komutları -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Kabin Kokpiti">
-
     <style>
-        body {
-            background: linear-gradient(135deg, #000000 0%, #18051d 50%, #050b14 100%);
-            color: #ffffff;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding-top: env(safe-area-inset-top);
-            padding-bottom: env(safe-area-inset-bottom);
-            box-sizing: border-box;
+        body { background: linear-gradient(135deg, #000000 0%, #18051d 50%, #050b14 100%); color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom); box-sizing: border-box; }
+        h1 { font-size: 24px; color: #f0f9ff; margin-bottom: 25px; letter-spacing: 3px; text-shadow: 0 0 15px rgba(236, 72, 153, 0.8), 0 0 30px rgba(59, 130, 246, 0.5); font-weight: 800; }
+        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; width: 100%; max-width: 400px; }
+        .card { background-color: rgba(22, 22, 28, 0.85); border: 1px solid rgba(59, 130, 246, 0.4); border-radius: 20px; padding: 20px; text-align: center; text-decoration: none; color: white; font-size: 15px; font-weight: 600; box-shadow: 0 8px 30px rgba(0,0,0,0.6); transition: transform 0.1s, background-color 0.2s, border-color 0.2s; cursor: pointer; backdrop-filter: blur(10px); }
+        .card:active { transform: scale(0.95); background-color: rgba(236, 72, 153, 0.6); border-color: rgba(236, 72, 153, 0.9); }
+        .card span { display: block; font-size: 30px; margin-bottom: 8px; filter: drop-shadow(0 0 8px rgba(255,255,255,0.7)); }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.96); z-index: 100; padding: 15px; padding-top: calc(15px + env(safe-area-inset-top)); box-sizing: border-box; overflow-y: auto; backdrop-filter: blur(15px); }
+        .header-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; color: #d1d5db; }
+        .back-btn { background: #ec4899; color: white; border: none; padding: 10px 20px; border-radius: 10px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4); }
+        .box { background: rgba(22, 22, 24, 0.9); border: 1px solid #475569; border-radius: 12px; padding: 15px; margin-bottom: 15px; }
+        input { width: 100%; padding: 12px; background: #09090b; border: 1px solid #475569; color: white; border-radius: 8px; margin-bottom: 10px; box-sizing: border-box; font-size: 16px; }
+        .station-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px; }
+        .station-btn { background: #18181b; border: 1px solid #3f3f46; color: #e4e4e7; padding: 14px 10px; border-radius: 12px; font-size: 13px; font-weight: 600; cursor: pointer; text-align: center; transition: all 0.2s; }
+        .station-btn.active { background: rgba(59, 130, 246, 0.25); border-color: #3b82f6; color: #60a5fa; box-shadow: 0 0 15px rgba(59, 130, 246, 0.4); }
+        .touchpad-container { display: flex; gap: 10px; margin-bottom: 15px; }
+        #touchpad-area { flex: 1; height: 200px; background: #09090b; border: 2px solid #3b82f6; border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #94a3b8; font-size: 14px; text-align: center; user-select: none; touch-action: none; box-shadow: inset 0 0 20px rgba(59, 130, 246, 0.3); }
+        .scroll-panel { width: 60px; display: flex; flex-direction: column; gap: 10px; }
+        .scroll-btn { flex: 1; background: rgba(39, 39, 42, 0.9); color: white; border: 1px solid #52525b; border-radius: 12px; font-size: 20px; font-weight: bold; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .scroll-btn:active { background: #3b82f6; transform: scale(0.95); }
+        .touchpad-btns { display: flex; gap: 10px; margin-bottom: 15px; }
+        .touchpad-btns button { flex: 1; padding: 14px; background: #3b82f6; color: white; border: none; border-radius: 10px; font-weight: bold; font-size: 15px; }
+        .touchpad-btns button:active { background: #2563eb; transform: scale(0.95); }
+        @media screen and (orientation: landscape) {
+            body { padding: 15px 30px; }
+            h1 { font-size: 20px; margin-bottom: 15px; }
+            .grid { grid-template-columns: repeat(3, 1fr); max-width: 90vw; gap: 15px; }
+            .card { padding: 18px; }
+            .station-grid { grid-template-columns: repeat(4, 1fr); }
         }
+    </style>
+</head>
+<body>
+    <h1>KABİN KOKPİTİ</h1>
+    <div class="grid" id="main-menu">
+        <a href="https://debridui.com" target="_blank" class="card"><span>🎬</span>DebridUI</a>
+        <div onclick="openWeather()" class="card"><span>⛅</span>Yol & Hava</div>
+        <div onclick="openTouchpad()" class="card"><span>🖱️</span>Touchpad</div>
+        <div onclick="openMaps()" class="card"><span>🗺️</span>Harita</div>
+        <div onclick="openRadio()" class="card"><span>📻</span>Synthwave</div>
+        <div onclick="alert('Güvenlik kamerası altyapısı ileride eklenecek.')" class="card"><span>🛡️</span>Güvenlik</div>
+    </div>
 
-        h1 {
-            font-size: 24px;
-            color: #f0f9ff;
-            margin-bottom: 25px;
-            letter-spacing: 3px;
-            text-shadow: 0 0 15px rgba(236, 72, 153, 0.8), 0 0 30px rgba(59, 130, 246, 0.5);
-            font-weight: 800;
+    <div id="weather-modal" class="modal">
+        <div class="header-bar"><h2>Yol & Hava Durumu</h2><button class="back-btn" onclick="closeWeather()">Geri</button></div>
+        <div class="box">
+            <p style="margin-top:0; color:#9ca3af;">Konum Takibi</p>
+            <button class="back-btn" style="width:100%; background:#10b981; margin-bottom: 10px;" onclick="getLocationWeather()">📍 Konumumu Otomatik Algıla</button>
+            <div style="display: flex; gap: 10px;">
+                <input type="text" id="cityInput" placeholder="Veya şehir yazın..." style="margin-bottom:0;">
+                <button class="back-btn" style="background:#3b82f6;" onclick="getWeather()">Getir</button>
+            </div>
+        </div>
+        <div class="box" id="weatherResult"><p style="color:#d1d5db;">Konumunuzu otomatik algılamak için yukarıdaki yeşil butona dokunun.</p></div>
+    </div>
+
+    <div id="touchpad-modal" class="modal">
+        <div class="header-bar"><h2>Kumanda & Klavye</h2><button class="back-btn" onclick="closeTouchpad()">Geri</button></div>
+        <div class="box">
+            <div class="touchpad-container">
+                <div id="touchpad-area" ontouchmove="handleTouchMove(event)" ontouchstart="handleTouchStart(event)">
+                    <span style="font-size: 26px; margin-bottom: 4px;">🖱️</span>
+                    <strong>İmleç Kontrol Yüzeyi</strong>
+                    <p style="font-size: 11px; color: #9ca3af; margin: 4px 8px 0 8px;">İmleci hareket ettirmek için parmağınızı burada gezdirin.</p>
+                </div>
+                <div class="scroll-panel">
+                    <button class="scroll-btn" onclick="scrollAction('yukari')">▲</button>
+                    <button class="scroll-btn" onclick="scrollAction('asagi')">▼</button>
+                </div>
+            </div>
+            <div class="touchpad-btns">
+                <button onclick="triggerClick('Sol Tık')">Sol Tık (Seç)</button>
+                <button onclick="triggerClick('Sağ Tık')" style="background: #475569;">Geri / Menü</button>
+            </div>
+            <div style="margin-top:12px; border-top:1px solid #475569; padding-top:10px;">
+                <p style="margin:0 0 6px 0; color: #9ca3af; font-size: 13px;">⌨️ Uzaktan Yazı Yazma</p>
+                <div style="display: flex; gap: 8px;">
+                    <input type="text" id="remoteInput" placeholder="Arama veya yazı yazın..." style="margin-bottom:0;">
+                    <button class="back-btn" style="background:#10b981;" onclick="sendText()">Gönder</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="maps-modal" class="modal">
+        <div class="header-bar"><h2>Canlı Harita</h2><button class="back-btn" onclick="closeMaps()">Geri</button></div>
+        <div style="width:100%; height: calc(100vh - 85px); background:#111113; border-radius:12px; overflow:hidden; border:1px solid #475569;">
+            <iframe width="100%" height="100%" style="border:0;" loading="lazy" allowfullscreen src="https://www.google.com/maps/embed/v1/place?key=&q=Turkey"></iframe>
+        </div>
+    </div>
+
+    <div id="radio-modal" class="modal">
+        <div class="header-bar"><h2>Gece Sürüşü Radyosu</h2><button class="back-btn" onclick="closeRadio()">Geri</button></div>
+        <div class="box" style="text-align: center; padding: 20px 15px;">
+            <p style="margin: 0 0 12px 0; color: #9ca3af; font-size: 13px;">İstasyon Seçin (iOS MP3 Akışı):</p>
+            <div class="station-grid">
+                <button class="station-btn active" onclick="selectStation(this, 'Nightride FM', 'https://stream.nightride.fm/nightride.mp3')">🌆 Nightride FM</button>
+                <button class="station-btn" onclick="selectStation(this, 'Darksynth Radio', 'https://stream.nightride.fm/darksynth.mp3')">⚡ Darksynth</button>
+                <button class="station-btn" onclick="selectStation(this, 'DEF CON Radio', 'https://ice2.somafm.com/defcon-128-mp3')">👾 Cyberpunk</button>
+                <button class="station-btn" onclick="selectStation(this, 'Space Station', 'https://ice2.somafm.com/spacestation-128-mp3')">🛸 Space Ambient</button>
+            </div>
+            <h3 id="current-station-title" style="margin: 10px 0 5px 0; color: #3b82f6; font-size: 20px;">Nightride FM</h3>
+            <p id="radio-status" style="color: #10b981; font-size: 13px; margin-bottom: 18px;">● Yayına Hazır</p>
+            <audio id="synthRadio" controls preload="none" src="https://stream.nightride.fm/nightride.mp3" style="width: 100%; max-width: 450px; margin-bottom: 18px;"></audio>
+            <div style="display: flex; gap: 15px; justify-content: center;">
+                <button class="back-btn" style="flex:1; max-width: 180px; background:#10b981;" onclick="playRadio()">Oynat ▶</button>
+                <button class="back-btn" style="flex:1; max-width: 180px; background:#ef4444;" onclick="pauseRadio()">Durdur ⏸</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openWeather() { document.getElementById('weather-modal').style.display = 'block'; }
+        function closeWeather() { document.getElementById('weather-modal').style.display = 'none'; }
+        function getLocationWeather() {
+            const resultBox = document.getElementById('weatherResult');
+            if (!navigator.geolocation) { resultBox.innerHTML = "Tarayıcınız konum desteklemiyor."; return; }
+            resultBox.innerHTML = "GPS konumu alınıyor, lütfen bekleyin...";
+            navigator.geolocation.getCurrentPosition(async (position) => {
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+                try {
+                    const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,wind_speed_10m`);
+                    const weatherData = await weatherRes.json();
+                    resultBox.innerHTML = `<h3 style="margin:0 0 10px 0; color:#10b981;">📍 Bulunduğunuz Konum (GPS)</h3><p style="font-size: 24px; font-weight: bold; margin: 5px 0;">🌡️ Sıcaklık: ${weatherData.current.temperature_2m}°C</p><p style="margin: 5px 0;">💧 Nem Oranı: %${weatherData.current.relative_humidity_2m}</p><p style="margin: 5px 0;">💨 Rüzgar Hızı: ${weatherData.current.wind_speed_10m} km/s</p>`;
+                } catch (error) { resultBox.innerHTML = "Hava durumu verisi çekilemedi."; }
+            }, () => { resultBox.innerHTML = "Konum izni reddedildi."; });
         }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            width: 100%;
-            max-width: 400px;
+        async function getWeather() {
+            const city = document.getElementById('cityInput').value;
+            const resultBox = document.getElementById('weatherResult');
+            if (!city) return;
+            resultBox.innerHTML = "Bilgiler yükleniyor...";
+            try {
+                const geoRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1&language=tr&format=json`);
+                const geoData = await geoRes.json();
+                if (!geoData.results || geoData.results.length === 0) { resultBox.innerHTML = "Şehir bulunamadı."; return; }
+                const { latitude, longitude, name, country } = geoData.results[0];
+                const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,wind_speed_10m`);
+                const weatherData = await weatherRes.json();
+                resultBox.innerHTML = `<h3 style="margin:0 0 10px 0; color:#3b82f6;">${name} (${country})</h3><p style="font-size: 24px; font-weight: bold; margin: 5px 0;">🌡️ Sıcaklık: ${weatherData.current.temperature_2m}°C</p><p style="margin: 5px 0;">💧 Nem Oranı: %${weatherData.current.relative_humidity_2m}</p><p style="margin: 5px 0;">💨 Rüzgar Hızı: ${weatherData.current.wind_speed_10m} km/s</p>`;
+            } catch (error) { resultBox.innerHTML = "Hata oluştu."; }
         }
-
-        .card {
-            background-color: rgba(22, 22, 28, 0.85);
-            border: 1px solid rgba(59, 130, 246, 0.4);
-            border-radius: 20px;
-            padding: 20px;
-            text-align: center;
-            text-decoration: none;
-            color: white;
-            font-size: 15px;
-            font-weight: 600;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.6);
-            transition: transform 0.1s, background-color 0.2s, border-color 0.2s;
-            cursor: pointer;
-            backdrop-filter: blur(10px);
+        function openTouchpad() { document.getElementById('touchpad-modal').style.display = 'block'; }
+        function closeTouchpad() { document.getElementById('touchpad-modal').style.display = 'none'; }
+        let startX = 0, startY = 0;
+        function handleTouchStart(e) { const t = e.touches[0]; startX = t.clientX; startY = t.clientY; }
+        function handleTouchMove(e) { e.preventDefault(); const t = e.touches[0]; startX = t.clientX; startY = t.clientY; }
+        function triggerClick(type) { console.log(type); }
+        function scrollAction(dir) { console.log(dir); }
+        function sendText() {
+            const val = document.getElementById('remoteInput').value;
+            if(!val) return;
+            alert("Yazı gönderildi: " + val);
+            document.getElementById('remoteInput').value = '';
         }
-
-        .card:active {
-            transform: scale(0.95);
-            background-color: rgba(236, 72, 153, 0.6);
-            border-color: rgba(236, 72, 153, 0.9);
+        function openMaps() { document.getElementById('maps-modal').style.display = 'block'; }
+        function closeMaps() { document.getElementById('maps-modal').style.display = 'none'; }
+        function openRadio() { document.getElementById('radio-modal').style.display = 'block'; }
+        function closeRadio() { document.getElementById('radio-modal').style.display = 'none'; pauseRadio(); }
+        function selectStation(btn, name, url) {
+            document.querySelectorAll('.station-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('current-station-title').innerText = name;
+            const st = document.getElementById('radio-status');
+            st.innerText = "⏳ Bağlanıyor..."; st.style.color = "#f59e0b";
+            const audio = document.getElementById('synthRadio');
+            audio.pause(); audio.src = url;
+            const p = audio.play();
+            if (p !== undefined) {
+                p.then(() => { st.innerText = "● Canlı Yayında"; st.style.color = "#10b981"; })
+                 .catch(() => { st.innerText = "▶ Ses için Oynat butonuna dokunun"; st.style.color = "#f59e0b"; });
+            }
         }
-
-        .card span {
-            display: block;
-            font-size: 30px;
-            margin-bottom: 8px;
-            filter: drop-shadow(0 0 8px rgba(255,255,255,0.7));
+        function playRadio() {
+            const audio = document.getElementById('synthRadio');
+            const st = document.getElementById('radio-status');
+            audio.play().then(() => { st.innerText = "● Canlı Yayında"; st.style.color = "#10b981"; })
+                        .catch(() => { st.innerText = "⚠️ Akışa bağlanılamadı, tekrar deneyin"; st.style.color = "#ef4444"; });
         }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.96);
-            z-index: 100;
-            padding: 15px;
-            padding-top: calc(15px + env(safe-area-inset-top));
-            box-sizing: border-box;
-            overflow-y: auto;
-            backdrop-filter: blur(15px);
+        function pauseRadio() {
+            document.getElementById('synthRadio').pause();
+            const st = document.getElementById('radio-status');
+            st.innerText = "⏸ Duraklatıldı"; st.style.color = "#ef4444";
         }
-
-        .header-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            color: #d1d5db;
-        }
-
-        .back-btn {
-            background: #ec4899;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 10px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);
-        }
-
-        .box {
-            background: rgba(22, 22, 24, 0.9);
-            border: 1px solid #475569;
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 15px;
-        }
-
-        input {
-            width: 100%;
-            padding: 12px;
-            background: #09090b;
-            border: 1px solid #475569;
-            color: white;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            box-sizing: border-box;
-            font-size: 16px;
-        }
-
-        /* Radyo İstasyon Butonları */
-        .station-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .station-btn {
-            background: #18181b;
-            border: 1px solid #3f3f46;
-            color: #e4e4e7;
-            padding: 14px 10px;
-            border-radius: 12px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            text-align: center;
-            transition: all 0.2s;
-        }
-
-        .station-btn.active {
-            background: rgba(59, 130, 246, 0.25);
-            border-color: #3b82f6;
-            color: #60a5fa;
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
-        }
-
-        .touchpad-container {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        #touchpad-area {
-            flex: 1;
-            height: 200px;
-            background: #09090b;
-            border: 2px solid #3b82f6;
-            border-radius: 12px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: #94a3b8;
-            font-size: 14px;
-            text-align: center;
-            user-select: none;
-            touch-action: none;
-            box-shadow: inset 0 0 20px rgba(59, 130, 246, 0.3);
-        }
-
+    </script>
+</body>
+</html>

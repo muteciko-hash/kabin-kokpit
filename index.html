@@ -5,17 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Kabin Kokpiti</title>
     
-    <!-- PWA Manifest Bağlantısı (Uygulama Modu İçin) -->
+    <!-- PWA Manifest Bağlantısı -->
     <link rel="manifest" href="/manifest.json">
 
-    <!-- iOS Kesin Tam Ekran (Standalone) Komutları -->
+    <!-- iOS Tam Ekran Komutları -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Kabin Kokpiti">
 
     <style>
         body {
-            background: linear-gradient(135deg, #09090b 0%, #18051d 50%, #050b14 100%);
+            background: linear-gradient(135deg, #000000 0%, #18051d 50%, #050b14 100%);
             color: #ffffff;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             margin: 0;
@@ -25,9 +25,9 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            /* Çentik ve alt bar güvenli alan uyumu */
             padding-top: env(safe-area-inset-top);
             padding-bottom: env(safe-area-inset-bottom);
+            box-sizing: border-box;
         }
 
         h1 {
@@ -83,9 +83,10 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.95);
+            background-color: rgba(0, 0, 0, 0.96);
             z-index: 100;
             padding: 15px;
+            padding-top: calc(15px + env(safe-area-inset-top));
             box-sizing: border-box;
             overflow-y: auto;
             backdrop-filter: blur(15px);
@@ -130,287 +131,4 @@
             font-size: 16px;
         }
 
-        .touchpad-container {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        #touchpad-area {
-            flex: 1;
-            height: 200px;
-            background: #09090b;
-            border: 2px solid #3b82f6;
-            border-radius: 12px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: #94a3b8;
-            font-size: 14px;
-            text-align: center;
-            user-select: none;
-            touch-action: none;
-            box-shadow: inset 0 0 20px rgba(59, 130, 246, 0.3);
-        }
-
-        .scroll-panel {
-            width: 60px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .scroll-btn {
-            flex: 1;
-            background: rgba(39, 39, 42, 0.9);
-            color: white;
-            border: 1px solid #52525b;
-            border-radius: 12px;
-            font-size: 20px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-        }
-
-        .scroll-btn:active {
-            background: #3b82f6;
-            transform: scale(0.95);
-        }
-
-        .touchpad-btns {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .touchpad-btns button {
-            flex: 1;
-            padding: 14px;
-            background: #3b82f6;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-weight: bold;
-            font-size: 15px;
-        }
-
-        .touchpad-btns button:active {
-            background: #2563eb;
-            transform: scale(0.95);
-        }
-    </style>
-</head>
-<body>
-
-    <h1>KABİN KOKPİTİ</h1>
-
-    <div class="grid" id="main-menu">
-        <a href="https://debridui.com" target="_blank" class="card">
-            <span>🎬</span>
-            DebridUI
-        </a>
-
-        <div onclick="openWeather()" class="card">
-            <span>⛅</span>
-            Yol & Hava
-        </div>
-
-        <div onclick="openTouchpad()" class="card">
-            <span>🖱️</span>
-            Touchpad
-        </div>
-
-        <div onclick="openMaps()" class="card">
-            <span>🗺️</span>
-            Harita
-        </div>
-
-        <div onclick="openRadio()" class="card">
-            <span>📻</span>
-            Synthwave
-        </div>
-
-        <div onclick="alert('Güvenlik kamerası altyapısı ileride eklenecek.')" class="card">
-            <span>🛡️</span>
-            Güvenlik
-        </div>
-    </div>
-
-    <!-- HAVA DURUMU -->
-    <div id="weather-modal" class="modal">
-        <div class="header-bar">
-            <h2>Yol & Hava Durumu</h2>
-            <button class="back-btn" onclick="closeWeather()">Geri</button>
-        </div>
-        <div class="box">
-            <p style="margin-top:0; color:#9ca3af;">Konum Takibi</p>
-            <button class="back-btn" style="width:100%; background:#10b981; margin-bottom: 10px;" onclick="getLocationWeather()">📍 Konumumu Otomatik Algıla</button>
-            <div style="display: flex; gap: 10px;">
-                <input type="text" id="cityInput" placeholder="Veya şehir yazın..." style="margin-bottom:0;">
-                <button class="back-btn" style="background:#3b82f6;" onclick="getWeather()">Getir</button>
-            </div>
-        </div>
-        <div class="box" id="weatherResult">
-            <p style="color:#d1d5db;">Konumunuzu otomatik algılamak için yukarıdaki yeşil butona dokunun.</p>
-        </div>
-    </div>
-
-    <!-- TOUCHPAD & KLAVYE -->
-    <div id="touchpad-modal" class="modal">
-        <div class="header-bar">
-            <h2>Kumanda & Klavye</h2>
-            <button class="back-btn" onclick="closeTouchpad()">Geri</button>
-        </div>
-        <div class="box">
-            <div class="touchpad-container">
-                <div id="touchpad-area" ontouchmove="handleTouchMove(event)" ontouchstart="handleTouchStart(event)">
-                    <span style="font-size: 26px; margin-bottom: 4px;">🖱️</span>
-                    <strong>İmleç Kontrol Yüzeyi</strong>
-                    <p style="font-size: 11px; color: #9ca3af; margin: 4px 8px 0 8px;">İmleci hareket ettirmek için parmağınızı burada gezdirin.</p>
-                </div>
-                <div class="scroll-panel">
-                    <button class="scroll-btn" onclick="scrollAction('yukari')">▲</button>
-                    <button class="scroll-btn" onclick="scrollAction('asagi')">▼</button>
-                </div>
-            </div>
-            <div class="touchpad-btns">
-                <button onclick="triggerClick('Sol Tık')">Sol Tık (Seç)</button>
-                <button onclick="triggerClick('Sağ Tık')" style="background: #475569;">Geri / Menü</button>
-            </div>
-            <div style="margin-top:12px; border-top:1px solid #475569; padding-top:10px;">
-                <p style="margin:0 0 6px 0; color: #9ca3af; font-size: 13px;">⌨️ Uzaktan Yazı Yazma</p>
-                <div style="display: flex; gap: 8px;">
-                    <input type="text" id="remoteInput" placeholder="Arama veya yazı yazın..." style="margin-bottom:0;">
-                    <button class="back-btn" style="background:#10b981;" onclick="sendText()">Gönder</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- HARİTA -->
-    <div id="maps-modal" class="modal">
-        <div class="header-bar">
-            <h2>Canlı Harita</h2>
-            <button class="back-btn" onclick="closeMaps()">Geri</button>
-        </div>
-        <div style="width:100%; height: calc(100vh - 70px); background:#111113; border-radius:12px; overflow:hidden; border:1px solid #475569;">
-            <iframe width="100%" height="100%" style="border:0;" loading="lazy" allowfullscreen src="https://www.google.com/maps/embed/v1/place?key=&q=Turkey"></iframe>
-        </div>
-    </div>
-
-    <!-- RADYO -->
-    <div id="radio-modal" class="modal">
-        <div class="header-bar">
-            <h2>Synthwave Gece Sürüşü Radyosu</h2>
-            <button class="back-btn" onclick="closeRadio()">Geri</button>
-        </div>
-        <div class="box" style="text-align: center; padding: 35px 15px;">
-            <span style="font-size: 48px; display: block; margin-bottom: 15px;">🌆🎵</span>
-            <h3 style="margin: 0 0 10px 0; color: #3b82f6; font-size: 20px;">Night Drive Atmosferi</h3>
-            <p style="color: #d1d5db; font-size: 14px; margin-bottom: 25px;">Kabin için kesintisiz Cyberpunk / Synthwave müzik akışı.</p>
-            <audio id="synthRadio" controls style="width: 100%; max-width: 450px; margin-bottom: 20px;">
-                <source src="https://streams.ilovemusic.de/ilovesynthwave.mp3" type="audio/mpeg">
-                Tarayıcınız ses akışını desteklemiyor.
-            </audio>
-            <div style="display: flex; gap: 15px; justify-content: center;">
-                <button class="back-btn" style="flex:1; max-width: 180px; background:#10b981;" onclick="document.getElementById('synthRadio').play()">Oynat ▶</button>
-                <button class="back-btn" style="flex:1; max-width: 180px; background:#ef4444;" onclick="document.getElementById('synthRadio').pause()">Durdur ⏸</button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        function openWeather() { document.getElementById('weather-modal').style.display = 'block'; }
-        function closeWeather() { document.getElementById('weather-modal').style.display = 'none'; }
-
-        function getLocationWeather() {
-            const resultBox = document.getElementById('weatherResult');
-            if (!navigator.geolocation) {
-                resultBox.innerHTML = "Tarayıcınız konum desteklemiyor.";
-                return;
-            }
-            resultBox.innerHTML = "GPS konumu alınıyor, lütfen bekleyin...";
-            navigator.geolocation.getCurrentPosition(async (position) => {
-                const lat = position.coords.latitude;
-                const lon = position.coords.longitude;
-                try {
-                    const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,wind_speed_10m`);
-                    const weatherData = await weatherRes.json();
-                    resultBox.innerHTML = `
-                        <h3 style="margin:0 0 10px 0; color:#10b981;">📍 Bulunduğunuz Konum (GPS)</h3>
-                        <p style="font-size: 24px; font-weight: bold; margin: 5px 0;">🌡️ Sıcaklık: ${weatherData.current.temperature_2m}°C</p>
-                        <p style="margin: 5px 0;">💧 Nem Oranı: %${weatherData.current.relative_humidity_2m}</p>
-                        <p style="margin: 5px 0;">💨 Rüzgar Hızı: ${weatherData.current.wind_speed_10m} km/s</p>
-                    `;
-                } catch (error) {
-                    resultBox.innerHTML = "Hava durumu verisi çekilemedi.";
-                }
-            }, () => {
-                resultBox.innerHTML = "Konum izni reddedildi.";
-            });
-        }
-
-        async function getWeather() {
-            const city = document.getElementById('cityInput').value;
-            const resultBox = document.getElementById('weatherResult');
-            if (!city) return;
-            resultBox.innerHTML = "Bilgiler yükleniyor...";
-            try {
-                const geoRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1&language=tr&format=json`);
-                const geoData = await geoRes.json();
-                if (!geoData.results || geoData.results.length === 0) {
-                    resultBox.innerHTML = "Şehir bulunamadı.";
-                    return;
-                }
-                const { latitude, longitude, name, country } = geoData.results[0];
-                const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,wind_speed_10m`);
-                const weatherData = await weatherRes.json();
-                resultBox.innerHTML = `
-                    <h3 style="margin:0 0 10px 0; color:#3b82f6;">${name} (${country})</h3>
-                    <p style="font-size: 24px; font-weight: bold; margin: 5px 0;">🌡️ Sıcaklık: ${weatherData.current.temperature_2m}°C</p>
-                    <p style="margin: 5px 0;">💧 Nem Oranı: %${weatherData.current.relative_humidity_2m}</p>
-                    <p style="margin: 5px 0;">💨 Rüzgar Hızı: ${weatherData.current.wind_speed_10m} km/s</p>
-                `;
-            } catch (error) {
-                resultBox.innerHTML = "Hata oluştu.";
-            }
-        }
-
-        function openTouchpad() { document.getElementById('touchpad-modal').style.display = 'block'; }
-        function closeTouchpad() { document.getElementById('touchpad-modal').style.display = 'none'; }
-        let startX = 0;
-        let startY = 0;
-        function handleTouchStart(e) {
-            const touch = e.touches[0];
-            startX = touch.clientX;
-            startY = touch.clientY;
-        }
-        function handleTouchMove(e) {
-            e.preventDefault();
-            const touch = e.touches[0];
-            const deltaX = touch.clientX - startX;
-            const deltaY = touch.clientY - startY;
-            startX = touch.clientX;
-            startY = touch.clientY;
-        }
-        function triggerClick(type) { console.log(type + " basıldı"); }
-        function scrollAction(direction) { console.log("Kaydırma: " + direction); }
-        function sendText() {
-            const textVal = document.getElementById('remoteInput').value;
-            if(!textVal) return;
-            alert("Yazı gönderildi: " + textVal);
-            document.getElementById('remoteInput').value = '';
-        }
-        function openMaps() { document.getElementById('maps-modal').style.display = 'block'; }
-        function closeMaps() { document.getElementById('maps-modal').style.display = 'none'; }
-        function openRadio() { document.getElementById('radio-modal').style.display = 'block'; }
-        function closeRadio() { 
-            document.getElementById('radio-modal').style.display = 'none';
-            document.getElementById('synthRadio').pause();
-        }
-    </script>
-</body>
-</html>
+        /*

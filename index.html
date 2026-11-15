@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>DARKLIGHT IIX // RADAR VFD TERMINAL</title>
+<title>DARKLIGHT IIX // CRT TERMINAL</title>
 <link rel="manifest" href="/manifest.json">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -105,90 +105,54 @@ html,body{width:100%;height:100%;background:#010905;color:#28ff8c;font-family:'S
 .w-search-row button{background:#0f4d2d;color:#28ff8c;border:1px solid #28ff8c;font-family:inherit;font-size:9px;padding:3px 7px;cursor:pointer;font-weight:700}
 .w-search-row button:active{background:#28ff8c;color:#020d07}
 
-/* 2. ORTA: RADAR & DİJİTAL VFD HIZ GÖSTERGESİ KADRANI */
-.radar-speed-cluster{
-  background:#020704;
-  border:1px solid #197a48;
-  border-radius:4px;
-  padding:4px 8px;
-  flex:1;
+/* 2. ORTA: İLK YAPTIGIMIZ DEV YEŞİL FOSFORLU HIZ GÖSTERGESİ */
+.speed-hero{
   display:flex;
-  gap:10px;
-  align-items:center;
+  align-items:baseline;
   justify-content:space-between;
-  min-height:0;
-  position:relative;
-  overflow:hidden;
+  background:#010b06;
+  border:1px solid #1f9659;
+  padding:4px 10px;
+  border-radius:3px;
 }
-/* Dairesel Radar Arka Plan Efekti */
-.radar-circle{
-  width:82px;
-  height:82px;
-  border-radius:50%;
-  border:1px dashed #16653d;
-  background:radial-gradient(circle, rgba(40,255,140,0.12) 0%, rgba(2,7,4,0.9) 70%);
-  position:relative;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  flex-shrink:0;
-  box-shadow:inset 0 0 12px rgba(40,255,140,0.2);
-}
-.radar-sweep{
-  position:absolute;
-  inset:0;
-  border-radius:50%;
-  background:conic-gradient(from 0deg at 50% 50%, rgba(40,255,140,0.45) 0deg, transparent 60deg, transparent 360deg);
-  animation:radarSpin 4s linear infinite;
-}
-@keyframes radarSpin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
-.radar-center-dot{
-  width:6px;height:6px;border-radius:50%;background:#28ff8c;box-shadow:0 0 6px #28ff8c;z-index:2;
-}
-
-.amber-box{
-  background:#050301;
-  border:2px solid #3d2208;
-  border-radius:4px;
-  padding:2px 8px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  box-shadow:inset 0 0 15px rgba(0,0,0,0.9), 0 0 10px rgba(255,115,0,0.2);
-  flex:1;
-}
-.amber-speed-num{
+.speed-num{
   font-family:'VT323',monospace;
-  font-size:clamp(44px, 6vw, 66px);
-  line-height:0.82;
-  color:#ff7300;
-  letter-spacing:3px;
-  text-shadow:0 0 10px #ff7300, 0 0 22px rgba(255,115,0,0.6);
-}
-.amber-unit{
-  font-size:clamp(10px, 1.2vw, 12px);
-  font-weight:700;
-  color:#ff9f0a;
+  font-size:clamp(46px, 6.2vw, 68px);
+  line-height:0.85;
+  color:#34ff94;
   letter-spacing:2px;
-  margin-top:1px;
-  text-shadow:0 0 5px rgba(255,159,10,0.5);
 }
-.amber-stats-col{
+.speed-num.overspeed{
+  color:#f59e0b;
+  text-shadow:0 0 10px rgba(245,158,11,0.85);
+}
+.speed-unit-col{
   display:flex;
   flex-direction:column;
-  gap:4px;
-  width:88px;
+  align-items:flex-end;
+  gap:2px;
 }
-.amber-stat-badge{
-  background:#050301;
-  border:1px solid #3d2208;
-  padding:2px 5px;
-  border-radius:2px;
-  font-size:8.5px;
-  color:#ff9f0a;
-  letter-spacing:.8px;
-  text-align:center;
+.speed-unit{font-size:12px;font-weight:700;letter-spacing:1.5px;color:#28ff8c}
+.speed-stats{font-size:9px;color:#1ec96f;letter-spacing:.8px}
+
+.speed-bar-wrap{
+  height:12px;
+  border:1px solid #1f9659;
+  background:#010a05;
+  padding:2px;
+  margin:4px 0;
+  position:relative;
+}
+.speed-bar-fill{
+  height:100%;
+  width:0%;
+  background:repeating-linear-gradient(to right,#28ff8c 0px,#28ff8c 4px,#062917 4px,#062917 6px);
+  box-shadow:0 0 8px rgba(40,255,140,.6);
+  transition:width .35s ease;
+}
+.speed-bar-fill.warn{
+  background:repeating-linear-gradient(to right,#f59e0b 0px,#f59e0b 4px,#3b2204 4px,#3b2204 6px);
+  box-shadow:0 0 10px rgba(245,158,11,.7);
 }
 
 .tacho-compact{
@@ -197,7 +161,7 @@ html,body{width:100%;height:100%;background:#010905;color:#28ff8c;font-family:'S
   justify-content:space-between;
   border-top:1px dashed #16653d;
   padding-top:4px;
-  margin-top:4px;
+  margin-top:2px;
   gap:6px;
 }
 .tacho-mini-readout{display:flex;flex-direction:column}
@@ -205,65 +169,58 @@ html,body{width:100%;height:100%;background:#010905;color:#28ff8c;font-family:'S
 .tacho-mini-val{font-family:'VT323',monospace;font-size:clamp(24px, 3.2vw, 32px);line-height:0.88;color:#28ff8c;letter-spacing:2px}
 .tacho-mini-btns{display:flex;gap:4px}
 
-/* 3. SAĞ: TEK PARÇA TURUNCU-KIRMIZI EKOLAYZIRLI RADYO */
+/* 3. SAĞ: İKİ YÖNLÜ SİMETRİK P31 YEŞİL FOSFORLU EKOLAYZIR (IMG_1319) */
 .radio-stations{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px}
 .st-check{display:flex;align-items:center;gap:5px;font-size:clamp(9px, 1.05vw, 11px);padding:3.5px 6px;border:1px solid #16653d;background:#021008;color:#1ec96f;cursor:pointer;text-align:left;font-family:inherit;white-space:nowrap;overflow:hidden}
 .st-check.active{border-color:#28ff8c;color:#28ff8c;background:#09301c;box-shadow:0 0 8px rgba(40,255,140,.3)}
 .sq-box{width:8px;height:8px;border:1px solid #28ff8c;display:inline-block;flex-shrink:0}
 .st-check.active .sq-box{background:#28ff8c;box-shadow:0 0 5px #28ff8c}
 
-.single-eq-box{
+.sym-eq-box{
   flex:1;
-  min-height:48px;
-  max-height:76px;
-  background:#020805;
+  min-height:50px;
+  max-height:78px;
+  background:#010a05;
   border:1px solid #1f9659;
   border-radius:3px;
-  padding:5px 6px;
+  padding:4px 6px;
   margin:4px 0;
   display:flex;
-  flex-direction:column;
+  align-items:center;
   justify-content:space-between;
-  gap:4px;
+  gap:2.5px;
 }
-.eq-columns{
-  flex:1;
-  display:flex;
-  align-items:flex-end;
-  gap:3px;
-}
-.eq-col-track{
+.sym-col{
   flex:1;
   height:100%;
-  background:repeating-linear-gradient(to top, rgba(239,68,68,0.12) 0px, rgba(239,68,68,0.12) 3px, transparent 3px, transparent 5px);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:1.5px;
+}
+.sym-half{
+  width:100%;
+  height:45%;
+  background:repeating-linear-gradient(to bottom, #104229 0px, #104229 2px, #010a05 2px, #010a05 3px);
   display:flex;
   align-items:flex-end;
 }
-.eq-col-fill{
-  width:100%;
-  height:18%;
-  background:
-    repeating-linear-gradient(to top, transparent 0px, transparent 3px, #020805 3px, #020805 5px),
-    linear-gradient(to top, #dc2626 0%, #ea580c 45%, #f59e0b 80%, #fbbf24 100%);
-  box-shadow:0 0 8px rgba(245,158,11,0.45);
-  transition:height .15s;
-}
-@keyframes eqAmberDance{0%,100%{height:14%}50%{height:96%}}
-.crt-playing .eq-col-fill{animation:eqAmberDance .52s infinite ease-in-out}
-.crt-playing .eq-col-track:nth-child(odd) .eq-col-fill{animation-duration:.41s}
-.crt-playing .eq-col-track:nth-child(3n) .eq-col-fill{animation-duration:.67s}
-.crt-playing .eq-col-track:nth-child(4n) .eq-col-fill{animation-duration:.48s}
+.sym-half.top{align-items:flex-end}
+.sym-half.bot{align-items:flex-start}
 
-.eq-bottom-strip{
-  height:6px;
+.sym-fill{
   width:100%;
-  background:
-    repeating-linear-gradient(to right, transparent 0px, transparent 5px, #020805 5px, #020805 8px),
-    linear-gradient(to right, #dc2626 0%, #ea580c 35%, #f59e0b 75%, #291803 100%);
-  opacity:0.45;
-  transition:opacity .25s;
+  height:15%;
+  background:repeating-linear-gradient(to top,#28ff8c 0px,#28ff8c 2px,#062917 2px,#062917 3px);
+  box-shadow:0 0 6px rgba(40,255,140,0.5);
+  transition:height .15s ease-in-out;
 }
-.crt-playing .eq-bottom-strip{opacity:1;box-shadow:0 0 8px rgba(245,158,11,0.5)}
+@keyframes symDance{0%,100%{height:15%}50%{height:92%}}
+.crt-playing .sym-fill{animation:symDance .5s infinite ease-in-out}
+.crt-playing .sym-col:nth-child(odd) .sym-fill{animation-duration:.38s}
+.crt-playing .sym-col:nth-child(3n) .sym-fill{animation-duration:.62s}
+.crt-playing .sym-col:nth-child(4n) .sym-fill{animation-duration:.45s}
 
 .radio-btns{display:flex;gap:5px}
 .crt-btn{flex:1;min-width:0;background:#062615;border:1px solid #28ff8c;color:#28ff8c;font-family:inherit;font-size:clamp(9px, 1.05vw, 11px);padding:4px 5px;cursor:pointer;letter-spacing:.6px;white-space:nowrap}
@@ -293,7 +250,7 @@ html,body{width:100%;height:100%;background:#010905;color:#28ff8c;font-family:'S
   </div>
   <div class="term-sub">
     <span id="crt-gps-line">GPS: SCANNING SATELLITES...</span>
-    <span>RENAULT PREMIUM 430 // RADAR & VFD TELEMETRY</span>
+    <span>RENAULT PREMIUM 430 // P31 CRT TELEMETRY</span>
   </div>
 
   <div class="term-grid">
@@ -321,26 +278,21 @@ html,body{width:100%;height:100%;background:#010905;color:#28ff8c;font-family:'S
       </div>
     </div>
 
-    <!-- 2. ORTA: RADAR & AMBER VFD HIZ GÖSTERGESİ -->
+    <!-- 2. ORTA: İLK SEVDİĞİNİZ DEV DİJİTAL HIZ GÖSTERGESİ & TAKOGRAF -->
     <div class="t-module box-glow">
-      <div class="t-mod-title"><span>RADAR & SPEEDOMETER</span><span id="spd-status">GPS READY</span></div>
+      <div class="t-mod-title"><span>SPEEDOMETER & TACHO</span><span id="spd-status">GPS READY</span></div>
       
-      <div class="radar-speed-cluster">
-        <!-- Dairesel Fosforlu Radar Kadranı -->
-        <div class="radar-circle">
-          <div class="radar-sweep"></div>
-          <div class="radar-center-dot"></div>
+      <div class="speed-hero">
+        <div class="speed-num glow" id="spd-val">000</div>
+        <div class="speed-unit-col">
+          <span class="speed-unit">KM/H</span>
+          <span class="speed-stats" id="spd-max-avg">MAX: 000 | AVG: 000</span>
+          <span class="speed-stats">LIMIT: 90 KM/H</span>
         </div>
+      </div>
 
-        <div class="amber-box">
-          <div class="amber-speed-num" id="spd-val">000</div>
-          <div class="amber-unit">KM/H</div>
-        </div>
-
-        <div class="amber-stats-col">
-          <div class="amber-stat-badge" id="amber-max">MAX 000</div>
-          <div class="amber-stat-badge" id="amber-avg">AVG 000</div>
-        </div>
+      <div class="speed-bar-wrap">
+        <div class="speed-bar-fill" id="spd-bar"></div>
       </div>
 
       <div class="tacho-compact">
@@ -356,7 +308,7 @@ html,body{width:100%;height:100%;background:#010905;color:#28ff8c;font-family:'S
       </div>
     </div>
 
-    <!-- 3. SAĞ: TEK PARÇA TURUNCU-KIRMIZI EKOLAYZIRLI RADYO -->
+    <!-- 3. SAĞ: İKİ YÖNLÜ SİMETRİK P31 YEŞİL FOSFORLU EKOLAYZIRLI RADYO -->
     <div class="t-module box-glow" id="radioModule">
       <div class="t-mod-title"><span>SYNTH AUDIO // EQ</span><span id="r-status">STANDBY</span></div>
       <div class="radio-stations">
@@ -366,10 +318,8 @@ html,body{width:100%;height:100%;background:#010905;color:#28ff8c;font-family:'S
         <button type="button" class="st-check" onclick="pickStation(this,'https://ice2.somafm.com/spacestation-128-mp3')"><span class="sq-box"></span>AMBIENT</button>
       </div>
 
-      <div class="single-eq-box">
-        <div class="eq-columns" id="singleEqCols"></div>
-        <div class="eq-bottom-strip"></div>
-      </div>
+      <!-- İKİ YÖNLÜ SİMETRİK EKOLAYZIR (IMG_1319 TARZI, YEŞİL FOSFOR) -->
+      <div class="sym-eq-box" id="symEqBox"></div>
 
       <div class="radio-btns">
         <button type="button" class="crt-btn" id="btnPlay" onclick="playAudio()">[▶ PLAY]</button>
@@ -402,12 +352,22 @@ html,body{width:100%;height:100%;background:#010905;color:#28ff8c;font-family:'S
 </div>
 
 <script>
-/* TEK EKOLAYZIR SÜTUNLARI (20 SÜTUN) */
-const eqCols=document.getElementById('singleEqCols');
-for(let i=0;i<20;i++){
-  const tr=document.createElement('div');tr.className='eq-col-track';
-  const fl=document.createElement('div');fl.className='eq-col-fill';
-  tr.appendChild(fl);eqCols.appendChild(tr);
+/* İKİ YÖNLÜ SİMETRİK EKOLAYZIR SÜTUNLARI (18 SÜTUN) */
+const symBox=document.getElementById('symEqBox');
+for(let i=0;i<18;i++){
+  const col=document.createElement('div');col.className='sym-col';
+  
+  const topHalf=document.createElement('div');topHalf.className='sym-half top';
+  const topFill=document.createElement('div');topFill.className='sym-fill';
+  topHalf.appendChild(topFill);
+  
+  const botHalf=document.createElement('div');botHalf.className='sym-half bot';
+  const botFill=document.createElement('div');botFill.className='sym-fill';
+  botHalf.appendChild(botFill);
+  
+  col.appendChild(topHalf);
+  col.appendChild(botHalf);
+  symBox.appendChild(col);
 }
 
 /* CANLI SAAT, TARİH VE TÜRKÇE GÜN */
@@ -449,15 +409,21 @@ function startLiveSpeedAndGPS(){
       kmh=Math.round(p.coords.speed*3.6);
       document.getElementById('spd-status').innerText='LIVE TELEMETRY';
     }
+    const spdEl=document.getElementById('spd-val');
+    const barEl=document.getElementById('spd-bar');
+    spdEl.innerText=String(kmh).padStart(3,'0');
+    const pct=Math.min(100,Math.round((kmh/100)*100));
+    barEl.style.width=pct+'%';
+
+    if(kmh>90){spdEl.classList.add('overspeed');barEl.classList.add('warn')}
+    else{spdEl.classList.remove('overspeed');barEl.classList.remove('warn')}
+
     if(kmh>2){
       if(kmh>maxSpd)maxSpd=kmh;
       spdSum+=kmh;spdCount++;
+      const avg=Math.round(spdSum/spdCount);
+      document.getElementById('spd-max-avg').innerText=`MAX: ${String(maxSpd).padStart(3,'0')} | AVG: ${String(avg).padStart(3,'0')}`;
     }
-    const avg=spdCount>0?Math.round(spdSum/spdCount):0;
-    
-    document.getElementById('spd-val').innerText=String(kmh).padStart(3,'0');
-    document.getElementById('amber-max').innerText='MAX '+String(maxSpd).padStart(3,'0');
-    document.getElementById('amber-avg').innerText='AVG '+String(avg).padStart(3,'0');
   },()=>{
     document.getElementById('spd-status').innerText='NO GPS SIGNAL';
     if(!weatherLoaded){weatherLoaded=true;fetchW(36.65,29.12,'FETHIYE')}

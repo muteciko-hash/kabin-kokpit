@@ -15,12 +15,12 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            min-height: 100vh;
         }
         h1 {
             font-size: 20px;
             color: #888;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             letter-spacing: 2px;
         }
         .grid {
@@ -52,27 +52,74 @@
             font-size: 28px;
             margin-bottom: 10px;
         }
+        /* Hava Durumu Ekranı Stili */
+        #weather-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            z-index: 100;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+        .header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .back-btn {
+            background: #27272a;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .weather-box {
+            background: #161618;
+            border: 1px solid #27272a;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            background: #09090b;
+            border: 1px solid #27272a;
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>
 
     <h1>KABİN KOKPİTİ</h1>
 
-    <div class="grid">
+    <div class="grid" id="main-menu">
         <!-- DebridUI Kısayolu -->
         <a href="https://debridui.com" target="_blank" class="card">
             <span>🎬</span>
             DebridUI
         </a>
 
-        <!-- Yol ve Hava Durumu -->
-        <a href="#weather" onclick="alert('Hava durumu modülü bir sonraki adımda eklenecek!')" class="card">
+        <!-- Yol ve Hava Durumu Butonu -->
+        <div onclick="openWeather()" class="card" style="cursor: pointer;">
             <span>⛅</span>
             Yol & Hava
-        </a>
+        </div>
 
         <!-- Touchpad Modu -->
-        <a href="#touchpad" onclick="alert('Touchpad ekranı hazırlanıyor!')" class="card">
+        <a href="#touchpad" onclick="alert('Touchpad ekranı bir sonraki adımda eklenecek!')" class="card">
             <span>🖱️</span>
             Touchpad
         </a>
@@ -84,5 +131,67 @@
         </a>
     </div>
 
+    <!-- HAVA DURUMU EKRANI (Gizli Başlar, Butona Basılınca Açılır) -->
+    <div id="weather-modal">
+        <div class="header-bar">
+            <h2>Yol & Hava Durumu</h2>
+            <button class="back-btn" onclick="closeWeather()">Geri</button>
+        </div>
+        
+        <div class="weather-box">
+            <p style="margin-top:0; color:#888;">Konum Bazlı Hava Tahmini</p>
+            <input type="text" id="cityInput" placeholder="Şehir yazın (Örn: Izmir, Mugla, Bolu)..." value="Mugla">
+            <button class="back-btn" style="width:100%; background:#3b82f6;" onclick="getWeather()">Hava Durumunu Getir</button>
+        </div>
+
+        <div class="weather-box" id="weatherResult">
+            <p>Şehir seçin ve hava durumunu görüntüleyin.</p>
+        </div>
+    </div>
+
+    <script>
+        function openWeather() {
+            document.getElementById('weather-modal').style.display = 'block';
+        }
+        function closeWeather() {
+            document.getElementById('weather-modal').style.display = 'none';
+        }
+
+        async function getWeather() {
+            const city = document.getElementById('cityInput').value;
+            const resultBox = document.getElementById('weatherResult');
+            resultBox.innerHTML = "Bilgiler yükleniyor...";
+
+            try {
+                // Önce şehir ismini koordinata çevirelim (Açık kaynak geocoding API)
+                const geoRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1&language=tr&format=json`);
+                const geoData = await geoRes.json();
+
+                if (!geoData.results || geoData.results.length === 0) {
+                    resultBox.innerHTML = "Şehir bulunamadı, lütfen tekrar deneyin.";
+                    return;
+                }
+
+                const { latitude, longitude, name, country } = geoData.results[0];
+
+                // Şimdi koordinatlara göre güncel hava durumunu çekelim
+                const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,wind_speed_10m,weather_code`);
+                const weatherData = await weatherRes.json();
+
+                const temp = weatherData.current.temperature_2m;
+                const humidity = weatherData.current.relative_humidity_2m;
+                const wind = weatherData.current.wind_speed_10m;
+
+                resultBox.innerHTML = `
+                    <h3 style="margin:0 0 10px 0; color:#3b82f6;">${name} (${country})</h3>
+                    <p style="font-size: 24px; font-weight: bold; margin: 5px 0;">🌡️ Sıcaklık: ${temp}°C</p>
+                    <p style="margin: 5px 0;">💧 Nem Oranı: %${humidity}</p>
+                    <p style="margin: 5px 0;">💨 Rüzgar Hızı: ${wind} km/s</p>
+                `;
+            } catch (error) {
+                resultBox.innerHTML = "Hava durumu bilgisi alınamadı. İnternet bağlantınızı kontrol edin.";
+            }
+        }
+    </script>
 </body>
 </html>

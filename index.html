@@ -26,7 +26,7 @@
         .grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
+            gap: 15px;
             width: 100%;
             max-width: 400px;
         }
@@ -34,14 +34,15 @@
             background-color: #161618;
             border: 1px solid #27272a;
             border-radius: 16px;
-            padding: 25px;
+            padding: 20px;
             text-align: center;
             text-decoration: none;
             color: white;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
             box-shadow: 0 4px 12px rgba(0,0,0,0.5);
             transition: transform 0.1s, background-color 0.1s;
+            cursor: pointer;
         }
         .card:active {
             transform: scale(0.95);
@@ -49,8 +50,8 @@
         }
         .card span {
             display: block;
-            font-size: 28px;
-            margin-bottom: 10px;
+            font-size: 26px;
+            margin-bottom: 8px;
         }
         .modal {
             display: none;
@@ -98,7 +99,7 @@
             box-sizing: border-box;
             font-size: 16px;
         }
-        /* Touchpad ve Kaydırma Alanını Yan Yana Yerleştirme */
+        /* Touchpad Alanı */
         .touchpad-container {
             display: flex;
             gap: 10px;
@@ -106,7 +107,7 @@
         }
         #touchpad-area {
             flex: 1;
-            height: 220px;
+            height: 200px;
             background: #09090b;
             border: 2px solid #3b82f6;
             border-radius: 12px;
@@ -121,20 +122,19 @@
             touch-action: none;
             box-shadow: inset 0 0 15px rgba(59, 130, 246, 0.2);
         }
-        /* Sağ Taraf Kaydırma Çubuğu Paneli */
         .scroll-panel {
-            width: 70px;
+            width: 60px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
         }
         .scroll-btn {
             flex: 1;
             background: #27272a;
             color: white;
             border: 1px solid #3f3f46;
-            border-radius: 12px;
-            font-size: 20px;
+            border-radius: 10px;
+            font-size: 18px;
             font-weight: bold;
             display: flex;
             align-items: center;
@@ -176,20 +176,30 @@
             DebridUI
         </a>
 
-        <div onclick="openWeather()" class="card" style="cursor: pointer;">
+        <div onclick="openWeather()" class="card">
             <span>⛅</span>
             Yol & Hava
         </div>
 
-        <div onclick="openTouchpad()" class="card" style="cursor: pointer;">
+        <div onclick="openTouchpad()" class="card">
             <span>🖱️</span>
             Touchpad
         </div>
 
-        <a href="#security" onclick="alert('Güvenlik kamerası altyapısı ileride eklenecek.')" class="card">
+        <div onclick="openMaps()" class="card">
+            <span>🗺️</span>
+            Harita
+        </div>
+
+        <div onclick="openRadio()" class="card">
+            <span>📻</span>
+            Synthwave
+        </div>
+
+        <div onclick="alert('Güvenlik kamerası altyapısı ileride eklenecek.')" class="card">
             <span>🛡️</span>
             Güvenlik
-        </a>
+        </div>
     </div>
 
     <!-- HAVA DURUMU EKRANI -->
@@ -213,7 +223,7 @@
         </div>
     </div>
 
-    <!-- TOUCHPAD & KAYDIRMA EKRANI -->
+    <!-- TOUCHPAD & KLAVYE EKRANI -->
     <div id="touchpad-modal" class="modal">
         <div class="header-bar">
             <h2>Kumanda & Klavye</h2>
@@ -221,7 +231,6 @@
         </div>
         
         <div class="box">
-            <!-- Touchpad ve Sağ Tarafta Kaydırma Butonları Yan Yana -->
             <div class="touchpad-container">
                 <div id="touchpad-area" ontouchmove="handleTouchMove(event)" ontouchstart="handleTouchStart(event)">
                     <span style="font-size: 22px; margin-bottom: 3px;">🖱️</span>
@@ -240,13 +249,47 @@
                 <button onclick="triggerClick('Sağ Tık')" style="background: #475569;">Geri / Menü</button>
             </div>
 
-            <!-- Klavye / Yazı Gönderme Alanı -->
-            <div style="margin-top: 12px; border-top: 1px solid #27272a; padding-top: 10px;">
+            <div style="margin-top: 10px; border-top: 1px solid #27272a; padding-top: 8px;">
                 <p style="margin: 0 0 6px 0; color: #888; font-size: 13px;">⌨️ Uzaktan Yazı Yazma</p>
                 <div style="display: flex; gap: 8px;">
                     <input type="text" id="remoteInput" placeholder="Arama yazısı..." style="margin-bottom:0;">
                     <button class="back-btn" style="background:#10b981;" onclick="sendText()">Gönder</button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GOOGLE MAPS EKRANI -->
+    <div id="maps-modal" class="modal">
+        <div class="header-bar">
+            <h2>Canlı Harita</h2>
+            <button class="back-btn" onclick="closeMaps()">Geri</button>
+        </div>
+        <div style="width:100%; height: calc(100vh - 70px); background:#161618; border-radius:12px; overflow:hidden; border:1px solid #27272a;">
+            <iframe width="100%" height="100%" style="border:0;" loading="lazy" allowfullscreen src="https://www.google.com/maps/embed/v1/place?key=&q=Turkey"></iframe>
+        </div>
+    </div>
+
+    <!-- SYNTHWAVE RADYO EKRANI -->
+    <div id="radio-modal" class="modal">
+        <div class="header-bar">
+            <h2>Synthwave Gece Sürüşü Radyosu</h2>
+            <button class="back-btn" onclick="closeRadio()">Geri</button>
+        </div>
+        <div class="box" style="text-align: center; padding: 30px 15px;">
+            <span style="font-size: 48px; display: block; margin-bottom: 15px;">🌆🎵</span>
+            <h3 style="margin: 0 0 10px 0; color: #3b82f6;">Night Drive Atmosferi</h3>
+            <p style="color: #888; font-size: 14px; margin-bottom: 25px;">Kabin için kesintisiz Cyberpunk / Synthwave müzik akışı.</p>
+            
+            <!-- Doğrudan DI.fm veya Synthwave internet radyo yayını oynatıcı altyapısı -->
+            <audio id="synthRadio" controls style="width: 100%; margin-bottom: 20px;">
+                <source src="https://streams.ilovemusic.de/ilovesynthwave.mp3" type="audio/mpeg">
+                Tarayıcınız ses akışını desteklemiyor.
+            </audio>
+
+            <div style="display: flex; gap: 10px;">
+                <button class="back-btn" style="flex:1; background:#10b981;" onclick="document.getElementById('synthRadio').play()">Oynat ▶</button>
+                <button class="back-btn" style="flex:1; background:#ef4444;" onclick="document.getElementById('synthRadio').pause()">Durdur ⏸</button>
             </div>
         </div>
     </div>
@@ -310,7 +353,7 @@
             }
         }
 
-        // Touchpad, Kaydırma & Klavye Fonksiyonları
+        // Touchpad Fonksiyonları
         function openTouchpad() { document.getElementById('touchpad-modal').style.display = 'block'; }
         function closeTouchpad() { document.getElementById('touchpad-modal').style.display = 'none'; }
 
@@ -332,19 +375,24 @@
             startY = touch.clientY;
         }
 
-        function triggerClick(type) {
-            console.log(type + " basıldı");
-        }
-
-        function scrollAction(direction) {
-            console.log("Kaydırma yönü: " + direction);
-        }
-
+        function triggerClick(type) { console.log(type + " basıldı"); }
+        function scrollAction(direction) { console.log("Kaydırma: " + direction); }
         function sendText() {
             const textVal = document.getElementById('remoteInput').value;
             if(!textVal) return;
             alert("Yazı gönderildi: " + textVal);
             document.getElementById('remoteInput').value = '';
+        }
+
+        // Harita Fonksiyonları
+        function openMaps() { document.getElementById('maps-modal').style.display = 'block'; }
+        function closeMaps() { document.getElementById('maps-modal').style.display = 'none'; }
+
+        // Radyo Fonksiyonları
+        function openRadio() { document.getElementById('radio-modal').style.display = 'block'; }
+        function closeRadio() { 
+            document.getElementById('radio-modal').style.display = 'none';
+            document.getElementById('synthRadio').pause();
         }
     </script>
 </body>

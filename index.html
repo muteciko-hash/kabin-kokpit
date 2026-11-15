@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kabin Kokpiti</title>
+    <style>
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        h1 {
+            font-size: 20px;
+            color: #888;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            width: 100%;
+            max-width: 400px;
+        }
+        .card {
+            background-color: #161618;
+            border: 1px solid #27272a;
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            transition: transform 0.1s, background-color 0.1s;
+        }
+        .card:active {
+            transform: scale(0.95);
+            background-color: #27272a;
+        }
+        .card span {
+            display: block;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>KABİN KOKPİTİ</h1>
+
+    <div class="grid">
+        <!-- DebridUI Kısayolu -->
+        <a href="https://debridui.com" target="_blank" class="card">
+            <span>🎬</span>
+            DebridUI
+        </a>
+
+        <!-- Yol ve Hava Durumu -->
+        <a href="#weather" onclick="alert('Hava durumu modülü bir sonraki adımda eklenecek!')" class="card">
+            <span>⛅</span>
+            Yol & Hava
+        </a>
+
+        <!-- Touchpad Modu -->
+        <a href="#touchpad" onclick="alert('Touchpad ekranı hazırlanıyor!')" class="card">
+            <span>🖱️</span>
+            Touchpad
+        </a>
+
+        <!-- Güvenlik / Gelecek Modül -->
+        <a href="#security" onclick="alert('Güvenlik kamerası altyapısı ileride eklenecek.')" class="card">
+            <span>🛡️</span>
+            Güvenlik
+        </a>
+    </div>
+
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>DARKLIGHT IIX // NOSTROMO FULL TELEMETRY</title>
+<title>DARKLIGHT IIX // NOSTROMO ULTIMATE COCKPIT</title>
 <link rel="manifest" href="/manifest.json">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -12,6 +12,10 @@
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0}
 html,body{width:100%;height:100%;background:#010905;color:#28ff8c;font-family:'Share Tech Mono',monospace;overflow:hidden;user-select:none;-webkit-font-smoothing:antialiased}
 .crt-screen{position:fixed;inset:0;width:100%;height:100%;background:radial-gradient(ellipse at 50% 48%, #104229 0%, #061d11 68%, #010905 100%);overflow:hidden;padding:8px 12px;display:flex;flex-direction:column;gap:5px;box-shadow:inset 0 0 70px rgba(0,0,0,0.95), inset 0 0 22px rgba(40,255,140,0.16);transition:filter 0.3s}
+/* RED ALERT GECE MUHAREBE MODU */
+.crt-screen.red-alert{filter:hue-rotate(225deg) saturate(1.8) brightness(0.92) !important}
+.crt-screen.dimmed{filter:brightness(0.58)}
+.crt-screen.red-alert.dimmed{filter:hue-rotate(225deg) saturate(1.8) brightness(0.52) !important}
 .crt-glass-glare{position:absolute;inset:0;background:radial-gradient(ellipse at 25% 12%, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.015) 35%, transparent 60%),radial-gradient(ellipse at 50% 50%, transparent 65%, rgba(0,0,0,0.72) 100%);pointer-events:none;z-index:25}
 .crt-scanlines{position:absolute;inset:0;background:repeating-linear-gradient(to bottom, rgba(0,0,0,0) 0px, rgba(0,0,0,0) 1.5px, rgba(0,12,6,0.38) 2.5px, rgba(0,0,0,0.44) 3px),repeating-linear-gradient(to right, rgba(40,255,140,0.025) 0px, rgba(40,255,140,0.025) 1px, transparent 1px, transparent 3px);pointer-events:none;z-index:24}
 .crt-screen.power-off{animation:crtOff 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards}
@@ -32,7 +36,7 @@ html,body{width:100%;height:100%;background:#010905;color:#28ff8c;font-family:'S
 .compass-center-mark{position:absolute;left:50%;top:0;bottom:0;width:2px;background:#f59e0b;box-shadow:0 0 6px #f59e0b;z-index:3;transform:translateX(-50%)}
 .compass-strip{white-space:nowrap;font-size:9.5px;letter-spacing:3px;color:#28ff8c;position:absolute;left:50%;transform:translateX(-50%);transition:transform 0.4s ease}
 .alt-badge{background:#062615;border:1px solid #28ff8c;padding:1px 7px;border-radius:2px;font-weight:700;color:#34ff94;white-space:nowrap}
-.term-grid{flex:1;min-width:0;min-height:0;display:grid;grid-template-columns:minmax(0, 0.96fr) minmax(0, 1.38fr) minmax(0, 1.1fr);grid-template-rows:minmax(0, 1.58fr) minmax(0, 0.42fr);gap:7px;z-index:10}
+.term-grid{flex:1;min-width:0;min-height:0;display:grid;grid-template-columns:minmax(0, 0.96fr) minmax(0, 1.38fr) minmax(0, 1.1fr);grid-template-rows:minmax(0, 1.52fr) minmax(0, 0.48fr);gap:7px;z-index:10}
 .t-module{min-width:0;min-height:0;border:1px solid #22a863;background:rgba(4,24,14,0.68);padding:6px 8px;display:flex;flex-direction:column;justify-content:space-between;position:relative;border-radius:4px;overflow:hidden}
 .t-mod-title{font-size:clamp(8.5px, 1vw, 10.5px);letter-spacing:1.1px;color:#28ff8c;border-bottom:1px solid #16653d;padding-bottom:2px;margin-bottom:3px;display:flex;justify-content:space-between;font-weight:700;white-space:nowrap}
 .w-top-row{display:flex;justify-content:space-between;align-items:center;gap:6px}
@@ -43,7 +47,7 @@ html,body{width:100%;height:100%;background:#010905;color:#28ff8c;font-family:'S
 .globe-meridian:nth-child(3){animation-delay:-4s}
 .globe-equator{position:absolute;top:50%;left:0;right:0;height:1px;background:rgba(40,255,140,0.65)}
 @keyframes globeSpin{0%{transform:scaleX(1)}50%{transform:scaleX(0.08)}100%{transform:scaleX(1)}}
-.w-bars{display:flex;gap:5px;flex:1;min-height:28px;max-height:54px;align-items:flex-end;padding-top:2px}
+.w-bars{display:flex;gap:5px;flex:1;min-height:26px;max-height:50px;align-items:flex-end;padding-top:2px}
 .bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;height:100%}
 .bar-track{width:100%;flex:1;border:1px solid #1f9659;padding:1px;display:flex;align-items:flex-end;background:#010a05}
 .bar-fill{width:100%;background:repeating-linear-gradient(to top,#28ff8c 0px,#28ff8c 3px,#0b4d2b 3px,#0b4d2b 4px);transition:height .5s}
@@ -76,7 +80,7 @@ html,body{width:100%;height:100%;background:#010905;color:#28ff8c;font-family:'S
 .st-check.active{border-color:#28ff8c;color:#28ff8c;background:#09301c;box-shadow:0 0 6px rgba(40,255,140,.3)}
 .sq-box{width:6px;height:6px;border:1px solid #28ff8c;display:inline-block;flex-shrink:0}
 .st-check.active .sq-box{background:#28ff8c}
-.sym-eq-box{flex:1;min-height:34px;max-height:50px;background:#010a05;border:1px solid #1f9659;border-radius:3px;padding:2px 4px;margin:2px 0;display:flex;align-items:center;justify-content:space-between;gap:2px}
+.sym-eq-box{flex:1;min-height:32px;max-height:48px;background:#010a05;border:1px solid #1f9659;border-radius:3px;padding:2px 4px;margin:2px 0;display:flex;align-items:center;justify-content:space-between;gap:2px}
 .sym-col{flex:1;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:1px}
 .sym-half{width:100%;height:45%;background:repeating-linear-gradient(to bottom, #104229 0px, #104229 2px, #010a05 2px, #010a05 3px);display:flex}
 .sym-half.top{align-items:flex-end}
@@ -93,15 +97,53 @@ html,body{width:100%;height:100%;background:#010905;color:#28ff8c;font-family:'S
 .radio-btns{display:flex;gap:4px}
 .crt-btn{flex:1;min-width:0;background:#062615;border:1px solid #28ff8c;color:#28ff8c;font-family:inherit;font-size:clamp(8px, 0.95vw, 10px);padding:3px 4px;cursor:pointer;letter-spacing:.5px;white-space:nowrap}
 .crt-btn:active,.crt-btn.on{background:#28ff8c;color:#020d07;font-weight:700}
-.bottom-deck{grid-column:span 3;display:flex;align-items:stretch;gap:7px;padding:5px 7px}
+
+/* 4. ALT GÜVERTE: CANLI HABER + RAMPA İNKLİNOMETRE + OSİLOSKOP + KONTROLLER */
+.bottom-deck{grid-column:span 3;display:flex;align-items:stretch;gap:6px;padding:4px 6px}
 .ticker-shell{flex:1;min-width:0;background:#010a05;border:1px solid #28ff8c;border-radius:3px;display:flex;align-items:center;overflow:hidden;position:relative}
-.ticker-badge{background:#28ff8c;color:#021209;font-weight:700;font-size:clamp(9px, 1.1vw, 11px);padding:0 9px;height:100%;display:flex;align-items:center;letter-spacing:1.1px;flex-shrink:0;z-index:2}
+.ticker-badge{background:#28ff8c;color:#021209;font-weight:700;font-size:clamp(8.5px, 1vw, 10.5px);padding:0 8px;height:100%;display:flex;align-items:center;letter-spacing:1px;flex-shrink:0;z-index:2}
 .ticker-track{flex:1;overflow:hidden;white-space:nowrap;display:flex;align-items:center}
-.ticker-marquee{display:inline-block;padding-left:100%;font-size:clamp(10.5px, 1.3vw, 13.5px);color:#34ff94;letter-spacing:1px;animation:marqueeScroll 55s linear infinite}
+.ticker-marquee{display:inline-block;padding-left:100%;font-size:clamp(10px, 1.25vw, 13px);color:#34ff94;letter-spacing:1px;animation:marqueeScroll 55s linear infinite}
 @keyframes marqueeScroll{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
-.deck-controls{display:flex;gap:5px;flex-shrink:0}
-.deck-btn{border:1px solid #28ff8c;background:linear-gradient(180deg,#072917,#03160c);color:#28ff8c;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:inherit;font-size:clamp(9px, 1.05vw, 10.5px);font-weight:700;letter-spacing:0.8px;cursor:pointer;padding:0 10px;border-radius:3px;white-space:nowrap}
-.deck-btn:active{background:#28ff8c;color:#020d07}
+
+/* YAPAY UFUKLU CANLI EĞİM / RAMPA ÖLÇER (INCLINOMETER) */
+.incline-box{
+  width:84px;
+  background:#010a05;
+  border:1px solid #28ff8c;
+  border-radius:3px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+  padding:2px 4px;
+  flex-shrink:0;
+  position:relative;
+  overflow:hidden;
+}
+.incline-lbl{font-size:7px;color:#1ec96f;letter-spacing:0.6px;width:100%;display:flex;justify-content:space-between}
+.horizon-wrap{width:100%;height:14px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.horizon-line{width:90%;height:1.5px;background:#28ff8c;box-shadow:0 0 5px #28ff8c;transition:transform 0.3s ease}
+.incline-val{font-size:9.5px;font-weight:700;color:#34ff94}
+
+/* CANLI OSİLOSKOP / ENERJİ NABZI MONİTÖRÜ */
+.scope-box{
+  width:76px;
+  background:#010a05;
+  border:1px solid #1f9659;
+  border-radius:3px;
+  padding:2px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  flex-shrink:0;
+}
+.scope-lbl{font-size:6.5px;color:#1ec96f;text-align:center;letter-spacing:0.5px}
+#scopeCanvas{width:100%;height:24px;display:block}
+
+.deck-controls{display:flex;gap:4px;flex-shrink:0}
+.deck-btn{border:1px solid #28ff8c;background:linear-gradient(180deg,#072917,#03160c);color:#28ff8c;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:inherit;font-size:clamp(8px, 0.95vw, 9.5px);font-weight:700;letter-spacing:0.5px;cursor:pointer;padding:0 7px;border-radius:3px;white-space:nowrap}
+.deck-btn:active,.deck-btn.active{background:#28ff8c;color:#020d07}
 .crt-modal{display:none;position:fixed;inset:18px;background:#03140b;border:2px solid #28ff8c;z-index:50;padding:16px;flex-direction:column;gap:12px;box-shadow:0 0 60px #000}
 </style>
 </head>
@@ -225,6 +267,7 @@ html,body{width:100%;height:100%;background:#010905;color:#28ff8c;font-family:'S
       <audio id="crtAudio" preload="none" src="https://stream.nightride.fm/nightride.mp3"></audio>
     </div>
 
+    <!-- ALT GÜVERTE: CANLI HABER + RAMPA İNKLİNOMETRE + OSİLOSKOP + KONTROLLER -->
     <div class="t-module box-glow bottom-deck">
       <div class="ticker-shell">
         <div class="ticker-badge glow">CANLI AKIŞ</div>
@@ -232,14 +275,36 @@ html,body{width:100%;height:100%;background:#010905;color:#28ff8c;font-family:'S
           <div class="ticker-marquee glow" id="newsTickerText">[SİSTEM] CANLI HABER VE SPOR AKIŞI BAĞLANIYOR...</div>
         </div>
       </div>
+
+      <!-- CANLI EĞİM / RAMPA ÖLÇER (INCLINOMETER) -->
+      <div class="incline-box" title="YOL EĞİM / RAMPA ÖLÇER">
+        <div class="incline-lbl"><span>EĞİM</span><span id="inclineDir">DÜZ</span></div>
+        <div class="horizon-wrap"><div class="horizon-line" id="horizonLine"></div></div>
+        <div class="incline-val glow" id="inclineVal">0.0%</div>
+      </div>
+
+      <!-- CANLI OSİLOSKOP / ENERJİ NABZI -->
+      <div class="scope-box" title="CORE PULSE">
+        <span class="scope-lbl">CORE PULSE</span>
+        <canvas id="scopeCanvas" width="76" height="24"></canvas>
+      </div>
+
       <div class="deck-controls">
+        <button type="button" class="deck-btn active" id="btnBeep" onclick="toggleBeepAlert()">
+          <span>[🔊 UYARI]</span>
+          <span id="beepStateLbl" style="font-size:7px;opacity:.8">AÇIK</span>
+        </button>
+        <button type="button" class="deck-btn" id="btnRedAlert" onclick="toggleRedAlert()">
+          <span>[⚡ RED]</span>
+          <span style="font-size:7px;opacity:.8">GECE MOD</span>
+        </button>
         <button type="button" class="deck-btn" onclick="document.getElementById('tpModal').style.display='flex'">
-          <span>[⌨] TOUCHPAD</span>
-          <span style="font-size:7.5px;opacity:.75">MOUSE / KUMANDA</span>
+          <span>[⌨ PAD]</span>
+          <span style="font-size:7px;opacity:.8">MOUSE</span>
         </button>
         <button type="button" class="deck-btn" onclick="toggleBrightness()">
-          <span>[☼] GECE MODU</span>
-          <span style="font-size:7.5px;opacity:.75">PARLAKLIK</span>
+          <span>[☼ DIM]</span>
+          <span style="font-size:7px;opacity:.8">IŞIK</span>
         </button>
       </div>
     </div>
@@ -256,35 +321,149 @@ html,body{width:100%;height:100%;background:#010905;color:#28ff8c;font-family:'S
 </div>
 
 <script>
-let isPoweredOff=false;
+let isPoweredOff=false,beepEnabled=true,lastBeepTime=0;
 function togglePowerOff(){const s=document.getElementById('crtScreen');isPoweredOff=!isPoweredOff;if(isPoweredOff){s.classList.add('power-off');stopAudio();stopAmbient()}else{s.classList.remove('power-off')}}
+function toggleBeepAlert(){beepEnabled=!beepEnabled;const b=document.getElementById('btnBeep');b.classList.toggle('active',beepEnabled);document.getElementById('beepStateLbl').innerText=beepEnabled?'AÇIK':'KAPALI';if(beepEnabled)playRetroBeep(880,0.08)}
+function toggleRedAlert(){const s=document.getElementById('crtScreen');const on=s.classList.toggle('red-alert');document.getElementById('btnRedAlert').classList.toggle('active',on);if(beepEnabled)playRetroBeep(on?520:740,0.1)}
+function toggleBrightness(){const s=document.getElementById('crtScreen');s.classList.toggle('dimmed')}
+
+/* RETRO BİLGİSAYAR SESLİ UYARI ÜRETİCİ (WEB AUDIO API) */
+let audioCtx=null;
+function playRetroBeep(freq=920,dur=0.12){
+  if(!beepEnabled||isPoweredOff)return;
+  const now=Date.now();
+  if(now-lastBeepTime<4500 && freq===920)return;
+  lastBeepTime=now;
+  try{
+    if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+    const osc=audioCtx.createOscillator(),gain=audioCtx.createGain();
+    osc.type='square';osc.frequency.setValueAtTime(freq,audioCtx.currentTime);
+    gain.gain.setValueAtTime(0.08,audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+dur);
+    osc.connect(gain);gain.connect(audioCtx.destination);
+    osc.start();osc.stop(audioCtx.currentTime+dur);
+  }catch(e){}
+}
+
+/* CANLI OSİLOSKOP / CORE PULSE ANİMASYONU */
+let currentKmh=0,scopePhase=0;
+const scCanvas=document.getElementById('scopeCanvas'),scCtx=scCanvas.getContext('2d');
+function drawScope(){
+  const w=scCanvas.width,h=scCanvas.height;
+  scCtx.clearRect(0,0,w,h);
+  scCtx.strokeStyle='#28ff8c';scCtx.lineWidth=1.5;
+  scCtx.beginPath();
+  const speedFactor=1+(currentKmh/35);
+  scopePhase+=0.14*speedFactor;
+  for(let x=0;x<w;x++){
+    const amp=(currentKmh>0?8:4);
+    const y=(h/2)+Math.sin(x*0.22+scopePhase)*amp*Math.sin(x*0.04);
+    if(x===0)scCtx.moveTo(x,y);else scCtx.lineTo(x,y);
+  }
+  scCtx.stroke();
+  requestAnimationFrame(drawScope);
+}
+drawScope();
+
+/* SİMETRİK EKOLAYZIR */
 const symBox=document.getElementById('symEqBox');
 for(let i=0;i<18;i++){const c=document.createElement('div');c.className='sym-col';const t=document.createElement('div');t.className='sym-half top';const tf=document.createElement('div');tf.className='sym-fill';t.appendChild(tf);const b=document.createElement('div');b.className='sym-half bot';const bf=document.createElement('div');bf.className='sym-fill';b.appendChild(bf);c.appendChild(t);c.appendChild(b);symBox.appendChild(c)}
+
+/* SAAT, TARİH & MOTOR BARLARI */
 const gunler=['PAZAR','PAZARTESİ','SALI','ÇARŞAMBA','PERŞEMBE','CUMA','CUMARTESİ'];
 function updateDateTime(){const d=new Date();document.getElementById('crt-clock').innerText=d.toTimeString().slice(0,8);document.getElementById('crt-date').innerText=`${String(d.getDate()).padStart(2,'0')}.${String(d.getMonth()+1).padStart(2,'0')}.${d.getFullYear()} ${gunler[d.getDay()]}`}
 setInterval(updateDateTime,1000);updateDateTime();
-const hexLogs=['0x4F2A: TELEMETRY_SYNC_OK // SAT: 12/14','0x8B11: DIESEL_INJ_PRESSURE: OPTIMAL','0x1C9E: P31_PHOSPHOR_REFRESH: 60.0HZ','0x7D04: GYRO_STABILIZER: CALIBRATED','0x3A55: TURBO_WASTEGATE_VALVE: READY','0x9F20: CAN_BUS_J1939_LINK: ACTIVE'];
-let hexIdx=0,currentKmh=0;
+
+const hexLogs=['0x4F2A: TELEMETRY_SYNC_OK // SAT: 12/14','0x8B11: DIESEL_INJ_PRESSURE: OPTIMAL','0x1C9E: P31_PHOSPHOR_REFRESH: 60.0HZ','0x7D04: GYRO_INCLINOMETER: ACTIVE','0x3A55: TURBO_WASTEGATE_VALVE: READY','0x9F20: CAN_BUS_J1939_LINK: ACTIVE'];
+let hexIdx=0;
 setInterval(()=>{hexIdx=(hexIdx+1)%hexLogs.length;document.getElementById('hexStream').innerText=hexLogs[hexIdx];const bT=0.35+(currentKmh/95)*1.45+(Math.random()*0.08-0.04);const tC=Math.max(0.2,Math.min(2.1,bT));document.getElementById('turboVal').innerText=tC.toFixed(1)+' BAR';document.getElementById('turboBar').style.width=Math.round((tC/2.1)*100)+'%';const oP=3.6+(currentKmh/95)*1.6+(Math.random()*0.1-0.05);document.getElementById('oilVal').innerText=oP.toFixed(1)+' BAR';document.getElementById('oilBar').style.width=Math.min(100,Math.round((oP/6)*100))+'%';const v=(currentKmh>0?28.1:27.6)+(Math.random()*0.2-0.1);document.getElementById('voltVal').innerText=v.toFixed(1)+' V'},900);
-let dim=false;function toggleBrightness(){dim=!dim;document.getElementById('crtScreen').style.filter=dim?'brightness(0.58)':'brightness(1)'}
+
+/* OTOMATİK CANLI HABER & SPOR AKIŞI */
 async function updateLiveNewsTicker(){const el=document.getElementById('newsTickerText');try{const[g,s]=await Promise.all([fetch('https://api.rss2json.com/v1/api.json?rss_url=https://www.trthaber.com/sondakika.rss').then(r=>r.json()),fetch('https://api.rss2json.com/v1/api.json?rss_url=https://www.trthaber.com/spor_articles.rss').then(r=>r.json())]);let h=[];if(g.items)g.items.slice(0,6).forEach(i=>h.push(`[GÜNDEM] ${i.title.toUpperCase()}`));if(s.items)s.items.slice(0,6).forEach(i=>h.push(`[SPOR] ${i.title.toUpperCase()}`));if(h.length>0){const f=h.join('   ///   ')+'   ///   ';el.innerText=f;el.style.animationDuration=Math.max(40,Math.round(f.length*0.22))+'s'}}catch(e){el.innerText='[GÜNDEM] YOL VE TRAFİK DURUMU NORMAL SEYRİNDE DEVAM EDİYOR   ///   [SPOR] HAFTANIN MAÇ PROGRAMI VE CANLI SKOR TAKİBİ AKTİF   ///   '}}
 updateLiveNewsTicker();setInterval(updateLiveNewsTicker,15*60*1000);
+
+/* RADYO & AMBİYANS */
 const au=document.getElementById('crtAudio'),rm=document.getElementById('radioModule');
 function pickStation(btn,url){document.querySelectorAll('.st-check').forEach(b=>b.classList.remove('active'));btn.classList.add('active');au.pause();au.src=url;playAudio()}
 function playAudio(){if(isPoweredOff)return;document.getElementById('r-status').innerText='LINKING...';au.play().then(()=>{rm.classList.add('crt-playing');document.getElementById('r-status').innerText='ONLINE [128K]';document.getElementById('btnPlay').classList.add('on')}).catch(()=>{document.getElementById('r-status').innerText='PRESS PLAY'})}
 function stopAudio(){au.pause();rm.classList.remove('crt-playing');document.getElementById('r-status').innerText='STANDBY';document.getElementById('btnPlay').classList.remove('on')}
-let audioCtx=null,activeAmbient=null,ambientNode=null;
+let activeAmbient=null,ambientNode=null;
 function toggleAmbient(type){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();if(activeAmbient===type){stopAmbient();return}stopAmbient();activeAmbient=type;document.getElementById('btnRain').classList.toggle('active',type==='rain');document.getElementById('btnRoad').classList.toggle('active',type==='road');const bS=2*audioCtx.sampleRate,buf=audioCtx.createBuffer(1,bS,audioCtx.sampleRate),out=buf.getChannelData(0);for(let i=0;i<bS;i++)out[i]=Math.random()*2-1;const n=audioCtx.createBufferSource();n.buffer=buf;n.loop=true;const f=audioCtx.createBiquadFilter(),g=audioCtx.createGain();if(type==='rain'){f.type='bandpass';f.frequency.value=1000;f.Q.value=0.6;g.gain.value=0.18}else{f.type='lowpass';f.frequency.value=180;g.gain.value=0.28}n.connect(f);f.connect(g);g.connect(audioCtx.destination);n.start();ambientNode=n}
 function stopAmbient(){if(ambientNode){try{ambientNode.stop()}catch(e){}ambientNode=null}activeAmbient=null;document.getElementById('btnRain').classList.remove('active');document.getElementById('btnRoad').classList.remove('active')}
-const dirs=['N','NE','E','SE','S','SW','W','NW'];let maxSpd=0,spdSum=0,spdCount=0,weatherLoaded=false,lastLat=null,lastTime=null;
-function startLiveSpeedAndGPS(){if(!navigator.geolocation){fetchW(36.65,29.12,'FETHIYE');return}navigator.geolocation.watchPosition(p=>{if(isPoweredOff)return;const lat=p.coords.latitude,lon=p.coords.longitude,now=Date.now();document.getElementById('crt-gps-line').innerText=`GPS: ${lat.toFixed(3)}N ${lon.toFixed(3)}E`;if(!weatherLoaded){weatherLoaded=true;fetchW(lat,lon,'GPS LOC')}if(p.coords.altitude!==null){document.getElementById('altVal').innerText=`ALT: ${Math.round(p.coords.altitude)} M`}if(p.coords.heading!==null&&!isNaN(p.coords.heading)){const hdg=Math.round(p.coords.heading),dL=dirs[Math.round(hdg/45)%8];document.getElementById('hdgDeg').innerText=`${String(hdg).padStart(3,'0')}° ${dL}`;const sh=((hdg-180)/180)*110;document.getElementById('compassStrip').style.transform=`translateX(calc(-50% - ${sh}px))`}let kmh=0;if(p.coords.speed!==null&&p.coords.speed>=0){kmh=Math.round(p.coords.speed*3.6);document.getElementById('spd-status').innerText='LIVE TELEMETRY'}currentKmh=kmh;let gF=0;if(lastLat!==null&&lastTime!==null){const dt=(now-lastTime)/1000;if(dt>0){const dS=(kmh-(window.prevKmh||0))/3.6;gF=(dS/dt)/9.81;const pct=Math.max(-100,Math.min(100,gF*200));document.getElementById('gIndicator').style.left=`calc(50% + ${pct/2}%)`;document.getElementById('gVal').innerText=`${gF.toFixed(2)}G`}}window.prevKmh=kmh;lastLat=lat;lastTime=now;const sc=document.getElementById('kittScanner');if(kmh>90||gF<-0.35){sc.classList.add('alert')}else{sc.classList.remove('alert')}const sE=document.getElementById('spd-val');sE.innerText=String(kmh).padStart(3,'0');if(kmh>90){sE.classList.add('overspeed')}else{sE.classList.remove('overspeed')}if(kmh>2){if(kmh>maxSpd)maxSpd=kmh;spdSum+=kmh;spdCount++;const avg=Math.round(spdSum/spdCount);document.getElementById('spd-max-avg').innerText=`MAX: ${String(maxSpd).padStart(3,'0')} | AVG: ${String(avg).padStart(3,'0')}`}},()=>{document.getElementById('spd-status').innerText='NO GPS SIGNAL';if(!weatherLoaded){weatherLoaded=true;fetchW(36.65,29.12,'FETHIYE')}},{enableHighAccuracy:true,maximumAge:1000})}
-async function fetchW(lat,lon,name){document.getElementById('w-city-lbl').innerText=name.toUpperCase();try{const d=await(await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,wind_speed_10m`)).json();const t=Math.round(d.current.temperature_2m),h=d.current.relative_humidity_2m,w=Math.round(d.current.wind_speed_10m);document.getElementById('w-deg').innerText=t+'°';document.getElementById('w-wind').innerText=`WIND: ${w} KM/H`;document.getElementById('w-hum').innerText=`HUMID: ${h}%`;document.getElementById('bar-temp').style.height=Math.min(100,Math.max(10,(t+10)*2))+'%';document.getElementById('bar-hum').style.height=h+'%';document.getElementById('bar-wind').style.height=Math.min(100,w*1.5)+'%';document.getElementById('bar-grip').style.height=(t<=2?'35%':'95%');document.getElementById('w-risk').innerText=t<=2?'ICE WARN [!]':(w>45?'CROSSWIND':'ROAD: SAFE');if(d.elevation&&document.getElementById('altVal').innerText==='ALT: --- M'){document.getElementById('altVal').innerText=`ALT: ${Math.round(d.elevation)} M`}}catch(e){}}
+
+/* CANLI GPS HIZ, PUSULA, RAKIM, EĞİM (RAMPA ÖLÇER) & G-FORCE */
+const dirs=['N','NE','E','SE','S','SW','W','NW'];
+let maxSpd=0,spdSum=0,spdCount=0,weatherLoaded=false,lastLat=null,lastLon=null,lastAlt=null,lastTime=null;
+function calcDistM(la1,lo1,la2,lo2){const R=6371000,dLa=(la2-la1)*Math.PI/180,dLo=(lo2-lo1)*Math.PI/180,a=Math.sin(dLa/2)**2+Math.cos(la1*Math.PI/180)*Math.cos(la2*Math.PI/180)*Math.sin(dLo/2)**2;return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a))}
+
+function startLiveSpeedAndGPS(){
+  if(!navigator.geolocation){fetchW(36.65,29.12,'FETHIYE');return}
+  navigator.geolocation.watchPosition(p=>{
+    if(isPoweredOff)return;
+    const lat=p.coords.latitude,lon=p.coords.longitude,alt=p.coords.altitude,now=Date.now();
+    document.getElementById('crt-gps-line').innerText=`GPS: ${lat.toFixed(3)}N ${lon.toFixed(3)}E`;
+    if(!weatherLoaded){weatherLoaded=true;fetchW(lat,lon,'GPS LOC')}
+    if(alt!==null)document.getElementById('altVal').innerText=`ALT: ${Math.round(alt)} M`;
+
+    if(p.coords.heading!==null&&!isNaN(p.coords.heading)){
+      const hdg=Math.round(p.coords.heading),dL=dirs[Math.round(hdg/45)%8];
+      document.getElementById('hdgDeg').innerText=`${String(hdg).padStart(3,'0')}° ${dL}`;
+      const sh=((hdg-180)/180)*110;
+      document.getElementById('compassStrip').style.transform=`translateX(calc(-50% - ${sh}px))`;
+    }
+
+    let kmh=0;
+    if(p.coords.speed!==null&&p.coords.speed>=0){kmh=Math.round(p.coords.speed*3.6);document.getElementById('spd-status').innerText='LIVE TELEMETRY'}
+    currentKmh=kmh;
+
+    // Canlı Rampa Eğim (%) Hesaplama (GPS Rakım Değişimi / Yatay Mesafe)
+    if(lastLat!==null && alt!==null && lastAlt!==null){
+      const dist=calcDistM(lastLat,lastLon,lat,lon);
+      if(dist>15){
+        const grade=((alt-lastAlt)/dist)*100;
+        const clampedGrade=Math.max(-18,Math.min(18,grade));
+        document.getElementById('inclineVal').innerText=`${clampedGrade>0?'+':''}${clampedGrade.toFixed(1)}%`;
+        document.getElementById('inclineDir').innerText=clampedGrade>1.2?'RAMP':(clampedGrade<-1.2?'İNİŞ':'DÜZ');
+        document.getElementById('horizonLine').style.transform=`rotate(${-clampedGrade*1.8}deg)`;
+        lastAlt=alt;
+      }
+    }else if(alt!==null){lastAlt=alt}
+
+    let gF=0;
+    if(lastLat!==null&&lastTime!==null){
+      const dt=(now-lastTime)/1000;
+      if(dt>0){
+        const dS=(kmh-(window.prevKmh||0))/3.6;
+        gF=(dS/dt)/9.81;
+        const pct=Math.max(-100,Math.min(100,gF*200));
+        document.getElementById('gIndicator').style.left=`calc(50% + ${pct/2}%)`;
+        document.getElementById('gVal').innerText=`${gF.toFixed(2)}G`;
+      }
+    }
+    window.prevKmh=kmh;lastLat=lat;lastLon=lon;lastTime=now;
+
+    // Hız Sınırı (90 km/s) ve Sesli + Görsel Uyarı
+    const sc=document.getElementById('kittScanner');
+    if(kmh>90||gF<-0.35){sc.classList.add('alert');if(kmh>90)playRetroBeep(920,0.14)}
+    else{sc.classList.remove('alert')}
+
+    const sE=document.getElementById('spd-val');sE.innerText=String(kmh).padStart(3,'0');
+    if(kmh>90){sE.classList.add('overspeed')}else{sE.classList.remove('overspeed')}
+
+    if(kmh>2){if(kmh>maxSpd)maxSpd=kmh;spdSum+=kmh;spdCount++;const avg=Math.round(spdSum/spdCount);document.getElementById('spd-max-avg').innerText=`MAX: ${String(maxSpd).padStart(3,'0')} | AVG: ${String(avg).padStart(3,'0')}`}
+  },()=>{document.getElementById('spd-status').innerText='NO GPS SIGNAL';if(!weatherLoaded){weatherLoaded=true;fetchW(36.65,29.12,'FETHIYE')}},{enableHighAccuracy:true,maximumAge:1000});
+}
+
+async function fetchW(lat,lon,name){document.getElementById('w-city-lbl').innerText=name.toUpperCase();try{const d=await(await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,wind_speed_10m`)).json();const t=Math.round(d.current.temperature_2m),h=d.current.relative_humidity_2m,w=Math.round(d.current.wind_speed_10m);document.getElementById('w-deg').innerText=t+'°';document.getElementById('w-wind').innerText=`WIND: ${w} KM/H`;document.getElementById('w-hum').innerText=`HUMID: ${h}%`;document.getElementById('bar-temp').style.height=Math.min(100,Math.max(10,(t+10)*2))+'%';document.getElementById('bar-hum').style.height=h+'%';document.getElementById('bar-wind').style.height=Math.min(100,w*1.5)+'%';document.getElementById('bar-grip').style.height=(t<=2?'35%':'95%');document.getElementById('w-risk').innerText=t<=2?'ICE WARN [!]':(w>45?'CROSSWIND':'ROAD: SAFE');if(t<=2)playRetroBeep(640,0.2);if(d.elevation&&document.getElementById('altVal').innerText==='ALT: --- M'){document.getElementById('altVal').innerText=`ALT: ${Math.round(d.elevation)} M`}}catch(e){}}
 function loadGPS(){weatherLoaded=false;startLiveSpeedAndGPS()}
 async function searchCity(){const q=document.getElementById('cityInp').value.trim();if(!q)return;try{const g=await(await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(q)}&count=1&language=tr&format=json`)).json();if(g.results&&g.results.length)fetchW(g.results[0].latitude,g.results[0].longitude,g.results[0].name)}catch(e){}}
 window.addEventListener('load',startLiveSpeedAndGPS);
-let tSec=270*60,tInt=null;function updTacho(){const h=String(Math.floor(tSec/3600)).padStart(2,'0'),m=String(Math.floor((tSec%3600)/60)).padStart(2,'0'),s=String(tSec%60).padStart(2,'0');document.getElementById('tacho-val').innerText=`${h}:${m}:${s}`}
-function runTacho(mins,lbl){clearInterval(tInt);tSec=mins*60;document.getElementById('tacho-state').innerText=lbl;updTacho();tInt=setInterval(()=>{if(tSec>0){tSec--;updTacho()}else{clearInterval(tInt);alert('TACHO LIMIT REACHED!')}},1000)}
-function resetTacho(){clearInterval(tInt);tSec=270*60;document.getElementById('tacho-state').innerText='AETR LIMIT 4.5H';updTacho()}
+
+/* TAKOGRAF & 15 DK MOLA UYARISI */
+let tSec=270*60,tInt=null,warned15=false;
+function updTacho(){const h=String(Math.floor(tSec/3600)).padStart(2,'0'),m=String(Math.floor((tSec%3600)/60)).padStart(2,'0'),s=String(tSec%60).padStart(2,'0');document.getElementById('tacho-val').innerText=`${h}:${m}:${s}`;if(tSec===900&&!warned15){warned15=true;playRetroBeep(780,0.25)}}
+function runTacho(mins,lbl){clearInterval(tInt);tSec=mins*60;warned15=false;document.getElementById('tacho-state').innerText=lbl;updTacho();tInt=setInterval(()=>{if(tSec>0){tSec--;updTacho()}else{clearInterval(tInt);playRetroBeep(1040,0.4);alert('TACHO LIMIT REACHED!')}},1000)}
+function resetTacho(){clearInterval(tInt);tSec=270*60;warned15=false;document.getElementById('tacho-state').innerText='AETR LIMIT 4.5H';updTacho()}
 </script>
 </body>
 </html>

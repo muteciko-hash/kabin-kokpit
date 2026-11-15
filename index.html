@@ -12,20 +12,24 @@
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{background:#000;color:#fff;font-family:'Space Mono',monospace;margin:0;padding:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh}
 .cockpit-wrapper{display:flex;flex-direction:column;width:100%;max-width:460px;background:#000;border:1px solid #1f1f22}
-.map-widget{background:#050505;border-bottom:1px solid #222225;display:flex;flex-direction:column}
-.map-widget-header{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:#08080a;border-bottom:1px solid #1c1c1f;font-size:11px;letter-spacing:2px}
-.map-actions{display:flex;gap:6px}
-.mini-btn{background:#121214;color:#fff;border:1px solid #333338;padding:5px 8px;font-family:inherit;font-size:10px;font-weight:700;cursor:pointer;text-decoration:none}
-.map-frame-box{width:100%;height:170px;background:#000}
-.map-frame-box iframe{width:100%;height:100%;border:0;filter:invert(92%) hue-rotate(180deg) contrast(105%) grayscale(30%)}
+.route-widget{background:#050505;border-bottom:1px solid #222225;padding:16px;display:flex;flex-direction:column;justify-content:space-between;gap:12px}
+.route-header{display:flex;justify-content:space-between;align-items:center;font-size:11px;letter-spacing:2px;color:#a1a1aa;border-bottom:1px solid #1c1c1f;padding-bottom:8px}
+.route-inputs{display:flex;gap:8px}
+.route-inputs input{flex:1;margin:0;padding:12px;background:#0c0c0e;border:1px solid #333338;color:#fff;font-family:inherit;font-size:13px;letter-spacing:1px}
+.route-inputs button{padding:0 16px;background:#fff;color:#000;border:none;font-family:inherit;font-weight:700;font-size:12px;letter-spacing:1.5px;cursor:pointer}
+.route-info{background:#0a0a0c;border:1px solid #1f1f23;padding:12px;font-size:12px;letter-spacing:1.5px;line-height:1.6}
+.quick-cities{display:flex;gap:6px;flex-wrap:wrap}
+.city-chip{background:#121215;color:#d4d4d8;border:1px solid #27272a;padding:6px 10px;font-family:inherit;font-size:10px;letter-spacing:1.5px;cursor:pointer}
+.city-chip:active{background:#fff;color:#000}
+.nav-launch-btn{display:block;width:100%;padding:14px;background:#fff;color:#000;text-align:center;text-decoration:none;font-weight:700;font-size:13px;letter-spacing:2.5px;text-transform:uppercase}
+.nav-launch-btn:active{background:#a1a1aa}
 .stacked-menu{display:flex;flex-direction:column;width:100%}
 .menu-strip{display:flex;align-items:center;gap:20px;width:100%;padding:18px 24px;border:none;border-bottom:1px solid #1a1a1d;text-align:left;text-decoration:none;color:#fff;font-family:inherit;font-size:15px;font-weight:700;letter-spacing:3.5px;text-transform:uppercase;cursor:pointer}
 .menu-strip:nth-child(1){background:#09090b}
 .menu-strip:nth-child(2){background:#0e0e11}
 .menu-strip:nth-child(3){background:#131317}
 .menu-strip:nth-child(4){background:#18181d}
-.menu-strip:nth-child(5){background:#1d1d23}
-.menu-strip:nth-child(6){background:#222229;border-bottom:none}
+.menu-strip:nth-child(5){background:#1d1d23;border-bottom:none}
 .menu-strip:active{background:#fff!important;color:#000!important}
 .menu-strip:active svg{stroke:#000}
 .menu-strip svg{width:22px;height:22px;stroke:#fff;stroke-width:1.8;fill:none;flex-shrink:0}
@@ -46,8 +50,7 @@ input{width:100%;padding:12px;background:#000;border:1px solid #3f3f46;color:#ff
 .touchpad-btns button{flex:1;padding:14px;background:#18181b;color:#fff;border:1px solid #3f3f46;font-family:inherit;font-weight:700;font-size:12px;letter-spacing:2px;cursor:pointer}
 @media screen and (orientation:landscape){
 .cockpit-wrapper{flex-direction:row;max-width:96vw;height:86vh}
-.map-widget{flex:1.15;height:100%;border-bottom:none;border-right:1px solid #222225}
-.map-frame-box{flex:1;height:auto}
+.route-widget{flex:1.15;height:100%;border-bottom:none;border-right:1px solid #222225;padding:20px}
 .stacked-menu{flex:1;height:100%}
 .menu-strip{flex:1;padding:0 24px}
 .station-grid{grid-template-columns:repeat(4,1fr)}
@@ -56,18 +59,26 @@ input{width:100%;padding:12px;background:#000;border:1px solid #3f3f46;color:#ff
 </head>
 <body>
 <div class="cockpit-wrapper">
-<div class="map-widget">
-<div class="map-widget-header">
-<div><span>●</span> <span id="gps-status-text">GPS KONUMU</span></div>
-<div class="map-actions">
-<button type="button" class="mini-btn" onclick="locateUser()">YENİLE</button>
-<a id="gmaps-external-link" href="https://maps.google.com" target="_blank" class="mini-btn">MAPS ↗</a>
-<button type="button" class="mini-btn" onclick="openModal('maps-modal')">TAM EKRAN</button>
+<div class="route-widget">
+<div class="route-header">
+<span>● HIZLI ROTA & NAVİGASYON</span>
+<span id="gps-badge">GPS BEKLENİYOR</span>
 </div>
+<div class="route-inputs">
+<input type="text" id="destInput" placeholder="VARIŞ ŞEHRİ / ADRES...">
+<button type="button" onclick="calcRoute()">HESAPLA</button>
 </div>
-<div class="map-frame-box">
-<iframe id="widgetMapFrame" src="https://www.openstreetmap.org/export/embed.html?bbox=26.0%2C36.0%2C45.0%2C42.0&layer=mapnik"></iframe>
+<div class="quick-cities">
+<button type="button" class="city-chip" onclick="quickDest('İzmir')">İZMİR</button>
+<button type="button" class="city-chip" onclick="quickDest('Aydın')">AYDIN</button>
+<button type="button" class="city-chip" onclick="quickDest('Muğla')">MUĞLA</button>
+<button type="button" class="city-chip" onclick="quickDest('İstanbul')">İSTANBUL</button>
+<button type="button" class="city-chip" onclick="quickDest('Ankara')">ANKARA</button>
 </div>
+<div class="route-info" id="routeResult">
+HEDEF YAZIN VEYA YUKARIDAN ŞEHİR SEÇİN. MESAFE VE SÜRE TAHMİNİ HESAPLANACAKTIR.
+</div>
+<a id="gmapsNavBtn" href="https://www.google.com/maps" target="_blank" class="nav-launch-btn">GOOGLE MAPS İLE BAŞLAT ↗</a>
 </div>
 
 <div class="stacked-menu">
@@ -86,10 +97,6 @@ input{width:100%;padding:12px;background:#000;border:1px solid #3f3f46;color:#ff
 <button type="button" onclick="openModal('radio-modal')" class="menu-strip">
 <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"></circle><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"></path></svg>
 <span>RADYO</span>
-</button>
-<button type="button" onclick="openModal('maps-modal')" class="menu-strip">
-<svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-<span>HARİTA</span>
 </button>
 <button type="button" onclick="alert('GÜVENLİK KAMERASI İLERİDE EKLENECEK.')" class="menu-strip">
 <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
@@ -131,13 +138,6 @@ input{width:100%;padding:12px;background:#000;border:1px solid #3f3f46;color:#ff
 </div>
 </div>
 
-<div id="maps-modal" class="modal">
-<div class="header-bar"><h2>TAM HARİTA</h2><button type="button" class="back-btn" onclick="closeModal('maps-modal')">GERİ</button></div>
-<div style="width:100%;height:calc(100vh - 90px);border:1px solid #27272a">
-<iframe id="fullMapFrame" width="100%" height="100%" style="border:0;filter:invert(92%) hue-rotate(180deg) contrast(105%) grayscale(30%)" src="https://www.openstreetmap.org/export/embed.html?bbox=26.0%2C36.0%2C45.0%2C42.0&layer=mapnik"></iframe>
-</div>
-</div>
-
 <div id="radio-modal" class="modal">
 <div class="header-bar"><h2>GECE RADYOSU</h2><button type="button" class="back-btn" onclick="closeRadio()">GERİ</button></div>
 <div class="box" style="text-align:center">
@@ -158,31 +158,48 @@ input{width:100%;padding:12px;background:#000;border:1px solid #3f3f46;color:#ff
 </div>
 
 <script>
+let userLat=null,userLon=null;
 function openModal(id){document.getElementById(id).style.display='block'}
 function closeModal(id){document.getElementById(id).style.display='none'}
 function closeRadio(){closeModal('radio-modal');pauseRadio()}
-function locateUser(){
-const s=document.getElementById('gps-status-text');
-if(!navigator.geolocation){s.innerText="GPS YOK";return}
-s.innerText="ARANIYOR...";
+window.addEventListener('load',()=>{
+if(navigator.geolocation){
 navigator.geolocation.getCurrentPosition(p=>{
-const lat=p.coords.latitude,lon=p.coords.longitude,d=0.015;
-const u=`https://www.openstreetmap.org/export/embed.html?bbox=${lon-d}%2C${lat-d}%2C${lon+d}%2C${lat+d}&layer=mapnik&marker=${lat}%2C${lon}`;
-document.getElementById('widgetMapFrame').src=u;
-document.getElementById('fullMapFrame').src=u;
-document.getElementById('gmaps-external-link').href=`https://www.google.com/maps/search/?api=1&query=${lat},${lon}`;
-s.innerText="GPS AKTİF";
-},()=>{s.innerText="İZİN GEREKLİ"},{enableHighAccuracy:true});
+userLat=p.coords.latitude;userLon=p.coords.longitude;
+document.getElementById('gps-badge').innerText="GPS AKTİF";
+},()=>{document.getElementById('gps-badge').innerText="GPS KAPALI"});
 }
-window.addEventListener('load',locateUser);
+});
+function quickDest(city){document.getElementById('destInput').value=city;calcRoute()}
+async function calcRoute(){
+const dest=document.getElementById('destInput').value.trim();
+const box=document.getElementById('routeResult');
+const btn=document.getElementById('gmapsNavBtn');
+if(!dest)return;
+box.innerText="ROTA HESAPLANIYOR...";
+btn.href=`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(dest)}&travelmode=driving`;
+try{
+const g=await(await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(dest)}&count=1&language=tr&format=json`)).json();
+if(!g.results||!g.results.length){box.innerHTML=`HEDEF: <strong>${dest.toUpperCase()}</strong><br>GOOGLE MAPS İLE YOL TARİFİ HAZIR.`;return}
+const {latitude,longitude,name}=g.results[0];
+if(userLat&&userLon){
+const R=6371,dLat=(latitude-userLat)*Math.PI/180,dLon=(longitude-userLon)*Math.PI/180;
+const a=Math.sin(dLat/2)**2+Math.cos(userLat*Math.PI/180)*Math.cos(latitude*Math.PI/180)*Math.sin(dLon/2)**2;
+const roadKm=Math.round(R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a))*1.22);
+const hrs=Math.floor(roadKm/75),mins=Math.round(((roadKm/75)-hrs)*60);
+box.innerHTML=`HEDEF: <strong>${name.toUpperCase()}</strong><br>TAHMİNİ MESAFE: ~${roadKm} KM<br>TIR SÜRÜŞ SÜRESİ: ~${hrs} SA ${mins} DK`;
+}else{
+box.innerHTML=`HEDEF: <strong>${name.toUpperCase()}</strong><br>GPS KONUMU BEKLENİYOR, NAVİGASYON HAZIR.`;
+}
+}catch(e){box.innerHTML=`HEDEF: <strong>${dest.toUpperCase()}</strong><br>NAVİGASYONA HAZIR.`}
+}
 function getLocationWeather(){
 const r=document.getElementById('weatherResult');
 if(!navigator.geolocation){r.innerHTML="DESTEKLENMİYOR.";return}
 r.innerHTML="ALINIYOR...";
 navigator.geolocation.getCurrentPosition(async p=>{
 try{
-const res=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${p.coords.latitude}&longitude=${p.coords.longitude}&current=temperature_2m,relative_humidity_2m,wind_speed_10m`);
-const d=await res.json();
+const d=await(await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${p.coords.latitude}&longitude=${p.coords.longitude}&current=temperature_2m,relative_humidity_2m,wind_speed_10m`)).json();
 r.innerHTML=`<h3>GPS KONUMU</h3><p style="font-size:20px">SICAKLIK: ${d.current.temperature_2m}°C</p><p>NEM: %${d.current.relative_humidity_2m} | RÜZGAR: ${d.current.wind_speed_10m} KM/S</p>`;
 }catch(e){r.innerHTML="HATA OLUŞTU."}
 },()=>{r.innerHTML="İZİN REDDEDİLDİ."});
@@ -191,10 +208,10 @@ async function getWeather(){
 const c=document.getElementById('cityInput').value,r=document.getElementById('weatherResult');
 if(!c)return;r.innerHTML="YÜKLENİYOR...";
 try{
-const g=await (await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${c}&count=1&language=tr&format=json`)).json();
+const g=await(await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${c}&count=1&language=tr&format=json`)).json();
 if(!g.results||!g.results.length){r.innerHTML="BULUNAMADI.";return}
 const {latitude,longitude,name}=g.results[0];
-const d=await (await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,wind_speed_10m`)).json();
+const d=await(await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,wind_speed_10m`)).json();
 r.innerHTML=`<h3>${name.toUpperCase()}</h3><p style="font-size:20px">SICAKLIK: ${d.current.temperature_2m}°C</p><p>NEM: %${d.current.relative_humidity_2m} | RÜZGAR: ${d.current.wind_speed_10m} KM/S</p>`;
 }catch(e){r.innerHTML="HATA OLUŞTU."}
 }

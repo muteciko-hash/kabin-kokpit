@@ -10,77 +10,40 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{background:#000;color:#fff;font-family:'Space Mono',monospace;margin:0;padding:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh}
-.cockpit-wrapper{display:flex;flex-direction:column;width:100%;max-width:460px;background:#000;border:1px solid #1f1f22}
-.route-widget{background:#050505;border-bottom:1px solid #222225;padding:16px;display:flex;flex-direction:column;justify-content:space-between;gap:12px}
-.route-header{display:flex;justify-content:space-between;align-items:center;font-size:11px;letter-spacing:2px;color:#a1a1aa;border-bottom:1px solid #1c1c1f;padding-bottom:8px}
-.route-inputs{display:flex;gap:8px}
-.route-inputs input{flex:1;margin:0;padding:12px;background:#0c0c0e;border:1px solid #333338;color:#fff;font-family:inherit;font-size:13px;letter-spacing:1px}
-.route-inputs button{padding:0 16px;background:#fff;color:#000;border:none;font-family:inherit;font-weight:700;font-size:12px;letter-spacing:1.5px;cursor:pointer}
-.route-info{background:#0a0a0c;border:1px solid #1f1f23;padding:12px;font-size:12px;letter-spacing:1.5px;line-height:1.6}
-.quick-cities{display:flex;gap:6px;flex-wrap:wrap}
-.city-chip{background:#121215;color:#d4d4d8;border:1px solid #27272a;padding:6px 10px;font-family:inherit;font-size:10px;letter-spacing:1.5px;cursor:pointer}
-.city-chip:active{background:#fff;color:#000}
-.nav-launch-btn{display:block;width:100%;padding:14px;background:#fff;color:#000;text-align:center;text-decoration:none;font-weight:700;font-size:13px;letter-spacing:2.5px;text-transform:uppercase}
-.nav-launch-btn:active{background:#a1a1aa}
-.stacked-menu{display:flex;flex-direction:column;width:100%}
-.menu-strip{display:flex;align-items:center;gap:20px;width:100%;padding:18px 24px;border:none;border-bottom:1px solid #1a1a1d;text-align:left;text-decoration:none;color:#fff;font-family:inherit;font-size:15px;font-weight:700;letter-spacing:3.5px;text-transform:uppercase;cursor:pointer}
-.menu-strip:nth-child(1){background:#09090b}
-.menu-strip:nth-child(2){background:#0e0e11}
-.menu-strip:nth-child(3){background:#131317}
-.menu-strip:nth-child(4){background:#18181d}
-.menu-strip:nth-child(5){background:#1d1d23;border-bottom:none}
-.menu-strip:active{background:#fff!important;color:#000!important}
+html,body{margin:0;padding:0;width:100%;height:100%;background:#000;color:#fff;font-family:'Space Mono',monospace;overflow:hidden}
+.stacked-menu{display:flex;flex-direction:column;width:100%;height:100vh;height:100dvh;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}
+.menu-strip{flex:1;display:flex;align-items:center;gap:26px;width:100%;padding:0 32px;border:none;border-bottom:1px solid #1a1a1d;text-align:left;text-decoration:none;color:#fff;font-family:inherit;font-size:17px;font-weight:700;letter-spacing:4px;text-transform:uppercase;cursor:pointer;transition:background-color .15s,padding-left .15s}
+.menu-strip:nth-child(1){background:#050507}
+.menu-strip:nth-child(2){background:#0a0a0d}
+.menu-strip:nth-child(3){background:#0f0f13}
+.menu-strip:nth-child(4){background:#141419}
+.menu-strip:nth-child(5){background:#19191f}
+.menu-strip:nth-child(6){background:#1e1e25;border-bottom:none}
+.menu-strip:active{background:#fff!important;color:#000!important;padding-left:44px}
 .menu-strip:active svg{stroke:#000}
-.menu-strip svg{width:22px;height:22px;stroke:#fff;stroke-width:1.8;fill:none;flex-shrink:0}
-.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:#000;z-index:100;padding:16px;overflow-y:auto}
-.header-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid #27272a}
-.header-bar h2{margin:0;font-size:15px;letter-spacing:3px;text-transform:uppercase}
-.back-btn{background:#fff;color:#000;border:none;padding:10px 18px;font-family:inherit;font-weight:700;font-size:12px;letter-spacing:2px;cursor:pointer}
-.box{background:#0c0c0e;border:1px solid #27272a;padding:15px;margin-bottom:15px}
-input{width:100%;padding:12px;background:#000;border:1px solid #3f3f46;color:#fff;font-family:inherit;margin-bottom:10px;font-size:14px}
+.menu-strip svg{width:26px;height:26px;stroke:#fff;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:#000;z-index:100;padding:18px;padding-top:calc(18px + env(safe-area-inset-top));overflow-y:auto}
+.header-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid #27272a}
+.header-bar h2{margin:0;font-size:16px;letter-spacing:3px;text-transform:uppercase}
+.back-btn{background:#fff;color:#000;border:none;padding:12px 20px;font-family:inherit;font-weight:700;font-size:12px;letter-spacing:2px;cursor:pointer}
+.box{background:#0c0c0e;border:1px solid #27272a;padding:16px;margin-bottom:15px}
+input{width:100%;padding:14px;background:#000;border:1px solid #3f3f46;color:#fff;font-family:inherit;margin-bottom:10px;font-size:14px}
 .station-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:20px}
-.station-btn{background:#09090b;border:1px solid #27272a;color:#a1a1aa;padding:14px 8px;font-family:inherit;font-size:11px;font-weight:700;letter-spacing:1.5px;cursor:pointer}
+.station-btn{background:#09090b;border:1px solid #27272a;color:#a1a1aa;padding:16px 8px;font-family:inherit;font-size:12px;font-weight:700;letter-spacing:1.5px;cursor:pointer}
 .station-btn.active{background:#fff;border-color:#fff;color:#000}
 .touchpad-container{display:flex;gap:10px;margin-bottom:15px}
 #touchpad-area{flex:1;height:180px;background:#050505;border:1px solid #3f3f46;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#a1a1aa;font-size:12px;text-align:center;user-select:none;touch-action:none}
-.scroll-panel{width:60px;display:flex;flex-direction:column;gap:10px}
-.scroll-btn{flex:1;background:#121215;color:#fff;border:1px solid #3f3f46;font-size:18px;font-weight:bold;cursor:pointer}
+.scroll-panel{width:64px;display:flex;flex-direction:column;gap:10px}
+.scroll-btn{flex:1;background:#121215;color:#fff;border:1px solid #3f3f46;font-size:20px;font-weight:bold;cursor:pointer}
 .touchpad-btns{display:flex;gap:10px;margin-bottom:15px}
 .touchpad-btns button{flex:1;padding:14px;background:#18181b;color:#fff;border:1px solid #3f3f46;font-family:inherit;font-weight:700;font-size:12px;letter-spacing:2px;cursor:pointer}
 @media screen and (orientation:landscape){
-.cockpit-wrapper{flex-direction:row;max-width:96vw;height:86vh}
-.route-widget{flex:1.15;height:100%;border-bottom:none;border-right:1px solid #222225;padding:20px}
-.stacked-menu{flex:1;height:100%}
-.menu-strip{flex:1;padding:0 24px}
+.menu-strip{padding:0 48px;font-size:19px;letter-spacing:5px}
 .station-grid{grid-template-columns:repeat(4,1fr)}
 }
 </style>
 </head>
 <body>
-<div class="cockpit-wrapper">
-<div class="route-widget">
-<div class="route-header">
-<span>● HIZLI ROTA & NAVİGASYON</span>
-<span id="gps-badge">GPS BEKLENİYOR</span>
-</div>
-<div class="route-inputs">
-<input type="text" id="destInput" placeholder="VARIŞ ŞEHRİ / ADRES...">
-<button type="button" onclick="calcRoute()">HESAPLA</button>
-</div>
-<div class="quick-cities">
-<button type="button" class="city-chip" onclick="quickDest('İzmir')">İZMİR</button>
-<button type="button" class="city-chip" onclick="quickDest('Aydın')">AYDIN</button>
-<button type="button" class="city-chip" onclick="quickDest('Muğla')">MUĞLA</button>
-<button type="button" class="city-chip" onclick="quickDest('İstanbul')">İSTANBUL</button>
-<button type="button" class="city-chip" onclick="quickDest('Ankara')">ANKARA</button>
-</div>
-<div class="route-info" id="routeResult">
-HEDEF YAZIN VEYA YUKARIDAN ŞEHİR SEÇİN. MESAFE VE SÜRE TAHMİNİ HESAPLANACAKTIR.
-</div>
-<a id="gmapsNavBtn" href="https://www.google.com/maps" target="_blank" class="nav-launch-btn">GOOGLE MAPS İLE BAŞLAT ↗</a>
-</div>
-
 <div class="stacked-menu">
 <a href="https://debridui.com" target="_blank" class="menu-strip">
 <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
@@ -98,11 +61,14 @@ HEDEF YAZIN VEYA YUKARIDAN ŞEHİR SEÇİN. MESAFE VE SÜRE TAHMİNİ HESAPLANAC
 <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"></circle><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"></path></svg>
 <span>RADYO</span>
 </button>
+<a href="https://www.google.com/maps" target="_blank" class="menu-strip">
+<svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+<span>HARİTA</span>
+</a>
 <button type="button" onclick="alert('GÜVENLİK KAMERASI İLERİDE EKLENECEK.')" class="menu-strip">
 <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
 <span>GÜVENLİK</span>
 </button>
-</div>
 </div>
 
 <div id="weather-modal" class="modal">
@@ -158,41 +124,9 @@ HEDEF YAZIN VEYA YUKARIDAN ŞEHİR SEÇİN. MESAFE VE SÜRE TAHMİNİ HESAPLANAC
 </div>
 
 <script>
-let userLat=null,userLon=null;
 function openModal(id){document.getElementById(id).style.display='block'}
 function closeModal(id){document.getElementById(id).style.display='none'}
 function closeRadio(){closeModal('radio-modal');pauseRadio()}
-window.addEventListener('load',()=>{
-if(navigator.geolocation){
-navigator.geolocation.getCurrentPosition(p=>{
-userLat=p.coords.latitude;userLon=p.coords.longitude;
-document.getElementById('gps-badge').innerText="GPS AKTİF";
-},()=>{document.getElementById('gps-badge').innerText="GPS KAPALI"});
-}
-});
-function quickDest(city){document.getElementById('destInput').value=city;calcRoute()}
-async function calcRoute(){
-const dest=document.getElementById('destInput').value.trim();
-const box=document.getElementById('routeResult');
-const btn=document.getElementById('gmapsNavBtn');
-if(!dest)return;
-box.innerText="ROTA HESAPLANIYOR...";
-btn.href=`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(dest)}&travelmode=driving`;
-try{
-const g=await(await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(dest)}&count=1&language=tr&format=json`)).json();
-if(!g.results||!g.results.length){box.innerHTML=`HEDEF: <strong>${dest.toUpperCase()}</strong><br>GOOGLE MAPS İLE YOL TARİFİ HAZIR.`;return}
-const {latitude,longitude,name}=g.results[0];
-if(userLat&&userLon){
-const R=6371,dLat=(latitude-userLat)*Math.PI/180,dLon=(longitude-userLon)*Math.PI/180;
-const a=Math.sin(dLat/2)**2+Math.cos(userLat*Math.PI/180)*Math.cos(latitude*Math.PI/180)*Math.sin(dLon/2)**2;
-const roadKm=Math.round(R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a))*1.22);
-const hrs=Math.floor(roadKm/75),mins=Math.round(((roadKm/75)-hrs)*60);
-box.innerHTML=`HEDEF: <strong>${name.toUpperCase()}</strong><br>TAHMİNİ MESAFE: ~${roadKm} KM<br>TIR SÜRÜŞ SÜRESİ: ~${hrs} SA ${mins} DK`;
-}else{
-box.innerHTML=`HEDEF: <strong>${name.toUpperCase()}</strong><br>GPS KONUMU BEKLENİYOR, NAVİGASYON HAZIR.`;
-}
-}catch(e){box.innerHTML=`HEDEF: <strong>${dest.toUpperCase()}</strong><br>NAVİGASYONA HAZIR.`}
-}
 function getLocationWeather(){
 const r=document.getElementById('weatherResult');
 if(!navigator.geolocation){r.innerHTML="DESTEKLENMİYOR.";return}

@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>DARKLIGHT IIX // NOSTROMO ULTIMATE COCKPIT</title>
-<!-- PWA & IOS TAM EKRAN BAĞLANTILARI -->
 <link rel="manifest" href="manifest.json">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -34,8 +33,9 @@
   --glow-rgb:255,51,51;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0}
-html,body{width:100%;height:100%;background:#000301;color:var(--fg);font-family:'Share Tech Mono',monospace;overflow:hidden;user-select:none;-webkit-font-smoothing:antialiased}
-.crt-screen{position:fixed;inset:0;width:100%;height:100%;background:radial-gradient(ellipse at 50% 48%, var(--bg-core) 0%, var(--bg-mid) 65%, var(--bg-edge) 100%);overflow:hidden;padding:6px 10px;display:flex;flex-direction:column;gap:4px;color:var(--fg);box-shadow:inset 0 0 80px rgba(0,0,0,0.98), inset 0 0 18px rgba(var(--glow-rgb),0.14);transition:filter 0.25s}
+input{user-select:text;-webkit-user-select:text}
+html,body{width:100%;height:100dvh;background:#000301;color:var(--fg);font-family:'Share Tech Mono',monospace;overflow:hidden;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;touch-action:none;overscroll-behavior:none;-webkit-font-smoothing:antialiased}
+.crt-screen{position:fixed;inset:0;width:100vw;height:100dvh;background:radial-gradient(ellipse at 50% 48%, var(--bg-core) 0%, var(--bg-mid) 65%, var(--bg-edge) 100%);overflow:hidden;padding:max(6px, env(safe-area-inset-top)) max(10px, env(safe-area-inset-right)) max(6px, env(safe-area-inset-bottom)) max(10px, env(safe-area-inset-left));display:flex;flex-direction:column;gap:4px;color:var(--fg);box-shadow:inset 0 0 80px rgba(0,0,0,0.98), inset 0 0 18px rgba(var(--glow-rgb),0.14);transition:filter 0.25s}
 .crt-screen.dimmed{filter:brightness(0.55)}
 .crt-glass-glare{position:absolute;inset:0;background:radial-gradient(ellipse at 25% 12%, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 35%, transparent 60%),radial-gradient(ellipse at 50% 50%, transparent 65%, rgba(0,0,0,0.78) 100%);pointer-events:none;z-index:25}
 .crt-scanlines{position:absolute;inset:0;background:repeating-linear-gradient(to bottom, rgba(0,0,0,0) 0px, rgba(0,0,0,0) 1.5px, rgba(0,0,0,0.42) 2.5px, rgba(0,0,0,0.48) 3px),repeating-linear-gradient(to right, rgba(var(--glow-rgb),0.02) 0px, rgba(var(--glow-rgb),0.02) 1px, transparent 1px, transparent 3px);pointer-events:none;z-index:24}
@@ -395,7 +395,7 @@ html,body{width:100%;height:100%;background:#000301;color:var(--fg);font-family:
   <div style="flex:1;border:1px dashed var(--fg);display:flex;align-items:center;justify-content:center;font-size:14px">TOUCHPAD İMLEÇ ALANI</div>
   <div style="display:flex;gap:8px">
     <input type="text" id="tpInp" placeholder="METİN YAZIN..." style="flex:1;background:var(--bg-edge);border:1px solid var(--fg);color:var(--fg);padding:10px;font-family:inherit">
-    <button type="button" class="crt-btn" style="flex:0 0 110px" onclick="alert('GÖNDERİLDİ: '+document.getElementById('tpInp').value);document.getElementById('tpInp'].value=''">GÖNDER</button>
+    <button type="button" class="crt-btn" style="flex:0 0 110px" onclick="alert('GÖNDERİLDİ: '+document.getElementById('tpInp').value);document.getElementById('tpInp').value=''">GÖNDER</button>
   </div>
 </div>
 

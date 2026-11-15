@@ -52,7 +52,6 @@
             font-size: 28px;
             margin-bottom: 10px;
         }
-        /* Hava Durumu Ekranı Stili */
         #weather-modal {
             display: none;
             position: fixed;
@@ -106,32 +105,28 @@
     <h1>KABİN KOKPİTİ</h1>
 
     <div class="grid" id="main-menu">
-        <!-- DebridUI Kısayolu -->
         <a href="https://debridui.com" target="_blank" class="card">
             <span>🎬</span>
             DebridUI
         </a>
 
-        <!-- Yol ve Hava Durumu Butonu -->
         <div onclick="openWeather()" class="card" style="cursor: pointer;">
             <span>⛅</span>
             Yol & Hava
         </div>
 
-        <!-- Touchpad Modu -->
         <a href="#touchpad" onclick="alert('Touchpad ekranı bir sonraki adımda eklenecek!')" class="card">
             <span>🖱️</span>
             Touchpad
         </a>
 
-        <!-- Güvenlik / Gelecek Modül -->
         <a href="#security" onclick="alert('Güvenlik kamerası altyapısı ileride eklenecek.')" class="card">
             <span>🛡️</span>
             Güvenlik
         </a>
     </div>
 
-    <!-- HAVA DURUMU EKRANI (Gizli Başlar, Butona Basılınca Açılır) -->
+    <!-- HAVA DURUMU EKRANI -->
     <div id="weather-modal">
         <div class="header-bar">
             <h2>Yol & Hava Durumu</h2>
@@ -139,13 +134,16 @@
         </div>
         
         <div class="weather-box">
-            <p style="margin-top:0; color:#888;">Konum Bazlı Hava Tahmini</p>
-            <input type="text" id="cityInput" placeholder="Şehir yazın (Örn: Izmir, Mugla, Bolu)..." value="Mugla">
-            <button class="back-btn" style="width:100%; background:#3b82f6;" onclick="getWeather()">Hava Durumunu Getir</button>
+            <p style="margin-top:0; color:#888;">Konum Takibi</p>
+            <button class="back-btn" style="width:100%; background:#10b981; margin-bottom: 10px;" onclick="getLocationWeather()">📍 Konumumu Otomatik Algıla</button>
+            <div style="display: flex; gap: 10px;">
+                <input type="text" id="cityInput" placeholder="Veya şehir yazın..." style="margin-bottom:0;">
+                <button class="back-btn" style="background:#3b82f6;" onclick="getWeather()">Getir</button>
+            </div>
         </div>
 
         <div class="weather-box" id="weatherResult">
-            <p>Şehir seçin ve hava durumunu görüntüleyin.</p>
+            <p>Konumunuzu otomatik algılamak için yukarıdaki yeşil butona dokunun.</p>
         </div>
     </div>
 
@@ -157,39 +155,70 @@
             document.getElementById('weather-modal').style.display = 'none';
         }
 
+        // OTOMATİK KONUM ALMA FONKSİYONU
+        function getLocationWeather() {
+            const resultBox = document.getElementById('weatherResult');
+            if (!navigator.geolocation) {
+                resultBox.innerHTML = "Tarayıcınız konum desteklemiyor.";
+                return;
+            }
+
+            resultBox.innerHTML = "GPS konumu alınıyor, lütfen bekleyin...";
+
+            navigator.geolocation.getCurrentPosition(async (position) => {
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+
+                try {
+                    // Koordinatlara göre hava durumu ve konum ismi (Open-Meteo reverse geocoding veya direkt hava durumu)
+                    const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,wind_speed_10m`);
+                    const weatherData = await weatherRes.json();
+
+                    const temp = weatherData.current.temperature_2m;
+                    const humidity = weatherData.current.relative_humidity_2m;
+                    const wind = weatherData.current.wind_speed_10m;
+
+                    resultBox.innerHTML = `
+                        <h3 style="margin:0 0 10px 0; color:#10b981;">📍 Bulunduğunuz Konum (GPS)</h3>
+                        <p style="font-size: 24px; font-weight: bold; margin: 5px 0;">🌡️ Sıcaklık: ${temp}°C</p>
+                        <p style="margin: 5px 0;">💧 Nem Oranı: %${humidity}</p>
+                        <p style="margin: 5px 0;">💨 Rüzgar Hızı: ${wind} km/s</p>
+                    `;
+                } catch (error) {
+                    resultBox.innerHTML = "Hava durumu verisi çekilemedi.";
+                }
+            }, () => {
+                resultBox.innerHTML = "Konum izni reddedildi veya alınamadı. Lütfen tarayıcı izinlerini kontrol edin.";
+            });
+        }
+
         async function getWeather() {
             const city = document.getElementById('cityInput').value;
             const resultBox = document.getElementById('weatherResult');
+            if (!city) return;
             resultBox.innerHTML = "Bilgiler yükleniyor...";
 
             try {
-                // Önce şehir ismini koordinata çevirelim (Açık kaynak geocoding API)
                 const geoRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1&language=tr&format=json`);
                 const geoData = await geoRes.json();
 
                 if (!geoData.results || geoData.results.length === 0) {
-                    resultBox.innerHTML = "Şehir bulunamadı, lütfen tekrar deneyin.";
+                    resultBox.innerHTML = "Şehir bulunamadı.";
                     return;
                 }
 
                 const { latitude, longitude, name, country } = geoData.results[0];
-
-                // Şimdi koordinatlara göre güncel hava durumunu çekelim
-                const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,wind_speed_10m,weather_code`);
+                const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,wind_speed_10m`);
                 const weatherData = await weatherRes.json();
-
-                const temp = weatherData.current.temperature_2m;
-                const humidity = weatherData.current.relative_humidity_2m;
-                const wind = weatherData.current.wind_speed_10m;
 
                 resultBox.innerHTML = `
                     <h3 style="margin:0 0 10px 0; color:#3b82f6;">${name} (${country})</h3>
-                    <p style="font-size: 24px; font-weight: bold; margin: 5px 0;">🌡️ Sıcaklık: ${temp}°C</p>
-                    <p style="margin: 5px 0;">💧 Nem Oranı: %${humidity}</p>
-                    <p style="margin: 5px 0;">💨 Rüzgar Hızı: ${wind} km/s</p>
+                    <p style="font-size: 24px; font-weight: bold; margin: 5px 0;">🌡️ Sıcaklık: ${weatherData.current.temperature_2m}°C</p>
+                    <p style="margin: 5px 0;">💧 Nem Oranı: %${weatherData.current.relative_humidity_2m}</p>
+                    <p style="margin: 5px 0;">💨 Rüzgar Hızı: ${weatherData.current.wind_speed_10m} km/s</p>
                 `;
             } catch (error) {
-                resultBox.innerHTML = "Hava durumu bilgisi alınamadı. İnternet bağlantınızı kontrol edin.";
+                resultBox.innerHTML = "Hata oluştu.";
             }
         }
     </script>

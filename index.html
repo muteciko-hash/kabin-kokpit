@@ -4,8 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>DARKLIGHT IIX // NOSTROMO ULTIMATE COCKPIT</title>
+<!-- iOS VE STANDALONE UYGULAMA KİLİDİ -->
+<link rel="manifest" href="data:application/manifest+json;charset=utf-8,%7B%22name%22%3A%22NOSTROMO%20COCKPIT%22%2C%22short_name%22%3A%22Nostromo%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23000301%22%2C%22theme_color%22%3A%22%23000301%22%7D">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Nostromo">
 <meta name="apple-touch-fullscreen" content="yes">
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
 <style>
@@ -140,11 +143,11 @@ html,body{width:100%;height:100%;background:#000301;color:var(--fg);font-family:
   flex-direction:row !important;
   flex-wrap:nowrap !important;
   align-items:stretch;
-  gap:6px;
+  gap:5px;
   padding:4px 6px;
 }
 .incline-box{
-  flex:1.1;
+  flex:1;
   min-width:0;
   background:var(--bg-edge);
   border:1px solid var(--fg);
@@ -152,30 +155,30 @@ html,body{width:100%;height:100%;background:#000301;color:var(--fg);font-family:
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:2px 8px;
-  gap:6px;
+  padding:2px 6px;
+  gap:4px;
 }
-.incline-lbl{font-size:8px;color:var(--fg-dim);font-weight:700;white-space:nowrap}
+.incline-lbl{font-size:7.5px;color:var(--fg-dim);font-weight:700;white-space:nowrap}
 .horizon-wrap{flex:1;height:14px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;border-left:1px dashed var(--border);border-right:1px dashed var(--border)}
 .horizon-line{width:85%;height:2px;background:var(--fg);box-shadow:0 0 6px var(--fg);transition:transform 0.3s ease}
-.incline-val{font-size:10px;font-weight:700;color:var(--fg-bright);white-space:nowrap}
+.incline-val{font-size:9.5px;font-weight:700;color:var(--fg-bright);white-space:nowrap}
 
 .scope-box{
-  flex:1;
+  flex:0.9;
   min-width:0;
   background:var(--bg-edge);
   border:1px solid var(--border);
   border-radius:3px;
-  padding:2px 6px;
+  padding:2px 4px;
   display:flex;
   align-items:center;
-  gap:6px;
+  gap:4px;
 }
-.scope-lbl{font-size:7.5px;color:var(--fg-dim);white-space:nowrap;font-weight:700}
+.scope-lbl{font-size:7px;color:var(--fg-dim);white-space:nowrap;font-weight:700}
 #scopeCanvas{flex:1;min-width:0;width:100%;height:22px;display:block}
 
-.deck-controls{flex:1.6;min-width:0;display:flex;gap:4px}
-.deck-btn{flex:1;min-width:0;border:1px solid var(--fg);background:var(--bg-core);color:var(--fg);display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:inherit;font-size:8.5px;font-weight:700;letter-spacing:0.4px;cursor:pointer;padding:0 4px;border-radius:3px;white-space:nowrap}
+.deck-controls{flex:2.2;min-width:0;display:flex;gap:3px}
+.deck-btn{flex:1;min-width:0;border:1px solid var(--fg);background:var(--bg-core);color:var(--fg);display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:inherit;font-size:7.5px;font-weight:700;letter-spacing:0.2px;cursor:pointer;padding:0 2px;border-radius:3px;white-space:nowrap}
 .deck-btn:active,.deck-btn.active{background:var(--fg);color:#020804}
 
 /* 5. EN ALT: İNCE, BOYDAN BOYA CANLI HABER & SPOR KAYAN YAZI ŞERİDİ */
@@ -343,7 +346,7 @@ html,body{width:100%;height:100%;background:#000301;color:var(--fg);font-family:
       <audio id="crtAudio" preload="none" src="https://stream.nightride.fm/nightride.mp3"></audio>
     </div>
 
-    <!-- ORTA-ALT SATIR: EĞİM ÖLÇER + CORE PULSE + 4 KONTROL BUTONU -->
+    <!-- ORTA-ALT SATIR: EĞİM ÖLÇER + CORE PULSE + 5 KONTROL BUTONU -->
     <div class="t-module box-glow control-deck">
       <div class="incline-box" title="YOL EĞİM / RAMPA ÖLÇER">
         <span class="incline-lbl" id="inclineDir">EĞİM</span>
@@ -353,25 +356,29 @@ html,body{width:100%;height:100%;background:#000301;color:var(--fg);font-family:
 
       <div class="scope-box" title="CORE PULSE">
         <span class="scope-lbl">PULSE</span>
-        <canvas id="scopeCanvas" width="90" height="22"></canvas>
+        <canvas id="scopeCanvas" width="80" height="22"></canvas>
       </div>
 
       <div class="deck-controls">
         <button type="button" class="deck-btn active" id="btnBeep" onclick="toggleBeepAlert()">
-          <span>[🔊 SES]</span>
-          <span id="beepStateLbl" style="font-size:6.5px">AÇIK</span>
+          <span>[🔊]</span>
+          <span id="beepStateLbl" style="font-size:6px">SES</span>
         </button>
         <button type="button" class="deck-btn" id="btnRedAlert" onclick="toggleRedAlert()">
-          <span>[⚡ RED]</span>
-          <span style="font-size:6.5px">GECE</span>
+          <span>[⚡]</span>
+          <span style="font-size:6px">RED</span>
+        </button>
+        <button type="button" class="deck-btn" onclick="toggleFullScreen()">
+          <span>[⛶]</span>
+          <span style="font-size:6px">TAM</span>
         </button>
         <button type="button" class="deck-btn" onclick="document.getElementById('tpModal').style.display='flex'">
-          <span>[⌨ PAD]</span>
-          <span style="font-size:6.5px">MOUSE</span>
+          <span>[⌨]</span>
+          <span style="font-size:6px">PAD</span>
         </button>
         <button type="button" class="deck-btn" onclick="toggleBrightness()">
-          <span>[☼ DIM]</span>
-          <span style="font-size:6.5px">IŞIK</span>
+          <span>[☼]</span>
+          <span style="font-size:6px">DIM</span>
         </button>
       </div>
     </div>
@@ -391,16 +398,28 @@ html,body{width:100%;height:100%;background:#000301;color:var(--fg);font-family:
   <div style="flex:1;border:1px dashed var(--fg);display:flex;align-items:center;justify-content:center;font-size:14px">TOUCHPAD İMLEÇ ALANI</div>
   <div style="display:flex;gap:8px">
     <input type="text" id="tpInp" placeholder="METİN YAZIN..." style="flex:1;background:var(--bg-edge);border:1px solid var(--fg);color:var(--fg);padding:10px;font-family:inherit">
-    <button type="button" class="crt-btn" style="flex:0 0 110px" onclick="alert('GÖNDERİLDİ: '+document.getElementById('tpInp').value);document.getElementById('tpInp'].value=''">GÖNDER</button>
+    <button type="button" class="crt-btn" style="flex:0 0 110px" onclick="alert('GÖNDERİLDİ: '+document.getElementById('tpInp').value);document.getElementById('tpInp').value=''">GÖNDER</button>
   </div>
 </div>
 
 <script>
 let isPoweredOff=false,beepEnabled=true,lastBeepTime=0,isRedMode=false;
 function togglePowerOff(){const s=document.getElementById('crtScreen');isPoweredOff=!isPoweredOff;if(isPoweredOff){s.classList.add('power-off');stopAudio();stopAmbient()}else{s.classList.remove('power-off')}}
-function toggleBeepAlert(){beepEnabled=!beepEnabled;const b=document.getElementById('btnBeep');b.classList.toggle('active',beepEnabled);document.getElementById('beepStateLbl').innerText=beepEnabled?'AÇIK':'KAPALI';if(beepEnabled)playRetroBeep(880,0.08)}
+function toggleBeepAlert(){beepEnabled=!beepEnabled;const b=document.getElementById('btnBeep');b.classList.toggle('active',beepEnabled);document.getElementById('beepStateLbl').innerText=beepEnabled?'SES':'KAP';if(beepEnabled)playRetroBeep(880,0.08)}
 function toggleRedAlert(){const s=document.getElementById('crtScreen');isRedMode=s.classList.toggle('red-alert');document.getElementById('btnRedAlert').classList.toggle('active',isRedMode);if(beepEnabled)playRetroBeep(isRedMode?520:740,0.1)}
 function toggleBrightness(){const s=document.getElementById('crtScreen');s.classList.toggle('dimmed')}
+
+/* TAM EKRAN TETİKLEYİCİ FONKSİYON */
+function toggleFullScreen(){
+  if(!document.fullscreenElement&&!document.webkitFullscreenElement){
+    const docEl=document.documentElement;
+    if(docEl.requestFullscreen)docEl.requestFullscreen();
+    else if(docEl.webkitRequestFullscreen)docEl.webkitRequestFullscreen();
+  }else{
+    if(document.exitFullscreen)document.exitFullscreen();
+    else if(document.webkitExitFullscreen)document.webkitExitFullscreen();
+  }
+}
 
 let audioCtx=null;
 function playRetroBeep(freq=920,dur=0.12){
@@ -520,7 +539,7 @@ function startLiveSpeedAndGPS(){
   },()=>{document.getElementById('spd-status').innerText='NO GPS';if(!weatherLoaded){weatherLoaded=true;fetchW(36.65,29.12,'FETHIYE')}},{enableHighAccuracy:true,maximumAge:1000});
 }
 
-async function fetchW(lat,lon,name){document.getElementById('w-city-lbl').innerText=name.toUpperCase();try{const d=await(await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,wind_speed_10m`)).json();const t=Math.round(d.current.temperature_2m),h=d.current.relative_humidity_2m,w=Math.round(d.current.wind_speed_10m);document.getElementById('w-deg').innerText=t+'°';document.getElementById('w-wind').innerText=`WIND: ${w} KM/H`;document.getElementById('w-hum').innerText=`HUMID: ${h}%`;document.getElementById('bar-temp').style.height=Math.min(100,Math.max(10,(t+10)*2))+'%';document.getElementById('bar-hum').style.height=h+'%';document.getElementById('bar-wind').style.height=Math.min(100,w*1.5)+'%';document.getElementById('bar-grip').style.height=(t<=2?'35%':'95%');document.getElementById('w-risk').innerText=t<=2?'ICE WARN [!]':(w>45?'CROSSWIND':'ROAD: SAFE');if(t<=2)playRetroBeep(640,0.2);if(d.elevation&&document.getElementById('altVal').innerText==='ALT: --- M'){document.getElementById('altVal').innerText=`ALT: ${Math.round(d.elevation)} M`}}catch(e){}}
+async function fetchW(lat,lon,name){document.getElementById('w-city-lbl').innerText=name.toUpperCase();try{const d=await(await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,wind_speed_10m`)).json();const t=Math.round(d.current.temperature_2m),h=d.current.relative_humidity_2m,w=Math.round(d.current.wind_speed_10m);document.getElementById('w-deg').innerText=t+'°';document.getElementById('w-wind').innerText=`WIND: ${w} KM/H`;document.getElementById('w-hum').innerText=`HUMID: ${h}%`;document.getElementById('w-risk',window.glow).innerText=t<=2?'ICE WARN [!]':(w>45?'CROSSWIND':'ROAD: SAFE');if(t<=2)playRetroBeep(640,0.2);if(d.elevation&&document.getElementById('altVal').innerText==='ALT: --- M'){document.getElementById('altVal').innerText=`ALT: ${Math.round(d.elevation)} M`}}catch(e){}}
 function loadGPS(){weatherLoaded=false;startLiveSpeedAndGPS()}
 async function searchCity(){const q=document.getElementById('cityInp').value.trim();if(!q)return;try{const g=await(await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(q)}&count=1&language=tr&format=json`)).json();if(g.results&&g.results.length)fetchW(g.results[0].latitude,g.results[0].longitude,g.results[0].name)}catch(e){}}
 window.addEventListener('load',startLiveSpeedAndGPS);

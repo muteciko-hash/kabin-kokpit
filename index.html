@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>DARKLIGHT IIX // VFD AMBER SPEEDOMETER</title>
+<title>DARKLIGHT IIX // RADAR VFD TERMINAL</title>
 <link rel="manifest" href="/manifest.json">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -105,24 +105,52 @@ html,body{width:100%;height:100%;background:#010905;color:#28ff8c;font-family:'S
 .w-search-row button{background:#0f4d2d;color:#28ff8c;border:1px solid #28ff8c;font-family:inherit;font-size:9px;padding:3px 7px;cursor:pointer;font-weight:700}
 .w-search-row button:active{background:#28ff8c;color:#020d07}
 
-/* 2. ORTA: GÖRSELDEKİ TARZ AMBER VFD HIZ GÖSTERGESİ (IMG_1316) */
-.amber-speed-cluster{
+/* 2. ORTA: RADAR & DİJİTAL VFD HIZ GÖSTERGESİ KADRANI */
+.radar-speed-cluster{
   background:#020704;
   border:1px solid #197a48;
   border-radius:4px;
-  padding:6px 8px;
+  padding:4px 8px;
   flex:1;
   display:flex;
   gap:10px;
   align-items:center;
   justify-content:space-between;
   min-height:0;
+  position:relative;
+  overflow:hidden;
 }
+/* Dairesel Radar Arka Plan Efekti */
+.radar-circle{
+  width:82px;
+  height:82px;
+  border-radius:50%;
+  border:1px dashed #16653d;
+  background:radial-gradient(circle, rgba(40,255,140,0.12) 0%, rgba(2,7,4,0.9) 70%);
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  box-shadow:inset 0 0 12px rgba(40,255,140,0.2);
+}
+.radar-sweep{
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  background:conic-gradient(from 0deg at 50% 50%, rgba(40,255,140,0.45) 0deg, transparent 60deg, transparent 360deg);
+  animation:radarSpin 4s linear infinite;
+}
+@keyframes radarSpin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+.radar-center-dot{
+  width:6px;height:6px;border-radius:50%;background:#28ff8c;box-shadow:0 0 6px #28ff8c;z-index:2;
+}
+
 .amber-box{
   background:#050301;
   border:2px solid #3d2208;
   border-radius:4px;
-  padding:4px 10px;
+  padding:2px 8px;
   display:flex;
   flex-direction:column;
   align-items:center;
@@ -132,54 +160,35 @@ html,body{width:100%;height:100%;background:#010905;color:#28ff8c;font-family:'S
 }
 .amber-speed-num{
   font-family:'VT323',monospace;
-  font-size:clamp(52px, 7.2vw, 76px);
+  font-size:clamp(44px, 6vw, 66px);
   line-height:0.82;
   color:#ff7300;
   letter-spacing:3px;
-  text-shadow:0 0 10px #ff7300, 0 0 25px rgba(255,115,0,0.6);
+  text-shadow:0 0 10px #ff7300, 0 0 22px rgba(255,115,0,0.6);
 }
 .amber-unit{
-  font-size:clamp(11px, 1.4vw, 14px);
+  font-size:clamp(10px, 1.2vw, 12px);
   font-weight:700;
   color:#ff9f0a;
   letter-spacing:2px;
-  margin-top:2px;
-  text-shadow:0 0 6px rgba(255,159,10,0.5);
+  margin-top:1px;
+  text-shadow:0 0 5px rgba(255,159,10,0.5);
 }
 .amber-stats-col{
   display:flex;
   flex-direction:column;
-  gap:5px;
-  width:95px;
+  gap:4px;
+  width:88px;
 }
 .amber-stat-badge{
   background:#050301;
   border:1px solid #3d2208;
-  padding:3px 6px;
+  padding:2px 5px;
   border-radius:2px;
-  font-size:9px;
+  font-size:8.5px;
   color:#ff9f0a;
-  letter-spacing:1px;
+  letter-spacing:.8px;
   text-align:center;
-}
-.amber-vert-bar{
-  width:16px;
-  height:100%;
-  background:#050301;
-  border:1.5px solid #3d2208;
-  border-radius:2px;
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-end;
-  padding:1.5px;
-  overflow:hidden;
-}
-.amber-vert-fill{
-  width:100%;
-  height:0%;
-  background:repeating-linear-gradient(to top,#ff7300 0px,#ff7300 3px,#3d2208 3px,#3d2208 4px);
-  box-shadow:0 0 8px rgba(255,115,0,0.7);
-  transition:height .3s;
 }
 
 .tacho-compact{
@@ -284,7 +293,7 @@ html,body{width:100%;height:100%;background:#010905;color:#28ff8c;font-family:'S
   </div>
   <div class="term-sub">
     <span id="crt-gps-line">GPS: SCANNING SATELLITES...</span>
-    <span>RENAULT PREMIUM 430 // AMBER VFD TELEMETRY</span>
+    <span>RENAULT PREMIUM 430 // RADAR & VFD TELEMETRY</span>
   </div>
 
   <div class="term-grid">
@@ -312,21 +321,25 @@ html,body{width:100%;height:100%;background:#010905;color:#28ff8c;font-family:'S
       </div>
     </div>
 
-    <!-- 2. ORTA: GÖRSELDEKİ AMBER VFD HIZ GÖSTERGESİ (IMG_1316) -->
+    <!-- 2. ORTA: RADAR & AMBER VFD HIZ GÖSTERGESİ -->
     <div class="t-module box-glow">
-      <div class="t-mod-title"><span>VFD SPEEDOMETER</span><span id="spd-status">GPS READY</span></div>
+      <div class="t-mod-title"><span>RADAR & SPEEDOMETER</span><span id="spd-status">GPS READY</span></div>
       
-      <div class="amber-speed-cluster">
+      <div class="radar-speed-cluster">
+        <!-- Dairesel Fosforlu Radar Kadranı -->
+        <div class="radar-circle">
+          <div class="radar-sweep"></div>
+          <div class="radar-center-dot"></div>
+        </div>
+
         <div class="amber-box">
           <div class="amber-speed-num" id="spd-val">000</div>
           <div class="amber-unit">KM/H</div>
         </div>
+
         <div class="amber-stats-col">
           <div class="amber-stat-badge" id="amber-max">MAX 000</div>
           <div class="amber-stat-badge" id="amber-avg">AVG 000</div>
-        </div>
-        <div class="amber-vert-bar">
-          <div class="amber-vert-fill" id="amberVertFill"></div>
         </div>
       </div>
 
@@ -389,7 +402,7 @@ html,body{width:100%;height:100%;background:#010905;color:#28ff8c;font-family:'S
 </div>
 
 <script>
-/* 1. TEK EKOLAYZIR SÜTUNLARINI OLUŞTUR (20 SÜTUN) */
+/* TEK EKOLAYZIR SÜTUNLARI (20 SÜTUN) */
 const eqCols=document.getElementById('singleEqCols');
 for(let i=0;i<20;i++){
   const tr=document.createElement('div');tr.className='eq-col-track';
@@ -442,11 +455,9 @@ function startLiveSpeedAndGPS(){
     }
     const avg=spdCount>0?Math.round(spdSum/spdCount):0;
     
-    // Değerleri güncelle
     document.getElementById('spd-val').innerText=String(kmh).padStart(3,'0');
     document.getElementById('amber-max').innerText='MAX '+String(maxSpd).padStart(3,'0');
     document.getElementById('amber-avg').innerText='AVG '+String(avg).padStart(3,'0');
-    document.getElementById('amberVertFill').style.height=Math.min(100,Math.round((kmh/120)*100))+'%';
   },()=>{
     document.getElementById('spd-status').innerText='NO GPS SIGNAL';
     if(!weatherLoaded){weatherLoaded=true;fetchW(36.65,29.12,'FETHIYE')}

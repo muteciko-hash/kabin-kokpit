@@ -2,10 +2,13 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Kabin Kokpiti</title>
     
-    <!-- iOS PWA Tam Ekran Meta Etiketleri -->
+    <!-- PWA Manifest Bağlantısı (Uygulama Modu İçin) -->
+    <link rel="manifest" href="/manifest.json">
+
+    <!-- iOS Kesin Tam Ekran (Standalone) Komutları -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Kabin Kokpiti">
@@ -22,7 +25,7 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            /* iOS güvenli alan uyumluluğu */
+            /* Çentik ve alt bar güvenli alan uyumu */
             padding-top: env(safe-area-inset-top);
             padding-bottom: env(safe-area-inset-bottom);
         }
@@ -73,7 +76,6 @@
             filter: drop-shadow(0 0 8px rgba(255,255,255,0.7));
         }
 
-        /* Ortak Ekran Stilleri */
         .modal {
             display: none;
             position: fixed;

@@ -7,103 +7,190 @@
 <link rel="manifest" href="/manifest.json">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;padding:0;width:100%;height:100%;background:#000;color:#fff;font-family:'Space Mono',monospace;overflow:hidden}
-.stacked-menu{display:flex;flex-direction:column;width:100%;height:100vh;height:100dvh;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}
-.menu-strip{flex:1;display:flex;align-items:center;gap:26px;width:100%;padding:0 32px;border:none;border-bottom:1px solid #1a1a1d;text-align:left;text-decoration:none;color:#fff;font-family:inherit;font-size:17px;font-weight:700;letter-spacing:4px;text-transform:uppercase;cursor:pointer;transition:background-color .15s,padding-left .15s}
-.menu-strip:nth-child(1){background:#050507}
-.menu-strip:nth-child(2){background:#0a0a0d}
-.menu-strip:nth-child(3){background:#0f0f13}
-.menu-strip:nth-child(4){background:#141419}
-.menu-strip:nth-child(5){background:#19191f}
-.menu-strip:nth-child(6){background:#1e1e25;border-bottom:none}
-.menu-strip:active{background:#fff!important;color:#000!important;padding-left:44px}
+@keyframes slideIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.cockpit-layout{display:flex;flex-direction:column;width:100%;height:100vh;height:100dvh;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}
+.stacked-menu{display:flex;flex-direction:column;width:100%;height:100%}
+.menu-strip{flex:1;display:flex;align-items:center;justify-content:space-between;width:100%;padding:0 28px;border:none;border-bottom:1px solid #1a1a1d;text-align:left;text-decoration:none;color:#fff;font-family:'Space Mono',monospace;font-size:16px;font-weight:700;letter-spacing:3.5px;text-transform:uppercase;cursor:pointer;transition:background-color .15s,padding-left .15s;animation:slideIn .35s ease both}
+.menu-strip:nth-child(1){background:#050507;animation-delay:.03s}
+.menu-strip:nth-child(2){background:#0a0a0d;animation-delay:.06s}
+.menu-strip:nth-child(3){background:#0f0f13;animation-delay:.09s}
+.menu-strip:nth-child(4){background:#141419;animation-delay:.12s}
+.menu-strip:nth-child(5){background:#19191f;animation-delay:.15s}
+.menu-strip:nth-child(6){background:#1e1e25;border-bottom:none;animation-delay:.18s}
+.menu-strip:active{background:#fff!important;color:#000!important;padding-left:38px}
 .menu-strip:active svg{stroke:#000}
-.menu-strip svg{width:26px;height:26px;stroke:#fff;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
-.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:#000;z-index:100;padding:18px;padding-top:calc(18px + env(safe-area-inset-top));overflow-y:auto}
-.header-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid #27272a}
-.header-bar h2{margin:0;font-size:16px;letter-spacing:3px;text-transform:uppercase}
-.back-btn{background:#fff;color:#000;border:none;padding:12px 20px;font-family:inherit;font-weight:700;font-size:12px;letter-spacing:2px;cursor:pointer}
-.box{background:#0c0c0e;border:1px solid #27272a;padding:16px;margin-bottom:15px}
-input{width:100%;padding:14px;background:#000;border:1px solid #3f3f46;color:#fff;font-family:inherit;margin-bottom:10px;font-size:14px}
-.station-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:20px}
-.station-btn{background:#09090b;border:1px solid #27272a;color:#a1a1aa;padding:16px 8px;font-family:inherit;font-size:12px;font-weight:700;letter-spacing:1.5px;cursor:pointer}
+.strip-left{display:flex;align-items:center;gap:22px}
+.menu-strip svg{width:24px;height:24px;stroke:#fff;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.strip-badge{font-size:11px;letter-spacing:1.5px;color:#a1a1aa;background:rgba(255,255,255,.06);padding:4px 8px;border-radius:6px}
+.menu-strip:active .strip-badge{color:#000;background:rgba(0,0,0,.1)}
+
+/* Modal Genel */
+.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:#000;z-index:100;padding:16px;padding-top:calc(14px + env(safe-area-inset-top));overflow-y:auto;animation:slideIn .22s ease}
+.header-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid #27272a}
+.header-bar h2{margin:0;font-size:15px;letter-spacing:3px;text-transform:uppercase}
+.back-btn{background:#fff;color:#000;border:none;padding:10px 18px;font-family:'Space Mono',monospace;font-weight:700;font-size:12px;letter-spacing:2px;cursor:pointer;border-radius:8px}
+
+/* Gönderdiğin Görsellerdeki Özel Hava & Yol Widget Kartı */
+.weather-card-shell{font-family:'Inter',sans-serif;max-width:440px;margin:0 auto;border-radius:26px;overflow:hidden;background:#0d0e11;border:2px solid #27272a;box-shadow:0 20px 50px rgba(0,0,0,.8)}
+.weather-top-slate{background:linear-gradient(160deg,#b4c5ce 0%,#9eb1bc 100%);color:#0f172a;padding:22px 22px 18px 22px;border-bottom-left-radius:22px;border-bottom-right-radius:22px}
+.w-hero-row{display:flex;justify-content:space-between;align-items:flex-start}
+.w-temp-big{font-size:64px;font-weight:700;line-height:1;letter-spacing:-3px;color:#090d16}
+.w-city-name{font-size:20px;font-weight:700;margin-top:6px;color:#0f172a}
+.w-hi-lo{font-size:13px;font-weight:600;color:#1e293b;margin-top:3px}
+.w-hero-icon{font-size:56px;line-height:1;filter:drop-shadow(0 4px 8px rgba(0,0,0,.15))}
+.w-hourly-row{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin-top:20px;text-align:center}
+.w-hour-col{display:flex;flex-direction:column;align-items:center;gap:5px}
+.w-hour-t{font-size:12px;font-weight:700;color:#1e293b}
+.w-hour-i{font-size:18px}
+.w-hour-d{font-size:13px;font-weight:700;color:#090d16}
+
+.weather-mid-status{background:#141519;margin:10px;padding:14px 18px;border-radius:18px;display:flex;flex-direction:column;gap:8px;font-size:13px}
+.w-stat-line{display:flex;justify-content:space-between;align-items:center;color:#e4e4e7;font-weight:600}
+.status-dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-left:6px}
+
+.weather-bottom-days{background:#141519;margin:0 10px 10px 10px;padding:14px 18px;border-radius:18px;display:flex;flex-direction:column;gap:11px}
+.w-day-row{display:grid;grid-template-columns:1.4fr .6fr .9fr 1fr;align-items:center;font-size:13px;font-weight:600;color:#e4e4e7}
+.w-day-wind{color:#94a3b8;font-size:12px;text-align:center}
+.w-day-temps{text-align:right;font-variant-numeric:tabular-nums}
+.w-day-temps span{color:#71717a;margin-right:6px}
+
+.search-bar-mini{max-width:440px;margin:0 auto 12px auto;display:flex;gap:8px}
+.search-bar-mini input{flex:1;margin:0;padding:11px 14px;background:#121215;border:1px solid #27272a;color:#fff;font-family:'Space Mono',monospace;font-size:12px;border-radius:10px}
+.search-bar-mini button{padding:0 14px;background:#fff;color:#000;border:none;font-family:'Space Mono',monospace;font-weight:700;font-size:11px;border-radius:10px;cursor:pointer}
+
+/* Takograf & Sürüş Modülü */
+.box{background:#0c0c0e;border:1px solid #27272a;padding:16px;margin-bottom:14px;border-radius:14px}
+.tacho-display{font-size:42px;font-weight:700;text-align:center;letter-spacing:3px;margin:12px 0;color:#fff}
+.btn-row{display:flex;gap:10px}
+.btn-row button{flex:1;padding:14px;font-family:'Space Mono',monospace;font-weight:700;font-size:12px;letter-spacing:1.5px;border-radius:10px;cursor:pointer;border:1px solid #3f3f46}
+
+/* Radyo & Touchpad */
+.station-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:18px}
+.station-btn{background:#09090b;border:1px solid #27272a;color:#a1a1aa;padding:15px 8px;font-family:'Space Mono',monospace;font-size:12px;font-weight:700;letter-spacing:1.5px;cursor:pointer;border-radius:10px}
 .station-btn.active{background:#fff;border-color:#fff;color:#000}
 .touchpad-container{display:flex;gap:10px;margin-bottom:15px}
-#touchpad-area{flex:1;height:180px;background:#050505;border:1px solid #3f3f46;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#a1a1aa;font-size:12px;text-align:center;user-select:none;touch-action:none}
+#touchpad-area{flex:1;height:180px;background:#050505;border:1px solid #3f3f46;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#a1a1aa;font-size:12px;text-align:center;user-select:none;touch-action:none}
 .scroll-panel{width:64px;display:flex;flex-direction:column;gap:10px}
-.scroll-btn{flex:1;background:#121215;color:#fff;border:1px solid #3f3f46;font-size:20px;font-weight:bold;cursor:pointer}
-.touchpad-btns{display:flex;gap:10px;margin-bottom:15px}
-.touchpad-btns button{flex:1;padding:14px;background:#18181b;color:#fff;border:1px solid #3f3f46;font-family:inherit;font-weight:700;font-size:12px;letter-spacing:2px;cursor:pointer}
+.scroll-btn{flex:1;background:#121215;color:#fff;border:1px solid #3f3f46;border-radius:10px;font-size:20px;font-weight:bold;cursor:pointer}
+
 @media screen and (orientation:landscape){
-.menu-strip{padding:0 48px;font-size:19px;letter-spacing:5px}
+.menu-strip{padding:0 48px;font-size:18px;letter-spacing:5px}
 .station-grid{grid-template-columns:repeat(4,1fr)}
 }
 </style>
 </head>
 <body>
+<div class="cockpit-layout">
 <div class="stacked-menu">
-<a href="https://debridui.com" target="_blank" class="menu-strip">
-<svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-<span>DEBRIDUI</span>
-</a>
-<button type="button" onclick="openModal('weather-modal')" class="menu-strip">
+<button type="button" onclick="openWeatherWidget()" class="menu-strip">
+<div class="strip-left">
 <svg viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path></svg>
 <span>YOL & HAVA</span>
+</div>
+<span class="strip-badge" id="home-temp-badge">--°C</span>
 </button>
-<button type="button" onclick="openModal('touchpad-modal')" class="menu-strip">
-<svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="7"></rect><line x1="12" y1="6" x2="12" y2="10"></line></svg>
-<span>TOUCHPAD</span>
-</button>
+
+<a href="https://debridui.com" target="_blank" class="menu-strip">
+<div class="strip-left">
+<svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+<span>DEBRIDUI</span>
+</div>
+<span class="strip-badge">MEDYA</span>
+</a>
+
 <button type="button" onclick="openModal('radio-modal')" class="menu-strip">
+<div class="strip-left">
 <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"></circle><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"></path></svg>
 <span>RADYO</span>
+</div>
+<span class="strip-badge" id="home-radio-badge">4 KANAL</span>
 </button>
+
+<button type="button" onclick="openModal('tacho-modal')" class="menu-strip">
+<div class="strip-left">
+<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+<span>TAKOGRAF</span>
+</div>
+<span class="strip-badge" id="home-tacho-badge">04:30</span>
+</button>
+
 <a href="https://www.google.com/maps" target="_blank" class="menu-strip">
+<div class="strip-left">
 <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
 <span>HARİTA</span>
+</div>
+<span class="strip-badge">MAPS ↗</span>
 </a>
-<button type="button" onclick="alert('GÜVENLİK KAMERASI İLERİDE EKLENECEK.')" class="menu-strip">
-<svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-<span>GÜVENLİK</span>
+
+<button type="button" onclick="openModal('touchpad-modal')" class="menu-strip">
+<div class="strip-left">
+<svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="7"></rect><line x1="12" y1="6" x2="12" y2="10"></line></svg>
+<span>TOUCHPAD</span>
+</div>
+<span class="strip-badge">KUMANDA</span>
 </button>
 </div>
+</div>
 
+<!-- GÖNDERDİĞİN GÖRSELDEKİ YOL & HAVA WIDGET MODÜLÜ -->
 <div id="weather-modal" class="modal">
-<div class="header-bar"><h2>YOL & HAVA</h2><button type="button" class="back-btn" onclick="closeModal('weather-modal')">GERİ</button></div>
-<div class="box">
-<button type="button" class="back-btn" style="width:100%;margin-bottom:12px" onclick="getLocationWeather()">KONUMUMU AL</button>
-<div style="display:flex;gap:10px">
-<input type="text" id="cityInput" placeholder="ŞEHİR YAZIN..." style="margin-bottom:0">
-<button type="button" class="back-btn" onclick="getWeather()">GETİR</button>
+<div class="header-bar"><h2>YOL & HAVA DURUMU</h2><button type="button" class="back-btn" onclick="closeModal('weather-modal')">GERİ</button></div>
+<div class="search-bar-mini">
+<button type="button" onclick="loadGPSWeather()" style="background:#1e293b;color:#fff;border:1px solid #334155">📍 GPS</button>
+<input type="text" id="citySearchInput" placeholder="GÜZERGAH ŞEHRİ YAZ...">
+<button type="button" onclick="searchCityWeather()">ARA</button>
+</div>
+<div class="weather-card-shell">
+<div class="weather-top-slate">
+<div class="w-hero-row">
+<div>
+<div class="w-temp-big" id="w-main-temp">--°</div>
+<div class="w-city-name" id="w-city-title">Konum Alınıyor...</div>
+<div class="w-hi-lo" id="w-hi-lo">Y: --° D: --° &nbsp; ↗ -- km/s</div>
+</div>
+<div class="w-hero-icon" id="w-main-icon">⛅</div>
+</div>
+<div class="w-hourly-row" id="w-hourly-grid"></div>
+</div>
+<div class="weather-mid-status">
+<div class="w-stat-line">
+<span>Yol & Hava Riski:</span>
+<span id="w-road-risk">Normal <span class="status-dot" style="background:#22c55e"></span></span>
+</div>
+<div class="w-stat-line">
+<span>Nem & Görüş:</span>
+<span id="w-humidity-vis">--% 💧</span>
 </div>
 </div>
-<div class="box" id="weatherResult"><p style="color:#a1a1aa;font-size:12px">KONUM SEÇİN VEYA ŞEHİR YAZIN.</p></div>
+<div class="weather-bottom-days" id="w-daily-list"></div>
+</div>
 </div>
 
-<div id="touchpad-modal" class="modal">
-<div class="header-bar"><h2>TOUCHPAD</h2><button type="button" class="back-btn" onclick="closeModal('touchpad-modal')">GERİ</button></div>
-<div class="box">
-<div class="touchpad-container">
-<div id="touchpad-area"><strong>İMLEÇ ALANI</strong><p style="font-size:10px;color:#71717a">PARMAĞINIZI GEZDİRİN</p></div>
-<div class="scroll-panel">
-<button type="button" class="scroll-btn">▲</button>
-<button type="button" class="scroll-btn">▼</button>
+<!-- TIR TAKOGRAF & MOLA SAYACI -->
+<div id="tacho-modal" class="modal">
+<div class="header-bar"><h2>SÜRÜŞ & MOLA TAKİBİ</h2><button type="button" class="back-btn" onclick="closeModal('tacho-modal')">GERİ</button></div>
+<div class="box" style="text-align:center">
+<div style="font-size:11px;letter-spacing:2px;color:#a1a1aa" id="tacho-mode-label">4.5 SAAT KESİNTİSİZ SÜRÜŞ LİMİTİ</div>
+<div class="tacho-display" id="tacho-timer">04:30:00</div>
+<div class="btn-row">
+<button type="button" onclick="startTacho(270,'SÜRÜŞ SÜRESİ (4.5 SAAT)')" style="background:#fff;color:#000">▶ SÜRÜŞ BAŞLAT</button>
+<button type="button" onclick="startTacho(45,'ZORUNLU MOLA (45 DK)')" style="background:#18181b;color:#fff">☕ 45 DK MOLA</button>
+</div>
+<div class="btn-row" style="margin-top:10px">
+<button type="button" onclick="pauseTacho()" style="background:#121215;color:#a1a1aa">⏸ DURAKLAT</button>
+<button type="button" onclick="resetTacho()" style="background:#121215;color:#ef4444">↺ SIFIRLA</button>
 </div>
 </div>
-<div class="touchpad-btns">
-<button type="button">SOL TIK</button>
-<button type="button">GERİ</button>
-</div>
-<div style="display:flex;gap:8px">
-<input type="text" id="remoteInput" placeholder="YAZI YAZIN..." style="margin-bottom:0">
-<button type="button" class="back-btn" onclick="sendText()">GÖNDER</button>
-</div>
+<div class="box" style="font-size:12px;color:#a1a1aa;line-height:1.6">
+● AETR / SRC KURALLARINA GÖRE 4 SAAT 30 DAKİKA SÜRÜŞ SONRASI EN AZ 45 DAKİKA MOLA VERİLMELİDİR.
 </div>
 </div>
 
+<!-- RADYO -->
 <div id="radio-modal" class="modal">
 <div class="header-bar"><h2>GECE RADYOSU</h2><button type="button" class="back-btn" onclick="closeRadio()">GERİ</button></div>
 <div class="box" style="text-align:center">
@@ -116,9 +203,27 @@ input{width:100%;padding:14px;background:#000;border:1px solid #3f3f46;color:#ff
 <h3 id="current-station-title" style="letter-spacing:3px;font-size:16px">NIGHTRIDE FM</h3>
 <p id="radio-status" style="color:#a1a1aa;font-size:11px;letter-spacing:2px;margin-bottom:15px">● YAYINA HAZIR</p>
 <audio id="synthRadio" controls preload="none" src="https://stream.nightride.fm/nightride.mp3" style="width:100%;margin-bottom:15px;filter:invert(100%)"></audio>
-<div style="display:flex;gap:12px;justify-content:center">
-<button type="button" class="back-btn" style="flex:1" onclick="playRadio()">OYNAT ▶</button>
-<button type="button" class="back-btn" style="flex:1;background:#18181b;color:#fff;border:1px solid #3f3f46" onclick="pauseRadio()">DURDUR ⏸</button>
+<div class="btn-row">
+<button type="button" onclick="playRadio()" style="background:#fff;color:#000">OYNAT ▶</button>
+<button type="button" onclick="pauseRadio()" style="background:#18181b;color:#fff">DURDUR ⏸</button>
+</div>
+</div>
+</div>
+
+<!-- TOUCHPAD -->
+<div id="touchpad-modal" class="modal">
+<div class="header-bar"><h2>TOUCHPAD</h2><button type="button" class="back-btn" onclick="closeModal('touchpad-modal')">GERİ</button></div>
+<div class="box">
+<div class="touchpad-container">
+<div id="touchpad-area"><strong>İMLEÇ ALANI</strong><p style="font-size:10px;color:#71717a">PARMAĞINIZI GEZDİRİN</p></div>
+<div class="scroll-panel">
+<button type="button" class="scroll-btn">▲</button>
+<button type="button" class="scroll-btn">▼</button>
+</div>
+</div>
+<div style="display:flex;gap:8px">
+<input type="text" id="remoteInput" placeholder="YAZI YAZIN..." style="margin-bottom:0">
+<button type="button" class="back-btn" onclick="sendText()">GÖNDER</button>
 </div>
 </div>
 </div>
@@ -126,38 +231,102 @@ input{width:100%;padding:14px;background:#000;border:1px solid #3f3f46;color:#ff
 <script>
 function openModal(id){document.getElementById(id).style.display='block'}
 function closeModal(id){document.getElementById(id).style.display='none'}
+function openWeatherWidget(){openModal('weather-modal');if(document.getElementById('w-main-temp').innerText==='--°')loadGPSWeather()}
 function closeRadio(){closeModal('radio-modal');pauseRadio()}
-function getLocationWeather(){
-const r=document.getElementById('weatherResult');
-if(!navigator.geolocation){r.innerHTML="DESTEKLENMİYOR.";return}
-r.innerHTML="ALINIYOR...";
+
+function getWeatherIcon(code){
+if(code===0)return'☀️';if(code<=3)return'⛅';if(code<=48)return'🌫️';if(code<=67)return'🌧️';if(code<=77)return'❄️';if(code<=82)return'🌦️';return'⛈️';
+}
+
+async function fetchRichWeather(lat,lon,label){
+document.getElementById('w-city-title').innerText=label;
+try{
+const url=`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m,wind_direction_10m&hourly=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min,wind_speed_10m_max&timezone=auto`;
+const d=await(await fetch(url)).json();
+const curTemp=Math.round(d.current.temperature_2m);
+document.getElementById('w-main-temp').innerText=curTemp+'°';
+document.getElementById('home-temp-badge').innerText=curTemp+'°C';
+document.getElementById('w-main-icon').innerText=getWeatherIcon(d.current.weather_code);
+const hi=Math.round(d.daily.temperature_2m_max[0]),lo=Math.round(d.daily.temperature_2m_min[0]),ws=Math.round(d.current.wind_speed_10m);
+document.getElementById('w-hi-lo').innerText=`Y: ${hi}°  D: ${lo}°   ↗ ${ws} km/s`;
+document.getElementById('w-humidity-vis').innerText=`%${d.current.relative_humidity_2m} 💧`;
+
+let riskHtml='Güvenli Yol <span class="status-dot" style="background:#22c55e"></span>';
+if(curTemp<=2)riskHtml='Buzlanma Riski! <span class="status-dot" style="background:#ef4444"></span>';
+else if(ws>=45||d.current.weather_code>=45)riskHtml='Dikkat (Rüzgar/Yağış) <span class="status-dot" style="background:#eab308"></span>';
+document.getElementById('w-road-risk').innerHTML=riskHtml;
+
+const nowHour=new Date().getHours();
+let hHtml='';
+for(let i=0;i<6;i++){
+const idx=nowHour+(i*2);
+if(d.hourly.time[idx]){
+const hr=d.hourly.time[idx].slice(11,13);
+hHtml+=`<div class="w-hour-col"><span class="w-hour-t">${hr}</span><span class="w-hour-i">${getWeatherIcon(d.hourly.weather_code[idx])}</span><span class="w-hour-d">${Math.round(d.hourly.temperature_2m[idx])}°</span></div>`;
+}
+}
+document.getElementById('w-hourly-grid').innerHTML=hHtml;
+
+const days=['Pazar','Pazartesi','Salı','Çarşamba','Perşembe','Cuma','Cumartesi'];
+let dHtml='';
+for(let j=0;j<6;j++){
+const dt=new Date(d.daily.time[j]);
+const dayName=j===0?'Bugün':days[dt.getDay()];
+dHtml+=`<div class="w-day-row"><span>${dayName}</span><span>${getWeatherIcon(d.daily.weather_code[j])}</span><span class="w-day-wind">↗ ${Math.round(d.daily.wind_speed_10m_max[j])}</span><div class="w-day-temps"><span>${Math.round(d.daily.temperature_2m_min[j])}°</span>${Math.round(d.daily.temperature_2m_max[j])}°</div></div>`;
+}
+document.getElementById('w-daily-list').innerHTML=dHtml;
+}catch(e){document.getElementById('w-city-title').innerText='Veri Alınamadı'}
+}
+
+function loadGPSWeather(){
+if(!navigator.geolocation){fetchRichWeather(36.65,29.12,'Fethiye');return}
 navigator.geolocation.getCurrentPosition(async p=>{
+let city='Mevcut Konum';
 try{
-const d=await(await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${p.coords.latitude}&longitude=${p.coords.longitude}&current=temperature_2m,relative_humidity_2m,wind_speed_10m`)).json();
-r.innerHTML=`<h3>GPS KONUMU</h3><p style="font-size:20px">SICAKLIK: ${d.current.temperature_2m}°C</p><p>NEM: %${d.current.relative_humidity_2m} | RÜZGAR: ${d.current.wind_speed_10m} KM/S</p>`;
-}catch(e){r.innerHTML="HATA OLUŞTU."}
-},()=>{r.innerHTML="İZİN REDDEDİLDİ."});
+const rev=await(await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=Mugla&count=1&language=tr&format=json`)).json();
+city=`Konum (${p.coords.latitude.toFixed(2)}, ${p.coords.longitude.toFixed(2)})`;
+}catch(e){}
+fetchRichWeather(p.coords.latitude,p.coords.longitude,city);
+},()=>fetchRichWeather(36.65,29.12,'Fethiye'));
 }
-async function getWeather(){
-const c=document.getElementById('cityInput').value,r=document.getElementById('weatherResult');
-if(!c)return;r.innerHTML="YÜKLENİYOR...";
+
+async function searchCityWeather(){
+const q=document.getElementById('citySearchInput').value.trim();
+if(!q)return;
 try{
-const g=await(await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${c}&count=1&language=tr&format=json`)).json();
-if(!g.results||!g.results.length){r.innerHTML="BULUNAMADI.";return}
-const {latitude,longitude,name}=g.results[0];
-const d=await(await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,wind_speed_10m`)).json();
-r.innerHTML=`<h3>${name.toUpperCase()}</h3><p style="font-size:20px">SICAKLIK: ${d.current.temperature_2m}°C</p><p>NEM: %${d.current.relative_humidity_2m} | RÜZGAR: ${d.current.wind_speed_10m} KM/S</p>`;
-}catch(e){r.innerHTML="HATA OLUŞTU."}
+const g=await(await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(q)}&count=1&language=tr&format=json`)).json();
+if(g.results&&g.results.length)fetchRichWeather(g.results[0].latitude,g.results[0].longitude,g.results[0].name);
+}catch(e){}
 }
+
+window.addEventListener('load',loadGPSWeather);
+
+/* Takograf Sayacı */
+let tachoSec=270*60,tachoInt=null;
+function renderTacho(){
+const h=String(Math.floor(tachoSec/3600)).padStart(2,'0');
+const m=String(Math.floor((tachoSec%3600)/60)).padStart(2,'0');
+const s=String(tachoSec%60).padStart(2,'0');
+document.getElementById('tacho-timer').innerText=`${h}:${m}:${s}`;
+document.getElementById('home-tacho-badge').innerText=`${h}:${m}`;
+}
+function startTacho(mins,label){
+clearInterval(tachoInt);tachoSec=mins*60;
+document.getElementById('tacho-mode-label').innerText=label;renderTacho();
+tachoInt=setInterval(()=>{if(tachoSec>0){tachoSec--;renderTacho()}else{clearInterval(tachoInt);alert('SÜRE DOLDU KAPTAN!')}},1000);
+}
+function pauseTacho(){clearInterval(tachoInt)}
+function resetTacho(){clearInterval(tachoInt);tachoSec=270*60;renderTacho()}
+
+/* Radyo & Touchpad */
 function sendText(){const v=document.getElementById('remoteInput').value;if(v){alert("GÖNDERİLDİ: "+v);document.getElementById('remoteInput').value=''}}
 function selectStation(btn,name,url){
 document.querySelectorAll('.station-btn').forEach(b=>b.classList.remove('active'));
-btn.classList.add('active');
-document.getElementById('current-station-title').innerText=name;
+btn.classList.add('active');document.getElementById('current-station-title').innerText=name;
+document.getElementById('home-radio-badge').innerText=name;
 const st=document.getElementById('radio-status'),a=document.getElementById('synthRadio');
 st.innerText="⏳ BAĞLANIYOR...";a.pause();a.src=url;
-const p=a.play();
-if(p!==undefined){p.then(()=>{st.innerText="● CANLI YAYINDA"}).catch(()=>{st.innerText="▶ OYNAT'A BASIN"})}
+const p=a.play();if(p!==undefined){p.then(()=>{st.innerText="● CANLI YAYINDA"}).catch(()=>{st.innerText="▶ OYNAT'A BASIN"})}
 }
 function playRadio(){const a=document.getElementById('synthRadio'),st=document.getElementById('radio-status');a.play().then(()=>{st.innerText="● CANLI YAYINDA"}).catch(()=>{st.innerText="⚠️ TEKRAR DENEYİN"})}
 function pauseRadio(){document.getElementById('synthRadio').pause();document.getElementById('radio-status').innerText="⏸ DURAKLATILDI"}

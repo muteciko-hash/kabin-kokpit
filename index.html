@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>DARKLIGHT IIX // VFD CRT TERMİNAL</title>
+<title>DARKLIGHT IIX // VFD AMBER SPEEDOMETER</title>
 <link rel="manifest" href="/manifest.json">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -105,26 +105,82 @@ html,body{width:100%;height:100%;background:#010905;color:#28ff8c;font-family:'S
 .w-search-row button{background:#0f4d2d;color:#28ff8c;border:1px solid #28ff8c;font-family:inherit;font-size:9px;padding:3px 7px;cursor:pointer;font-weight:700}
 .w-search-row button:active{background:#28ff8c;color:#020d07}
 
-/* 2. ORTA: 80'LER DİJİTAL VFD HIZ GÖSTERGESİ (IMG_1314) & KOMPAKT TAKOGRAF */
-.vfd-cluster{
-  background:#010804;
+/* 2. ORTA: GÖRSELDEKİ TARZ AMBER VFD HIZ GÖSTERGESİ (IMG_1316) */
+.amber-speed-cluster{
+  background:#020704;
   border:1px solid #197a48;
   border-radius:4px;
-  padding:4px 6px;
+  padding:6px 8px;
   flex:1;
   display:flex;
-  flex-direction:column;
-  justify-content:center;
+  gap:10px;
+  align-items:center;
+  justify-content:space-between;
   min-height:0;
 }
-.vfd-svg{width:100%;height:100%;max-height:118px;overflow:visible}
-.vfd-seg{fill:#0a2e1b;transition:fill .15s,filter .15s}
-.vfd-seg.on{fill:#4ade80;filter:drop-shadow(0 0 4px #28ff8c)}
-.vfd-seg.red-zone{fill:#3b0d0c}
-.vfd-seg.red-zone.on{fill:#ef4444;filter:drop-shadow(0 0 5px #ef4444)}
-.vfd-speed-txt{font-family:'VT323',monospace;font-size:52px;fill:#6ee7b7;letter-spacing:2px;filter:drop-shadow(0 0 6px #28ff8c)}
-.vfd-sub-txt{font-family:'Share Tech Mono',monospace;font-size:10px;fill:#28ff8c;letter-spacing:1px}
-.vfd-line{stroke:#28ff8c;stroke-width:1.8;fill:none;filter:drop-shadow(0 0 3px #28ff8c)}
+.amber-box{
+  background:#050301;
+  border:2px solid #3d2208;
+  border-radius:4px;
+  padding:4px 10px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  box-shadow:inset 0 0 15px rgba(0,0,0,0.9), 0 0 10px rgba(255,115,0,0.2);
+  flex:1;
+}
+.amber-speed-num{
+  font-family:'VT323',monospace;
+  font-size:clamp(52px, 7.2vw, 76px);
+  line-height:0.82;
+  color:#ff7300;
+  letter-spacing:3px;
+  text-shadow:0 0 10px #ff7300, 0 0 25px rgba(255,115,0,0.6);
+}
+.amber-unit{
+  font-size:clamp(11px, 1.4vw, 14px);
+  font-weight:700;
+  color:#ff9f0a;
+  letter-spacing:2px;
+  margin-top:2px;
+  text-shadow:0 0 6px rgba(255,159,10,0.5);
+}
+.amber-stats-col{
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+  width:95px;
+}
+.amber-stat-badge{
+  background:#050301;
+  border:1px solid #3d2208;
+  padding:3px 6px;
+  border-radius:2px;
+  font-size:9px;
+  color:#ff9f0a;
+  letter-spacing:1px;
+  text-align:center;
+}
+.amber-vert-bar{
+  width:16px;
+  height:100%;
+  background:#050301;
+  border:1.5px solid #3d2208;
+  border-radius:2px;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  padding:1.5px;
+  overflow:hidden;
+}
+.amber-vert-fill{
+  width:100%;
+  height:0%;
+  background:repeating-linear-gradient(to top,#ff7300 0px,#ff7300 3px,#3d2208 3px,#3d2208 4px);
+  box-shadow:0 0 8px rgba(255,115,0,0.7);
+  transition:height .3s;
+}
 
 .tacho-compact{
   display:flex;
@@ -140,7 +196,7 @@ html,body{width:100%;height:100%;background:#010905;color:#28ff8c;font-family:'S
 .tacho-mini-val{font-family:'VT323',monospace;font-size:clamp(24px, 3.2vw, 32px);line-height:0.88;color:#28ff8c;letter-spacing:2px}
 .tacho-mini-btns{display:flex;gap:4px}
 
-/* 3. SAĞ: TEK PARÇA TURUNCU-KIRMIZI SEGMENTLİ EKOLAYZIR (IMG_1315) */
+/* 3. SAĞ: TEK PARÇA TURUNCU-KIRMIZI EKOLAYZIRLI RADYO */
 .radio-stations{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px}
 .st-check{display:flex;align-items:center;gap:5px;font-size:clamp(9px, 1.05vw, 11px);padding:3.5px 6px;border:1px solid #16653d;background:#021008;color:#1ec96f;cursor:pointer;text-align:left;font-family:inherit;white-space:nowrap;overflow:hidden}
 .st-check.active{border-color:#28ff8c;color:#28ff8c;background:#09301c;box-shadow:0 0 8px rgba(40,255,140,.3)}
@@ -189,7 +245,6 @@ html,body{width:100%;height:100%;background:#010905;color:#28ff8c;font-family:'S
 .crt-playing .eq-col-track:nth-child(3n) .eq-col-fill{animation-duration:.67s}
 .crt-playing .eq-col-track:nth-child(4n) .eq-col-fill{animation-duration:.48s}
 
-/* Alt Yatay Turuncu-Kırmızı Seviye Çubuğu (IMG_1315 alt şerit) */
 .eq-bottom-strip{
   height:6px;
   width:100%;
@@ -219,7 +274,7 @@ html,body{width:100%;height:100%;background:#010905;color:#28ff8c;font-family:'S
   <div class="crt-scanlines"></div>
   <div class="crt-glass-glare"></div>
 
-  <!-- ÜST BAR: SOL BAŞLIK | SAĞ BELİRGİN TARİH, GÜN & SAAT -->
+  <!-- ÜST BAR -->
   <div class="term-header">
     <span>CABIN-OS HD // DARKLIGHT IIX</span>
     <div class="header-datetime">
@@ -229,7 +284,7 @@ html,body{width:100%;height:100%;background:#010905;color:#28ff8c;font-family:'S
   </div>
   <div class="term-sub">
     <span id="crt-gps-line">GPS: SCANNING SATELLITES...</span>
-    <span>RENAULT PREMIUM 430 // VFD TELEMETRY</span>
+    <span>RENAULT PREMIUM 430 // AMBER VFD TELEMETRY</span>
   </div>
 
   <div class="term-grid">
@@ -257,28 +312,22 @@ html,body{width:100%;height:100%;background:#010905;color:#28ff8c;font-family:'S
       </div>
     </div>
 
-    <!-- 2. ORTA: 80'LER VFD DİJİTAL HIZ GÖSTERGESİ (IMG_1314) & KOMPAKT TAKOGRAF -->
+    <!-- 2. ORTA: GÖRSELDEKİ AMBER VFD HIZ GÖSTERGESİ (IMG_1316) -->
     <div class="t-module box-glow">
       <div class="t-mod-title"><span>VFD SPEEDOMETER</span><span id="spd-status">GPS READY</span></div>
       
-      <div class="vfd-cluster">
-        <svg class="vfd-svg" viewBox="0 0 280 112" id="vfdSvg">
-          <!-- Sol ve Sağ Eğimli VFD Çerçeve Çizgileri -->
-          <path class="vfd-line" d="M 12,72 L 42,26 L 168,26"/>
-          <path class="vfd-line" d="M 185,26 L 238,26 L 265,72"/>
-          <path class="vfd-line" d="M 16,102 L 96,102 L 106,96"/>
-          <path class="vfd-line" d="M 174,96 L 184,102 L 264,102"/>
-          <!-- Etiketler & Dijital Hız Rakamı -->
-          <text x="58" y="42" class="vfd-sub-txt">KM/H</text>
-          <text x="58" y="52" class="vfd-sub-txt" style="font-size:8px">LIMIT 90</text>
-          <rect x="44" y="60" width="52" height="14" fill="none" stroke="#28ff8c" stroke-width="1"/>
-          <text x="48" y="70" class="vfd-sub-txt" id="vfd-max-txt" style="font-size:9px">MAX 000</text>
-          <text x="115" y="73" class="vfd-speed-txt" id="spd-val">000</text>
-          <text x="195" y="70" class="vfd-sub-txt" id="vfd-avg-txt" style="font-size:9px">AVG 000</text>
-          <!-- Dinamik Segmentler JS ile buraya eklenecek -->
-          <g id="vfdArcSegs"></g>
-          <g id="vfdSubBars"></g>
-        </svg>
+      <div class="amber-speed-cluster">
+        <div class="amber-box">
+          <div class="amber-speed-num" id="spd-val">000</div>
+          <div class="amber-unit">KM/H</div>
+        </div>
+        <div class="amber-stats-col">
+          <div class="amber-stat-badge" id="amber-max">MAX 000</div>
+          <div class="amber-stat-badge" id="amber-avg">AVG 000</div>
+        </div>
+        <div class="amber-vert-bar">
+          <div class="amber-vert-fill" id="amberVertFill"></div>
+        </div>
       </div>
 
       <div class="tacho-compact">
@@ -294,7 +343,7 @@ html,body{width:100%;height:100%;background:#010905;color:#28ff8c;font-family:'S
       </div>
     </div>
 
-    <!-- 3. SAĞ: TEK PARÇA TURUNCU-KIRMIZI EKOLAYZIRLI RADYO (IMG_1315) -->
+    <!-- 3. SAĞ: TEK PARÇA TURUNCU-KIRMIZI EKOLAYZIRLI RADYO -->
     <div class="t-module box-glow" id="radioModule">
       <div class="t-mod-title"><span>SYNTH AUDIO // EQ</span><span id="r-status">STANDBY</span></div>
       <div class="radio-stations">
@@ -304,7 +353,6 @@ html,body{width:100%;height:100%;background:#010905;color:#28ff8c;font-family:'S
         <button type="button" class="st-check" onclick="pickStation(this,'https://ice2.somafm.com/spacestation-128-mp3')"><span class="sq-box"></span>AMBIENT</button>
       </div>
 
-      <!-- TEK EKOLAYZIR KUTUSU (IMG_1315 TARZI) -->
       <div class="single-eq-box">
         <div class="eq-columns" id="singleEqCols"></div>
         <div class="eq-bottom-strip"></div>
@@ -317,7 +365,7 @@ html,body{width:100%;height:100%;background:#010905;color:#28ff8c;font-family:'S
       <audio id="crtAudio" preload="none" src="https://stream.nightride.fm/nightride.mp3"></audio>
     </div>
 
-    <!-- 4. ALT HIZLI KOMUT & HARİTA / MEDYA -->
+    <!-- 4. ALT KOMUT ŞERİDİ -->
     <div class="t-module box-glow" style="grid-column:span 3">
       <div class="t-mod-title"><span>EXTERNAL DECK // SYSTEM LINKS</span><span>PORT: ACTIVE</span></div>
       <div class="nav-grid">
@@ -347,57 +395,6 @@ for(let i=0;i<20;i++){
   const tr=document.createElement('div');tr.className='eq-col-track';
   const fl=document.createElement('div');fl.className='eq-col-fill';
   tr.appendChild(fl);eqCols.appendChild(tr);
-}
-
-/* 2. 80'LER VFD KAVİSLİ HIZ YAYI VE ALT BAR SEGMENTLERİNİ ÇİZ (IMG_1314) */
-const arcGroup=document.getElementById('vfdArcSegs');
-const subGroup=document.getElementById('vfdSubBars');
-const totalArcSegs=18;
-for(let i=0;i<totalArcSegs;i++){
-  const rect=document.createElementNS('http://www.w3.org/2000/svg','rect');
-  let x,y,w=6,h=12,rot=0;
-  if(i<5){
-    // Sol yukarı tırmanan eğimli yay
-    x=18+(i*5.5); y=62-(i*11); rot=28;
-  }else{
-    // Üst yatay bar (son 3 tanesi 90+ km/s kırmızı uyarı bölgesi)
-    x=48+((i-5)*9.2); y=10; rot=0;
-  }
-  rect.setAttribute('x',x);rect.setAttribute('y',y);
-  rect.setAttribute('width',w);rect.setAttribute('height',h);rect.setAttribute('rx',1);
-  if(rot)rect.setAttribute('transform',`rotate(${rot} ${x} ${y})`);
-  rect.setAttribute('class','vfd-seg'+(i>=15?' red-zone':''));
-  rect.setAttribute('id','vseg-'+i);
-  arcGroup.appendChild(rect);
-}
-// Alt sağ ve sol VFD segment barları
-for(let b=0;b<10;b++){
-  const rL=document.createElementNS('http://www.w3.org/2000/svg','rect');
-  rL.setAttribute('x',20+(b*7.5));rL.setAttribute('y',86);rL.setAttribute('width',5.5);rL.setAttribute('height',10);
-  rL.setAttribute('class','vfd-seg'+(b<4?' on':''));rL.setAttribute('id','vlbar-'+b);
-  subGroup.appendChild(rL);
-
-  const rR=document.createElementNS('http://www.w3.org/2000/svg','rect');
-  rR.setAttribute('x',184+(b*7.5));rR.setAttribute('y',86);rR.setAttribute('width',5.5);rR.setAttribute('height',10);
-  rR.setAttribute('class','vfd-seg'+(b<5?' on':''));rR.setAttribute('id','vrbar-'+b);
-  subGroup.appendChild(rR);
-}
-
-function updateVFDCluster(kmh,maxKmh,avgKmh){
-  document.getElementById('spd-val').innerText=String(kmh).padStart(3,'0');
-  document.getElementById('vfd-max-txt').innerText='MAX '+String(maxKmh).padStart(3,'0');
-  document.getElementById('vfd-avg-txt').innerText='AVG '+String(avgKmh).padStart(3,'0');
-  const activeCount=Math.min(totalArcSegs,Math.round((kmh/110)*totalArcSegs));
-  for(let i=0;i<totalArcSegs;i++){
-    const el=document.getElementById('vseg-'+i);
-    if(i<activeCount)el.classList.add('on');else el.classList.remove('on');
-  }
-  const maxBars=Math.min(10,Math.round((maxKmh/110)*10));
-  const avgBars=Math.min(10,Math.round((avgKmh/110)*10));
-  for(let b=0;b<10;b++){
-    document.getElementById('vlbar-'+b).classList.toggle('on',b<maxBars);
-    document.getElementById('vrbar-'+b).classList.toggle('on',b<avgBars);
-  }
 }
 
 /* CANLI SAAT, TARİH VE TÜRKÇE GÜN */
@@ -444,7 +441,12 @@ function startLiveSpeedAndGPS(){
       spdSum+=kmh;spdCount++;
     }
     const avg=spdCount>0?Math.round(spdSum/spdCount):0;
-    updateVFDCluster(kmh,maxSpd,avg);
+    
+    // Değerleri güncelle
+    document.getElementById('spd-val').innerText=String(kmh).padStart(3,'0');
+    document.getElementById('amber-max').innerText='MAX '+String(maxSpd).padStart(3,'0');
+    document.getElementById('amber-avg').innerText='AVG '+String(avg).padStart(3,'0');
+    document.getElementById('amberVertFill').style.height=Math.min(100,Math.round((kmh/120)*100))+'%';
   },()=>{
     document.getElementById('spd-status').innerText='NO GPS SIGNAL';
     if(!weatherLoaded){weatherLoaded=true;fetchW(36.65,29.12,'FETHIYE')}

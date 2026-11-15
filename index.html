@@ -114,16 +114,19 @@ html,body{width:100%;height:100%;background:#010905;color:#28ff8c;font-family:'S
 .crt-btn{flex:1;min-width:0;background:#062615;border:1px solid #28ff8c;color:#28ff8c;font-family:inherit;font-size:clamp(7.5px, 0.9vw, 9.5px);padding:2.5px 3px;cursor:pointer;letter-spacing:.4px;white-space:nowrap}
 .crt-btn:active,.crt-btn.on{background:#28ff8c;color:#020d07;font-weight:700}
 
-/* 4. TELEMETRİ & KONTROL SATIRI (EĞİM + CORE PULSE + 4 BUTON) */
-.control-deck{
+/* 4. TELEMETRİ & KONTROL SATIRI (YAN YANA TEK SATIR KİLİTLİ) */
+.t-module.control-deck{
   grid-column:span 3;
-  display:flex;
+  display:flex !important;
+  flex-direction:row !important;
+  flex-wrap:nowrap !important;
   align-items:stretch;
   gap:6px;
   padding:4px 6px;
 }
 .incline-box{
   flex:1.1;
+  min-width:0;
   background:#010a05;
   border:1px solid #28ff8c;
   border-radius:3px;
@@ -140,6 +143,7 @@ html,body{width:100%;height:100%;background:#010905;color:#28ff8c;font-family:'S
 
 .scope-box{
   flex:1;
+  min-width:0;
   background:#010a05;
   border:1px solid #1f9659;
   border-radius:3px;
@@ -149,10 +153,10 @@ html,body{width:100%;height:100%;background:#010905;color:#28ff8c;font-family:'S
   gap:6px;
 }
 .scope-lbl{font-size:7.5px;color:#1ec96f;white-space:nowrap;font-weight:700}
-#scopeCanvas{flex:1;width:100%;height:22px;display:block}
+#scopeCanvas{flex:1;min-width:0;width:100%;height:22px;display:block}
 
-.deck-controls{flex:1.8;display:flex;gap:4px}
-.deck-btn{flex:1;border:1px solid #28ff8c;background:linear-gradient(180deg,#072917,#03160c);color:#28ff8c;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:inherit;font-size:8.5px;font-weight:700;letter-spacing:0.4px;cursor:pointer;padding:0 4px;border-radius:3px;white-space:nowrap}
+.deck-controls{flex:1.6;min-width:0;display:flex;gap:4px}
+.deck-btn{flex:1;min-width:0;border:1px solid #28ff8c;background:linear-gradient(180deg,#072917,#03160c);color:#28ff8c;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:inherit;font-size:8.5px;font-weight:700;letter-spacing:0.4px;cursor:pointer;padding:0 4px;border-radius:3px;white-space:nowrap}
 .deck-btn:active,.deck-btn.active{background:#28ff8c;color:#020d07}
 
 /* 5. EN ALT: İNCE, BOYDAN BOYA CANLI HABER & SPOR KAYAN YAZI ŞERİDİ */

@@ -44,7 +44,7 @@ html,body{width:100%;height:100%;background:#010905;color:#28ff8c;font-family:'S
 .alt-badge{background:#062615;border:1px solid #28ff8c;padding:1px 6px;border-radius:2px;font-weight:700;color:#34ff94;white-space:nowrap;flex-shrink:0}
 
 /* ANA MODÜL IZGARASI */
-.term-grid{flex:1;min-width:0;min-height:0;display:grid;grid-template-columns:minmax(0, 0.96fr) minmax(0, 1.38fr) minmax(0, 1.1fr);grid-template-rows:minmax(0, 1.56fr) minmax(0, 0.44fr);gap:6px;z-index:10}
+.term-grid{flex:1;min-width:0;min-height:0;display:grid;grid-template-columns:minmax(0, 0.96fr) minmax(0, 1.38fr) minmax(0, 1.1fr);grid-template-rows:minmax(0, 1.62fr) minmax(0, 0.38fr);gap:5px;z-index:10}
 .t-module{min-width:0;min-height:0;border:1px solid #22a863;background:rgba(4,24,14,0.68);padding:5px 7px;display:flex;flex-direction:column;justify-content:space-between;position:relative;border-radius:4px;overflow:hidden}
 .t-mod-title{font-size:clamp(8px, 0.95vw, 10px);letter-spacing:0.9px;color:#28ff8c;border-bottom:1px solid #16653d;padding-bottom:2px;margin-bottom:2px;display:flex;justify-content:space-between;font-weight:700;white-space:nowrap;overflow:hidden}
 
@@ -57,7 +57,7 @@ html,body{width:100%;height:100%;background:#010905;color:#28ff8c;font-family:'S
 .globe-meridian:nth-child(3){animation-delay:-4s}
 .globe-equator{position:absolute;top:50%;left:0;right:0;height:1px;background:rgba(40,255,140,0.65)}
 @keyframes globeSpin{0%{transform:scaleX(1)}50%{transform:scaleX(0.08)}100%{transform:scaleX(1)}}
-.w-bars{display:flex;gap:4px;flex:1;min-height:24px;max-height:48px;align-items:flex-end;padding-top:2px}
+.w-bars{display:flex;gap:4px;flex:1;min-height:22px;max-height:46px;align-items:flex-end;padding-top:2px}
 .bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;height:100%}
 .bar-track{width:100%;flex:1;border:1px solid #1f9659;padding:1px;display:flex;align-items:flex-end;background:#010a05}
 .bar-fill{width:100%;background:repeating-linear-gradient(to top,#28ff8c 0px,#28ff8c 3px,#0b4d2b 3px,#0b4d2b 4px);transition:height .5s}
@@ -96,7 +96,7 @@ html,body{width:100%;height:100%;background:#010905;color:#28ff8c;font-family:'S
 .st-check.active{border-color:#28ff8c;color:#28ff8c;background:#09301c;box-shadow:0 0 6px rgba(40,255,140,.3)}
 .sq-box{width:5px;height:5px;border:1px solid #28ff8c;display:inline-block;flex-shrink:0}
 .st-check.active .sq-box{background:#28ff8c}
-.sym-eq-box{flex:1;min-height:28px;max-height:44px;background:#010a05;border:1px solid #1f9659;border-radius:3px;padding:2px 3px;margin:2px 0;display:flex;align-items:center;justify-content:space-between;gap:1.5px}
+.sym-eq-box{flex:1;min-height:26px;max-height:42px;background:#010a05;border:1px solid #1f9659;border-radius:3px;padding:2px 3px;margin:2px 0;display:flex;align-items:center;justify-content:space-between;gap:1.5px}
 .sym-col{flex:1;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:1px}
 .sym-half{width:100%;height:45%;background:repeating-linear-gradient(to bottom, #104229 0px, #104229 2px, #010a05 2px, #010a05 3px);display:flex}
 .sym-half.top{align-items:flex-end}
@@ -114,76 +114,82 @@ html,body{width:100%;height:100%;background:#010905;color:#28ff8c;font-family:'S
 .crt-btn{flex:1;min-width:0;background:#062615;border:1px solid #28ff8c;color:#28ff8c;font-family:inherit;font-size:clamp(7.5px, 0.9vw, 9.5px);padding:2.5px 3px;cursor:pointer;letter-spacing:.4px;white-space:nowrap}
 .crt-btn:active,.crt-btn.on{background:#28ff8c;color:#020d07;font-weight:700}
 
-/* 4. ALT GÜVERTE (YATAY EKRANDA TEK SATIR KİLİTLİ) */
-.bottom-deck{
+/* 4. TELEMETRİ & KONTROL SATIRI (EĞİM + CORE PULSE + 4 BUTON) */
+.control-deck{
   grid-column:span 3;
-  display:flex !important;
-  flex-direction:row !important;
-  flex-wrap:nowrap !important;
+  display:flex;
   align-items:stretch;
-  gap:5px;
+  gap:6px;
   padding:4px 6px;
-  overflow:hidden;
 }
-.ticker-shell{
-  flex:1 1 0%;
-  min-width:80px;
-  background:#010a05;
-  border:1px solid #28ff8c;
-  border-radius:3px;
-  display:flex;
-  align-items:center;
-  overflow:hidden;
-  position:relative;
-}
-.ticker-badge{background:#28ff8c;color:#021209;font-weight:700;font-size:8.5px;padding:0 6px;height:100%;display:flex;align-items:center;letter-spacing:0.6px;flex-shrink:0;z-index:2}
-.ticker-track{flex:1;min-width:0;overflow:hidden;white-space:nowrap;display:flex;align-items:center}
-.ticker-marquee{display:inline-block;padding-left:100%;font-size:11px;color:#34ff94;letter-spacing:0.8px;animation:marqueeScroll 55s linear infinite}
-@keyframes marqueeScroll{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
-
 .incline-box{
-  flex:0 0 70px;
+  flex:1.1;
   background:#010a05;
   border:1px solid #28ff8c;
   border-radius:3px;
   display:flex;
-  flex-direction:column;
   align-items:center;
   justify-content:space-between;
-  padding:2px 3px;
-  overflow:hidden;
+  padding:2px 8px;
+  gap:6px;
 }
-.incline-lbl{font-size:6.5px;color:#1ec96f;width:100%;display:flex;justify-content:space-between}
-.horizon-wrap{width:100%;height:11px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.horizon-line{width:85%;height:1.5px;background:#28ff8c;box-shadow:0 0 5px #28ff8c;transition:transform 0.3s ease}
-.incline-val{font-size:8.5px;font-weight:700;color:#34ff94}
+.incline-lbl{font-size:8px;color:#1ec96f;font-weight:700;white-space:nowrap}
+.horizon-wrap{flex:1;height:14px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;border-left:1px dashed #16653d;border-right:1px dashed #16653d}
+.horizon-line{width:85%;height:2px;background:#28ff8c;box-shadow:0 0 6px #28ff8c;transition:transform 0.3s ease}
+.incline-val{font-size:10px;font-weight:700;color:#34ff94;white-space:nowrap}
 
 .scope-box{
-  flex:0 0 64px;
+  flex:1;
   background:#010a05;
   border:1px solid #1f9659;
   border-radius:3px;
-  padding:2px;
+  padding:2px 6px;
   display:flex;
-  flex-direction:column;
-  justify-content:space-between;
+  align-items:center;
+  gap:6px;
 }
-.scope-lbl{font-size:6px;color:#1ec96f;text-align:center}
-#scopeCanvas{width:100%;height:20px;display:block}
+.scope-lbl{font-size:7.5px;color:#1ec96f;white-space:nowrap;font-weight:700}
+#scopeCanvas{flex:1;width:100%;height:22px;display:block}
 
-.deck-controls{display:flex;gap:3px;flex-shrink:0}
-.deck-btn{border:1px solid #28ff8c;background:linear-gradient(180deg,#072917,#03160c);color:#28ff8c;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:inherit;font-size:8px;font-weight:700;letter-spacing:0.3px;cursor:pointer;padding:0 5px;border-radius:3px;white-space:nowrap}
+.deck-controls{flex:1.8;display:flex;gap:4px}
+.deck-btn{flex:1;border:1px solid #28ff8c;background:linear-gradient(180deg,#072917,#03160c);color:#28ff8c;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:inherit;font-size:8.5px;font-weight:700;letter-spacing:0.4px;cursor:pointer;padding:0 4px;border-radius:3px;white-space:nowrap}
 .deck-btn:active,.deck-btn.active{background:#28ff8c;color:#020d07}
 
-/* DİKEY TELEFON EKRANI İÇİN ÖZEL DÜZENLEME (PORTRAIT) */
+/* 5. EN ALT: İNCE, BOYDAN BOYA CANLI HABER & SPOR KAYAN YAZI ŞERİDİ */
+.bottom-ticker-bar{
+  height:22px;
+  width:100%;
+  background:#010a05;
+  border:1px solid #28ff8c;
+  border-radius:3px;
+  display:flex;
+  align-items:center;
+  overflow:hidden;
+  flex-shrink:0;
+  z-index:10;
+  box-shadow:0 0 10px rgba(40,255,140,0.18);
+}
+.ticker-badge{
+  background:#28ff8c;
+  color:#021209;
+  font-weight:700;
+  font-size:9px;
+  padding:0 9px;
+  height:100%;
+  display:flex;
+  align-items:center;
+  letter-spacing:1px;
+  flex-shrink:0;
+  z-index:2;
+}
+.ticker-track{flex:1;min-width:0;overflow:hidden;white-space:nowrap;display:flex;align-items:center}
+.ticker-marquee{display:inline-block;padding-left:100%;font-size:11px;color:#34ff94;letter-spacing:0.9px;animation:marqueeScroll 60s linear infinite}
+@keyframes marqueeScroll{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
+
 @media (orientation:portrait){
-  .term-grid{grid-template-rows:minmax(0, 1.38fr) minmax(0, 0.62fr)}
-  .bottom-deck{flex-wrap:wrap !important}
-  .ticker-shell{flex:1 1 100%;height:26px}
-  .incline-box,.scope-box{flex:1 1 auto;height:38px}
-  .deck-controls{flex:2 1 auto;height:38px}
-  .deck-btn{flex:1;padding:0 3px;font-size:7.5px}
   .w-top-row{flex-direction:column;align-items:flex-start;gap:2px}
+  .incline-box{padding:2px 4px}
+  .scope-box{padding:2px 4px}
 }
 
 .crt-modal{display:none;position:fixed;inset:18px;background:#03140b;border:2px solid #28ff8c;z-index:50;padding:16px;flex-direction:column;gap:12px;box-shadow:0 0 60px #000}
@@ -314,44 +320,45 @@ html,body{width:100%;height:100%;background:#010905;color:#28ff8c;font-family:'S
       <audio id="crtAudio" preload="none" src="https://stream.nightride.fm/nightride.mp3"></audio>
     </div>
 
-    <!-- ALT GÜVERTE: YATAYDA TEK SATIR KİLİTLİ -->
-    <div class="t-module box-glow bottom-deck">
-      <div class="ticker-shell">
-        <div class="ticker-badge glow">AKIŞ</div>
-        <div class="ticker-track">
-          <div class="ticker-marquee glow" id="newsTickerText">[SİSTEM] CANLI HABER VE SPOR AKIŞI BAĞLANIYOR...</div>
-        </div>
-      </div>
-
+    <!-- ORTA-ALT SATIR: EĞİM ÖLÇER + CORE PULSE + 4 KONTROL BUTONU -->
+    <div class="t-module box-glow control-deck">
       <div class="incline-box" title="YOL EĞİM / RAMPA ÖLÇER">
-        <div class="incline-lbl"><span>EĞİM</span><span id="inclineDir">DÜZ</span></div>
+        <span class="incline-lbl" id="inclineDir">EĞİM</span>
         <div class="horizon-wrap"><div class="horizon-line" id="horizonLine"></div></div>
-        <div class="incline-val glow" id="inclineVal">0.0%</div>
+        <span class="incline-val glow" id="inclineVal">0.0%</span>
       </div>
 
       <div class="scope-box" title="CORE PULSE">
         <span class="scope-lbl">PULSE</span>
-        <canvas id="scopeCanvas" width="64" height="20"></canvas>
+        <canvas id="scopeCanvas" width="90" height="22"></canvas>
       </div>
 
       <div class="deck-controls">
         <button type="button" class="deck-btn active" id="btnBeep" onclick="toggleBeepAlert()">
-          <span>[🔊]</span>
-          <span id="beepStateLbl" style="font-size:6.5px">SES</span>
+          <span>[🔊 SES]</span>
+          <span id="beepStateLbl" style="font-size:6.5px">AÇIK</span>
         </button>
         <button type="button" class="deck-btn" id="btnRedAlert" onclick="toggleRedAlert()">
-          <span>[⚡]</span>
-          <span style="font-size:6.5px">RED</span>
+          <span>[⚡ RED]</span>
+          <span style="font-size:6.5px">GECE</span>
         </button>
         <button type="button" class="deck-btn" onclick="document.getElementById('tpModal').style.display='flex'">
-          <span>[⌨]</span>
-          <span style="font-size:6.5px">PAD</span>
+          <span>[⌨ PAD]</span>
+          <span style="font-size:6.5px">MOUSE</span>
         </button>
         <button type="button" class="deck-btn" onclick="toggleBrightness()">
-          <span>[☼]</span>
-          <span style="font-size:6.5px">DIM</span>
+          <span>[☼ DIM]</span>
+          <span style="font-size:6.5px">IŞIK</span>
         </button>
       </div>
+    </div>
+  </div>
+
+  <!-- EN ALT: İNCE, BOYDAN BOYA CANLI HABER & SPOR BANDI -->
+  <div class="bottom-ticker-bar">
+    <div class="ticker-badge glow">CANLI AKIŞ</div>
+    <div class="ticker-track">
+      <div class="ticker-marquee glow" id="newsTickerText">[SİSTEM] CANLI HABER VE SPOR AKIŞI BAĞLANIYOR...</div>
     </div>
   </div>
 </div>
@@ -368,7 +375,7 @@ html,body{width:100%;height:100%;background:#010905;color:#28ff8c;font-family:'S
 <script>
 let isPoweredOff=false,beepEnabled=true,lastBeepTime=0;
 function togglePowerOff(){const s=document.getElementById('crtScreen');isPoweredOff=!isPoweredOff;if(isPoweredOff){s.classList.add('power-off');stopAudio();stopAmbient()}else{s.classList.remove('power-off')}}
-function toggleBeepAlert(){beepEnabled=!beepEnabled;const b=document.getElementById('btnBeep');b.classList.toggle('active',beepEnabled);document.getElementById('beepStateLbl').innerText=beepEnabled?'SES':'OFF';if(beepEnabled)playRetroBeep(880,0.08)}
+function toggleBeepAlert(){beepEnabled=!beepEnabled;const b=document.getElementById('btnBeep');b.classList.toggle('active',beepEnabled);document.getElementById('beepStateLbl').innerText=beepEnabled?'AÇIK':'KAPALI';if(beepEnabled)playRetroBeep(880,0.08)}
 function toggleRedAlert(){const s=document.getElementById('crtScreen');const on=s.classList.toggle('red-alert');document.getElementById('btnRedAlert').classList.toggle('active',on);if(beepEnabled)playRetroBeep(on?520:740,0.1)}
 function toggleBrightness(){const s=document.getElementById('crtScreen');s.classList.toggle('dimmed')}
 
@@ -400,7 +407,7 @@ function drawScope(){
   scopePhase+=0.14*speedFactor;
   for(let x=0;x<w;x++){
     const amp=(currentKmh>0?7:3.5);
-    const y=(h/2)+Math.sin(x*0.24+scopePhase)*amp*Math.sin(x*0.045);
+    const y=(h/2)+Math.sin(x*0.2+scopePhase)*amp*Math.sin(x*0.035);
     if(x===0)scCtx.moveTo(x,y);else scCtx.lineTo(x,y);
   }
   scCtx.stroke();

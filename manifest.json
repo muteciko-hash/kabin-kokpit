@@ -1,7 +1,8 @@
 {
   "name": "Nostromo Cockpit OS",
   "short_name": "Nostromo",
-  "start_url": "index.html",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#000301",
   "theme_color": "#000301",

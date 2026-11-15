@@ -133,18 +133,18 @@ html,body{width:100%;height:100%;background:#000301;color:var(--fg);font-family:
 .crt-btn{flex:1;min-width:0;background:var(--bg-core);border:1px solid var(--fg);color:var(--fg);font-family:inherit;font-size:clamp(7.5px, 0.9vw, 9.5px);padding:2.5px 3px;cursor:pointer;letter-spacing:.4px;white-space:nowrap}
 .crt-btn:active,.crt-btn.on{background:var(--fg);color:#020804;font-weight:700}
 
-/* 4. TELEMETRİ & KONTROL SATIRI (5 BUTONLU OLARAK GÜNCELLENDİ) */
+/* 4. TELEMETRİ & KONTROL SATIRI */
 .t-module.control-deck{
   grid-column:span 3;
   display:flex !important;
   flex-direction:row !important;
   flex-wrap:nowrap !important;
   align-items:stretch;
-  gap:5px;
+  gap:6px;
   padding:4px 6px;
 }
 .incline-box{
-  flex:1;
+  flex:1.1;
   min-width:0;
   background:var(--bg-edge);
   border:1px solid var(--fg);
@@ -152,30 +152,30 @@ html,body{width:100%;height:100%;background:#000301;color:var(--fg);font-family:
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:2px 6px;
-  gap:4px;
+  padding:2px 8px;
+  gap:6px;
 }
-.incline-lbl{font-size:7.5px;color:var(--fg-dim);font-weight:700;white-space:nowrap}
+.incline-lbl{font-size:8px;color:var(--fg-dim);font-weight:700;white-space:nowrap}
 .horizon-wrap{flex:1;height:14px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;border-left:1px dashed var(--border);border-right:1px dashed var(--border)}
 .horizon-line{width:85%;height:2px;background:var(--fg);box-shadow:0 0 6px var(--fg);transition:transform 0.3s ease}
-.incline-val{font-size:9.5px;font-weight:700;color:var(--fg-bright);white-space:nowrap}
+.incline-val{font-size:10px;font-weight:700;color:var(--fg-bright);white-space:nowrap}
 
 .scope-box{
-  flex:0.9;
+  flex:1;
   min-width:0;
   background:var(--bg-edge);
   border:1px solid var(--border);
   border-radius:3px;
-  padding:2px 4px;
+  padding:2px 6px;
   display:flex;
   align-items:center;
-  gap:4px;
+  gap:6px;
 }
-.scope-lbl{font-size:7px;color:var(--fg-dim);white-space:nowrap;font-weight:700}
+.scope-lbl{font-size:7.5px;color:var(--fg-dim);white-space:nowrap;font-weight:700}
 #scopeCanvas{flex:1;min-width:0;width:100%;height:22px;display:block}
 
-.deck-controls{flex:2.2;min-width:0;display:flex;gap:3px}
-.deck-btn{flex:1;min-width:0;border:1px solid var(--fg);background:var(--bg-core);color:var(--fg);display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:inherit;font-size:7.5px;font-weight:700;letter-spacing:0.2px;cursor:pointer;padding:0 2px;border-radius:3px;white-space:nowrap}
+.deck-controls{flex:1.6;min-width:0;display:flex;gap:4px}
+.deck-btn{flex:1;min-width:0;border:1px solid var(--fg);background:var(--bg-core);color:var(--fg);display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:inherit;font-size:8.5px;font-weight:700;letter-spacing:0.4px;cursor:pointer;padding:0 4px;border-radius:3px;white-space:nowrap}
 .deck-btn:active,.deck-btn.active{background:var(--fg);color:#020804}
 
 /* 5. EN ALT: İNCE, BOYDAN BOYA CANLI HABER & SPOR KAYAN YAZI ŞERİDİ */
@@ -343,7 +343,7 @@ html,body{width:100%;height:100%;background:#000301;color:var(--fg);font-family:
       <audio id="crtAudio" preload="none" src="https://stream.nightride.fm/nightride.mp3"></audio>
     </div>
 
-    <!-- ORTA-ALT SATIR: EĞİM ÖLÇER + CORE PULSE + 5 EKLENEN KONTROL BUTONU -->
+    <!-- ORTA-ALT SATIR: EĞİM ÖLÇER + CORE PULSE + 4 KONTROL BUTONU -->
     <div class="t-module box-glow control-deck">
       <div class="incline-box" title="YOL EĞİM / RAMPA ÖLÇER">
         <span class="incline-lbl" id="inclineDir">EĞİM</span>
@@ -353,29 +353,25 @@ html,body{width:100%;height:100%;background:#000301;color:var(--fg);font-family:
 
       <div class="scope-box" title="CORE PULSE">
         <span class="scope-lbl">PULSE</span>
-        <canvas id="scopeCanvas" width="80" height="22"></canvas>
+        <canvas id="scopeCanvas" width="90" height="22"></canvas>
       </div>
 
       <div class="deck-controls">
         <button type="button" class="deck-btn active" id="btnBeep" onclick="toggleBeepAlert()">
-          <span>[🔊]</span>
-          <span id="beepStateLbl" style="font-size:6px">SES</span>
+          <span>[🔊 SES]</span>
+          <span id="beepStateLbl" style="font-size:6.5px">AÇIK</span>
         </button>
         <button type="button" class="deck-btn" id="btnRedAlert" onclick="toggleRedAlert()">
-          <span>[⚡]</span>
-          <span style="font-size:6px">RED</span>
-        </button>
-        <button type="button" class="deck-btn" onclick="toggleFullScreen()">
-          <span>[⛶]</span>
-          <span style="font-size:6px">TAM</span>
+          <span>[⚡ RED]</span>
+          <span style="font-size:6.5px">GECE</span>
         </button>
         <button type="button" class="deck-btn" onclick="document.getElementById('tpModal').style.display='flex'">
-          <span>[⌨]</span>
-          <span style="font-size:6px">PAD</span>
+          <span>[⌨ PAD]</span>
+          <span style="font-size:6.5px">MOUSE</span>
         </button>
         <button type="button" class="deck-btn" onclick="toggleBrightness()">
-          <span>[☼]</span>
-          <span style="font-size:6px">DIM</span>
+          <span>[☼ DIM]</span>
+          <span style="font-size:6.5px">IŞIK</span>
         </button>
       </div>
     </div>
@@ -395,28 +391,16 @@ html,body{width:100%;height:100%;background:#000301;color:var(--fg);font-family:
   <div style="flex:1;border:1px dashed var(--fg);display:flex;align-items:center;justify-content:center;font-size:14px">TOUCHPAD İMLEÇ ALANI</div>
   <div style="display:flex;gap:8px">
     <input type="text" id="tpInp" placeholder="METİN YAZIN..." style="flex:1;background:var(--bg-edge);border:1px solid var(--fg);color:var(--fg);padding:10px;font-family:inherit">
-    <button type="button" class="crt-btn" style="flex:0 0 110px" onclick="alert('GÖNDERİLDİ: '+document.getElementById('tpInp').value);document.getElementById('tpInp').value=''">GÖNDER</button>
+    <button type="button" class="crt-btn" style="flex:0 0 110px" onclick="alert('GÖNDERİLDİ: '+document.getElementById('tpInp').value);document.getElementById('tpInp'].value=''">GÖNDER</button>
   </div>
 </div>
 
 <script>
 let isPoweredOff=false,beepEnabled=true,lastBeepTime=0,isRedMode=false;
 function togglePowerOff(){const s=document.getElementById('crtScreen');isPoweredOff=!isPoweredOff;if(isPoweredOff){s.classList.add('power-off');stopAudio();stopAmbient()}else{s.classList.remove('power-off')}}
-function toggleBeepAlert(){beepEnabled=!beepEnabled;const b=document.getElementById('btnBeep');b.classList.toggle('active',beepEnabled);document.getElementById('beepStateLbl').innerText=beepEnabled?'SES':'KAP';if(beepEnabled)playRetroBeep(880,0.08)}
+function toggleBeepAlert(){beepEnabled=!beepEnabled;const b=document.getElementById('btnBeep');b.classList.toggle('active',beepEnabled);document.getElementById('beepStateLbl').innerText=beepEnabled?'AÇIK':'KAPALI';if(beepEnabled)playRetroBeep(880,0.08)}
 function toggleRedAlert(){const s=document.getElementById('crtScreen');isRedMode=s.classList.toggle('red-alert');document.getElementById('btnRedAlert').classList.toggle('active',isRedMode);if(beepEnabled)playRetroBeep(isRedMode?520:740,0.1)}
 function toggleBrightness(){const s=document.getElementById('crtScreen');s.classList.toggle('dimmed')}
-
-/* TAM EKRAN TETİKLEYİCİ FONKSİYON */
-function toggleFullScreen(){
-  if(!document.fullscreenElement&&!document.webkitFullscreenElement){
-    const docEl=document.documentElement;
-    if(docEl.requestFullscreen)docEl.requestFullscreen();
-    else if(docEl.webkitRequestFullscreen)docEl.webkitRequestFullscreen();
-  }else{
-    if(document.exitFullscreen)document.exitFullscreen();
-    else if(document.webkitExitFullscreen)document.webkitExitFullscreen();
-  }
-}
 
 let audioCtx=null;
 function playRetroBeep(freq=920,dur=0.12){
